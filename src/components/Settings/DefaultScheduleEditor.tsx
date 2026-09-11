@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TermSchedule, DayOfWeek, ChildProfile, ActivityBlock } from '../../types';
 import { CATEGORY_DEFINITIONS, formatDuration, calculateDurationHours } from '../../utils/categories';
-import { Clock, Plus, Trash2, Save, Calendar, Check, Copy, Edit3 } from 'lucide-react';
+import { Clock, Plus, Trash2, Save, Calendar, Check, Copy, Edit3, GripVertical, ChevronUp, ChevronDown, ArrowDownUp } from 'lucide-react';
 
 interface DefaultScheduleEditorProps {
   term: TermSchedule;
@@ -39,6 +39,11 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
   const [currentTerm, setCurrentTerm] = useState<TermSchedule>(term);
   const [savedNotice, setSavedNotice] = useState(false);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentTerm(term);
+  }, [term]);
 
   const otherKid: 'kid1' | 'kid2' = selectedKid === 'kid1' ? 'kid2' : 'kid1';
   const otherKidProfile = profiles.find(p => p.id === otherKid) || { name: otherKid === 'kid1' ? 'Kid 1' : 'Kid 2' };
@@ -49,7 +54,7 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
     ...(currentTerm.dayLabels || {}),
   };
 
-  const currentBlocks = currentTerm.weeklyDefaults[selectedKid]?.[selectedDay] || [];
+  const currentBlocks = currentTerm.weeklyDefaults?.[selectedKid]?.[selectedDay] || [];
 
   const handleUpdateDayLabel = (newLabel: string) => {
     const updatedLabels = {
@@ -95,7 +100,7 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
       startTime: '16:00',
       endTime: '17:00',
       durationHours: 1.0,
-      completed: true,
+      completed: false,
     };
     const newBlocks = [...currentBlocks, newBlock];
     const newWeekly = {
@@ -103,6 +108,65 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
       [selectedKid]: {
         ...currentTerm.weeklyDefaults[selectedKid],
         [selectedDay]: newBlocks,
+      },
+    };
+    setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
+  };
+
+  // Move block Up / Down
+  const handleMoveBlock = (index: number, direction: 'up' | 'down') => {
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= currentBlocks.length) return;
+    const newBlocks = [...currentBlocks];
+    const [moved] = newBlocks.splice(index, 1);
+    newBlocks.splice(targetIndex, 0, moved);
+    const newWeekly = {
+      ...currentTerm.weeklyDefaults,
+      [selectedKid]: {
+        ...currentTerm.weeklyDefaults[selectedKid],
+        [selectedDay]: newBlocks,
+      },
+    };
+    setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
+  };
+
+  // Drag & drop handlers
+  const handleDragStart = (_e: React.DragEvent, index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent, _index: number) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === dropIndex) {
+      setDraggedIndex(null);
+      return;
+    }
+    const newBlocks = [...currentBlocks];
+    const [moved] = newBlocks.splice(draggedIndex, 1);
+    newBlocks.splice(dropIndex, 0, moved);
+    setDraggedIndex(null);
+    const newWeekly = {
+      ...currentTerm.weeklyDefaults,
+      [selectedKid]: {
+        ...currentTerm.weeklyDefaults[selectedKid],
+        [selectedDay]: newBlocks,
+      },
+    };
+    setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
+  };
+
+  // Auto-sort default blocks chronologically
+  const handleAutoSort = () => {
+    const sorted = [...currentBlocks].sort((a, b) => a.startTime.localeCompare(b.startTime));
+    const newWeekly = {
+      ...currentTerm.weeklyDefaults,
+      [selectedKid]: {
+        ...currentTerm.weeklyDefaults[selectedKid],
+        [selectedDay]: sorted,
       },
     };
     setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
@@ -273,88 +337,141 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
       </div>
 
       {/* Blocks List */}
-      <div className="space-y-2 pt-2 border-t border-brand-border/40">
-        <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
+      <div className="space-y-2.5 pt-2 border-t border-brand-border/40">
+        <div className="flex items-center justify-between text-xs text-slate-400 font-medium flex-wrap gap-2">
           <span>
             Default Schedule for <strong className="text-slate-200">{currentKidProfile.name}</strong> on <strong className="text-tennis-400">{dayLabels[selectedDay]}</strong>:
           </span>
-          <button
-            onClick={handleAddDefaultBlock}
-            className="flex items-center gap-1 text-tennis-400 hover:underline font-bold"
-          >
-            <Plus className="w-3.5 h-3.5" /> Add Block
-          </button>
+          <div className="flex items-center gap-2">
+            {currentBlocks.length > 1 && (
+              <button
+                onClick={handleAutoSort}
+                className="flex items-center gap-1 text-slate-300 hover:text-tennis-400 font-semibold"
+                title="Sort items chronologically"
+              >
+                <ArrowDownUp className="w-3.5 h-3.5 text-tennis-400" /> Auto-Sort
+              </button>
+            )}
+            <button
+              onClick={handleAddDefaultBlock}
+              className="flex items-center gap-1 text-tennis-400 hover:underline font-bold"
+            >
+              <Plus className="w-3.5 h-3.5" /> Add Block
+            </button>
+          </div>
         </div>
 
         {currentBlocks.map((b, idx) => {
           const meta = CATEGORY_DEFINITIONS[b.category] || CATEGORY_DEFINITIONS.guilt_free_fun;
           return (
             <div
-              key={idx}
-              className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs"
+              key={b.id || idx}
+              draggable
+              onDragStart={e => handleDragStart(e, idx)}
+              onDragOver={e => handleDragOver(e, idx)}
+              onDrop={e => handleDrop(e, idx)}
+              className="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs space-y-2 shadow-md transition-all hover:border-slate-700"
             >
-              <div
-                className="w-2.5 h-8 rounded-full shrink-0"
-                style={{ backgroundColor: meta.color }}
-              />
+              {/* Row 1: Grip + Color Bar + Title + Delete */}
+              <div className="flex items-center gap-2">
+                <div
+                  className="cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 p-0.5"
+                  title="Hold and drag to reorder"
+                >
+                  <GripVertical className="w-4 h-4" />
+                </div>
 
-              <input
-                type="text"
-                value={b.title}
-                onChange={e => handleUpdateBlock(idx, { ...b, title: e.target.value })}
-                className="flex-1 bg-slate-800 border border-slate-700 px-2 py-1.5 rounded-lg text-slate-100 font-medium"
-              />
+                <div
+                  className="w-2 h-6 rounded-full shrink-0"
+                  style={{ backgroundColor: meta.color }}
+                />
 
-              <select
-                value={b.category}
-                onChange={e =>
-                  handleUpdateBlock(idx, { ...b, category: e.target.value as any })
-                }
-                className="bg-slate-800 border border-slate-700 px-2 py-1.5 rounded-lg text-slate-200"
-              >
-                {Object.values(CATEGORY_DEFINITIONS)
-                  .filter(c => c.id !== 'unnoticed_time' && c.id !== 'unlogged_missing')
-                  .map(c => (
-                    <option key={c.id} value={c.id}>
-                      {c.shortLabel}
-                    </option>
-                  ))}
-              </select>
+                <input
+                  type="text"
+                  value={b.title}
+                  onChange={e => handleUpdateBlock(idx, { ...b, title: e.target.value })}
+                  placeholder="Activity title..."
+                  className="flex-1 min-w-0 bg-slate-800 border border-slate-700 px-2.5 py-1.5 rounded-lg text-slate-100 font-semibold focus:outline-none focus:border-tennis-500"
+                />
 
-              <input
-                type="time"
-                value={b.startTime}
-                onChange={e => {
-                  const newStart = e.target.value;
-                  const dur = calculateDurationHours(newStart, b.endTime);
-                  handleUpdateBlock(idx, { ...b, startTime: newStart, durationHours: dur });
-                }}
-                className="bg-slate-800 border border-slate-700 px-1.5 py-1 rounded text-center text-slate-100 font-mono w-20"
-              />
+                {/* Move Up/Down controls */}
+                <div className="flex items-center bg-slate-800 rounded-lg border border-slate-700 p-0.5 shrink-0">
+                  <button
+                    disabled={idx === 0}
+                    onClick={() => handleMoveBlock(idx, 'up')}
+                    className={`p-1 rounded ${idx === 0 ? 'text-slate-600' : 'text-slate-400 hover:text-slate-200'}`}
+                    title="Move Up"
+                  >
+                    <ChevronUp className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    disabled={idx === currentBlocks.length - 1}
+                    onClick={() => handleMoveBlock(idx, 'down')}
+                    className={`p-1 rounded ${idx === currentBlocks.length - 1 ? 'text-slate-600' : 'text-slate-400 hover:text-slate-200'}`}
+                    title="Move Down"
+                  >
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  </button>
+                </div>
 
-              <span className="text-slate-500">-</span>
+                <button
+                  onClick={() => handleDeleteBlock(idx)}
+                  className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-950/40 shrink-0"
+                  title="Delete Block"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
 
-              <input
-                type="time"
-                value={b.endTime}
-                onChange={e => {
-                  const newEnd = e.target.value;
-                  const dur = calculateDurationHours(b.startTime, newEnd);
-                  handleUpdateBlock(idx, { ...b, endTime: newEnd, durationHours: dur });
-                }}
-                className="bg-slate-800 border border-slate-700 px-1.5 py-1 rounded text-center text-slate-100 font-mono w-20"
-              />
+              {/* Row 2: Category Dropdown + Times + Duration Badge (Responsive Wrap) */}
+              <div className="flex items-center justify-between gap-2 pl-6 flex-wrap">
+                <select
+                  value={b.category}
+                  onChange={e =>
+                    handleUpdateBlock(idx, { ...b, category: e.target.value as any })
+                  }
+                  className="bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg text-slate-200 font-medium text-xs flex-1 min-w-[140px] focus:outline-none focus:border-tennis-500"
+                >
+                  {Object.values(CATEGORY_DEFINITIONS)
+                    .filter(c => c.id !== 'unnoticed_time' && c.id !== 'unlogged_missing')
+                    .map(c => (
+                      <option key={c.id} value={c.id}>
+                        {c.shortLabel}
+                      </option>
+                    ))}
+                </select>
 
-              <span className="text-tennis-400 font-mono font-bold w-12 text-right">
-                {formatDuration(b.durationHours)}
-              </span>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                  <input
+                    type="time"
+                    value={b.startTime}
+                    onChange={e => {
+                      const newStart = e.target.value;
+                      const dur = calculateDurationHours(newStart, b.endTime);
+                      handleUpdateBlock(idx, { ...b, startTime: newStart, durationHours: dur });
+                    }}
+                    className="bg-slate-800 border border-slate-700 px-1.5 py-1 rounded text-center text-slate-100 font-mono text-xs w-[75px]"
+                  />
 
-              <button
-                onClick={() => handleDeleteBlock(idx)}
-                className="p-1.5 text-slate-500 hover:text-red-400 rounded-lg hover:bg-red-950/40"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-              </button>
+                  <span className="text-slate-500">-</span>
+
+                  <input
+                    type="time"
+                    value={b.endTime}
+                    onChange={e => {
+                      const newEnd = e.target.value;
+                      const dur = calculateDurationHours(b.startTime, newEnd);
+                      handleUpdateBlock(idx, { ...b, endTime: newEnd, durationHours: dur });
+                    }}
+                    className="bg-slate-800 border border-slate-700 px-1.5 py-1 rounded text-center text-slate-100 font-mono text-xs w-[75px]"
+                  />
+
+                  <span className="text-tennis-400 font-mono font-bold text-xs pl-1">
+                    {formatDuration(b.durationHours)}
+                  </span>
+                </div>
+              </div>
             </div>
           );
         })}

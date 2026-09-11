@@ -1,30 +1,48 @@
 import React from 'react';
 import { ActivityBlock } from '../../types';
 import { CATEGORY_DEFINITIONS, formatDuration, adjustTimeString, calculateDurationHours } from '../../utils/categories';
-import { CheckCircle2, Circle, Clock, Edit2, Trash2, XCircle, Plus, Minus } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, Edit2, Trash2, XCircle, Plus, Minus, GripVertical, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface ActivityItemProps {
   block: ActivityBlock;
+  index: number;
+  totalCount: number;
   onToggleComplete: (blockId: string) => void;
   onToggleCancel: (blockId: string) => void;
   onAdjustDuration: (blockId: string, deltaMinutes: number) => void;
   onEdit: (block: ActivityBlock) => void;
   onDelete: (blockId: string) => void;
+  onMoveUp?: (index: number) => void;
+  onMoveDown?: (index: number) => void;
+  onDragStart?: (e: React.DragEvent, index: number) => void;
+  onDragOver?: (e: React.DragEvent, index: number) => void;
+  onDrop?: (e: React.DragEvent, index: number) => void;
 }
 
 export const ActivityItem: React.FC<ActivityItemProps> = ({
   block,
+  index,
+  totalCount,
   onToggleComplete,
   onToggleCancel,
   onAdjustDuration,
   onEdit,
   onDelete,
+  onMoveUp,
+  onMoveDown,
+  onDragStart,
+  onDragOver,
+  onDrop,
 }) => {
   const meta = CATEGORY_DEFINITIONS[block.category] || CATEGORY_DEFINITIONS.guilt_free_fun;
   const duration = block.durationHours || calculateDurationHours(block.startTime, block.endTime);
 
   return (
     <div
+      draggable={!!onDragStart}
+      onDragStart={e => onDragStart && onDragStart(e, index)}
+      onDragOver={e => onDragOver && onDragOver(e, index)}
+      onDrop={e => onDrop && onDrop(e, index)}
       className={`relative rounded-2xl border transition-all p-3.5 shadow-md ${
         block.isCancelled
           ? 'bg-slate-900/40 border-slate-800 opacity-50'
@@ -41,10 +59,19 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
         style={{ backgroundColor: meta.color }}
       />
 
-      <div className="pl-2">
-        {/* Top row: Checkbox, Title, Category Badge, Duration */}
+      <div className="pl-1 sm:pl-2">
+        {/* Top row: Drag Grip, Checkbox, Title, Category Badge, Duration */}
         <div className="flex items-start justify-between gap-2">
-          <div className="flex items-start gap-2.5 flex-1 min-w-0">
+          <div className="flex items-start gap-2 flex-1 min-w-0">
+            {/* Drag Handle */}
+            <div
+              className="mt-0.5 cursor-grab active:cursor-grabbing text-slate-500 hover:text-slate-300 transition-colors p-0.5"
+              title="Hold and drag to reorder activity"
+            >
+              <GripVertical className="w-4 h-4" />
+            </div>
+
+            {/* Completion Checkbox */}
             <button
               onClick={() => onToggleComplete(block.id)}
               className="mt-0.5 text-slate-400 hover:text-tennis-400 transition-all focus:outline-none shrink-0"
@@ -113,11 +140,11 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
           </p>
         )}
 
-        {/* Quick Actions Row: Steppers & Edit */}
-        <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-brand-border/30 pl-7 text-xs">
+        {/* Quick Actions Row: Steppers & Edit & Reorder */}
+        <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-brand-border/30 pl-5 sm:pl-7 text-xs flex-wrap gap-2">
           {/* 1-Tap Quick Steppers */}
           <div className="flex items-center gap-1 bg-slate-900/80 p-0.5 rounded-lg border border-slate-800">
-            <span className="text-[10px] text-slate-400 px-1.5 font-medium">Adjust:</span>
+            <span className="text-[10px] text-slate-400 px-1 font-medium">Adjust:</span>
             <button
               onClick={() => onAdjustDuration(block.id, -15)}
               className="flex items-center gap-0.5 px-2 py-1 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 rounded font-mono text-[11px] transition-all"
@@ -134,8 +161,32 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
             </button>
           </div>
 
-          {/* Edit / Cancel / Delete buttons */}
-          <div className="flex items-center gap-1.5">
+          {/* Move Up/Down + Edit / Cancel / Delete buttons */}
+          <div className="flex items-center gap-1">
+            {/* Quick Move Up/Down buttons */}
+            <div className="flex items-center bg-slate-900/80 rounded-lg border border-slate-800 p-0.5">
+              <button
+                disabled={index === 0}
+                onClick={() => onMoveUp && onMoveUp(index)}
+                className={`p-1 rounded transition-colors ${
+                  index === 0 ? 'text-slate-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                }`}
+                title="Move Up in list"
+              >
+                <ChevronUp className="w-3.5 h-3.5" />
+              </button>
+              <button
+                disabled={index === totalCount - 1}
+                onClick={() => onMoveDown && onMoveDown(index)}
+                className={`p-1 rounded transition-colors ${
+                  index === totalCount - 1 ? 'text-slate-600' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                }`}
+                title="Move Down in list"
+              >
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
             <button
               onClick={() => onToggleCancel(block.id)}
               className={`p-1.5 rounded-lg border transition-all ${

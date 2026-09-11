@@ -42,8 +42,10 @@ export const DataService = {
 
   // Terms & Defaults
   async getCurrentTerm(): Promise<TermSchedule | undefined> {
-    const term = await db.terms.filter(t => t.isCurrent).first();
-    if (term) return term;
+    const current = await db.terms.filter(t => t.isCurrent).first();
+    if (current) return current;
+    const all = await db.terms.toArray();
+    if (all.length > 0) return all[0];
     return db.terms.get('autumn-2026');
   },
 
@@ -52,6 +54,8 @@ export const DataService = {
   },
 
   async saveTerm(term: TermSchedule): Promise<void> {
+    // Ensure term is marked current
+    term.isCurrent = true;
     await db.terms.put(term);
   },
 
@@ -184,9 +188,20 @@ export const DataService = {
   ): Promise<DayLog> {
     const dayOfWeek = getDayOfWeekFromDate(dateStr);
     const term = await this.getCurrentTerm();
-    const kidKey = childId === 'kid2' ? 'kid2' : 'kid1';
+    
+    // Accurately resolve kidKey for kid1 vs kid2
+    let kidKey: 'kid1' | 'kid2' = 'kid1';
+    if (term?.weeklyDefaults) {
+      if (childId in term.weeklyDefaults) {
+        kidKey = childId as 'kid1' | 'kid2';
+      } else if (childId.toLowerCase().includes('2')) {
+        kidKey = 'kid2';
+      }
+    }
 
-    let blocks: ActivityBlock[] = (term?.weeklyDefaults[kidKey]?.[dayOfWeek] || []).map(
+    const defaultDayList = term?.weeklyDefaults?.[kidKey]?.[dayOfWeek] || [];
+
+    let blocks: ActivityBlock[] = defaultDayList.map(
       (b, idx) => ({
         ...b,
         id: `blk_${dateStr}_${childId}_${idx}_${Date.now()}`,
