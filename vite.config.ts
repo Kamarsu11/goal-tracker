@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './', // Essential for GitHub Pages deployment
+  base: '/goal-tracker/', // Repo subpath for GitHub Pages
   plugins: [
     react(),
     VitePWA({
