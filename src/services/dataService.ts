@@ -78,30 +78,17 @@ export const DataService = {
     return db.dayLogs.toArray();
   },
 
-  // Generate or Load a Day with Active Term Preset
+  // Generate or Load a Day - defaults to empty unless user clicks Load Preset
   async loadOrCreateDay(childId: ChildId, dateStr: string): Promise<DayLog> {
     const existing = await this.getDayLog(childId, dateStr);
     if (existing) return existing;
-
-    const term = await this.getCurrentTerm();
-    const dayOfWeek = getDayOfWeekFromDate(dateStr);
-    const kidKey = childId === 'kid2' ? 'kid2' : 'kid1';
-
-    const defaultBlocks: ActivityBlock[] = (term?.weeklyDefaults[kidKey]?.[dayOfWeek] || []).map(
-      (b, idx) => ({
-        ...b,
-        id: `blk_${dateStr}_${childId}_${idx}_${Date.now()}`,
-        durationHours: b.durationHours || calculateDurationHours(b.startTime, b.endTime),
-        completed: true,
-      })
-    );
 
     const newLog: DayLog = {
       id: `${childId}_${dateStr}`,
       childId,
       date: dateStr,
-      status: 'unlogged', // newly created days start as unlogged until user reviews/confirms
-      blocks: defaultBlocks,
+      status: 'unlogged',
+      blocks: [], // Empty by default
       lastModified: Date.now(),
     };
 
@@ -376,6 +363,32 @@ export const DataService = {
     const isConfirmed = log.status === 'confirmed' || log.status === 'sick';
     const coverage = computeDayCoverage(log.blocks, isConfirmed);
     const dayOfWeek = getDayOfWeekFromDate(log.date);
+
+    // If day is unconfirmed / unlogged, return 0 for actuals and 0 for targets so unconfirmed days do not show on charts
+    if (!isConfirmed) {
+      return {
+        date: log.date,
+        childId: log.childId,
+        status: log.status,
+        totalLoggedHours: 0,
+        tennisHours: 0,
+        effectiveTennisScore: 0,
+        multisportHours: 0,
+        mobilityHours: 0,
+        transitHours: 0,
+        schoolHours: 0,
+        studyHours: 0,
+        sleepHours: 0,
+        guiltFreeFunHours: 0,
+        unnoticedHours: 0,
+        unloggedHours: 24.0,
+        idealTennisTarget: 0,
+        idealMultisportTarget: 0,
+        idealSleepTarget: 0,
+        idealScoreTarget: 0,
+        performanceScore: 0,
+      };
+    }
 
     // Detect cancelled activities
     const hasCancelledGym = log.blocks.some(b => b.isCancelled && b.category === 'multisport');

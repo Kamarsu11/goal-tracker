@@ -8,17 +8,18 @@ interface StatsSummaryCardsProps {
 }
 
 export const StatsSummaryCards: React.FC<StatsSummaryCardsProps> = ({ summaries, profile }) => {
-  const totalDays = summaries.length || 1;
+  const confirmedSummaries = summaries.filter(s => s.status === 'confirmed' || s.status === 'sick');
+  const totalDays = confirmedSummaries.length || 1;
 
-  const totalTennisHours = summaries.reduce((acc, s) => acc + s.tennisHours, 0);
-  const totalIdealTennisHours = summaries.reduce((acc, s) => acc + s.idealTennisTarget, 0);
-  const totalMultisportHours = summaries.reduce((acc, s) => acc + s.multisportHours, 0);
-  const totalMobilityHours = summaries.reduce((acc, s) => acc + s.mobilityHours, 0);
-  const totalSleepHours = summaries.reduce((acc, s) => acc + s.sleepHours, 0);
-  const totalUnnoticedHours = summaries.reduce((acc, s) => acc + s.unnoticedHours, 0);
+  const totalTennisHours = confirmedSummaries.reduce((acc, s) => acc + s.tennisHours, 0);
+  const totalIdealTennisHours = confirmedSummaries.reduce((acc, s) => acc + s.idealTennisTarget, 0);
+  const totalMultisportHours = confirmedSummaries.reduce((acc, s) => acc + s.multisportHours, 0);
+  const totalMobilityHours = confirmedSummaries.reduce((acc, s) => acc + s.mobilityHours, 0);
+  const totalSleepHours = confirmedSummaries.reduce((acc, s) => acc + s.sleepHours, 0);
+  const totalUnnoticedHours = confirmedSummaries.reduce((acc, s) => acc + s.unnoticedHours, 0);
   const totalUnloggedHours = summaries.reduce((acc, s) => acc + s.unloggedHours, 0);
-  const totalEffectiveScore = summaries.reduce((acc, s) => acc + s.effectiveTennisScore, 0);
-  const totalIdealScore = summaries.reduce((acc, s) => acc + s.idealScoreTarget, 0);
+  const totalEffectiveScore = confirmedSummaries.reduce((acc, s) => acc + s.effectiveTennisScore, 0);
+  const totalIdealScore = confirmedSummaries.reduce((acc, s) => acc + s.idealScoreTarget, 0);
 
   const avgSleepPerNight = (totalSleepHours / totalDays).toFixed(2);
   const avgUnnoticedPerDay = (totalUnnoticedHours / totalDays).toFixed(2);

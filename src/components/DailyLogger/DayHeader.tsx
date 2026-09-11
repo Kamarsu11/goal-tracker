@@ -180,10 +180,10 @@ export const DayHeader: React.FC<DayHeaderProps> = ({
           <button
             onClick={() => onApplyPreset('default_term')}
             className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-tennis-500 text-slate-200 rounded-xl text-xs font-medium active:scale-95 transition-all"
-            title="Reset to default term schedule for this day"
+            title={`Load standard recurring schedule for ${dayOfWeek}`}
           >
             <Zap className="w-3.5 h-3.5 text-tennis-400" />
-            <span>Load {dayOfWeek.slice(0, 3).toUpperCase()} Preset</span>
+            <span>Load Default Schedule</span>
           </button>
 
           <button

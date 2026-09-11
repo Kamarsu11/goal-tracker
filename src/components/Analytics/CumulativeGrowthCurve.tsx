@@ -35,6 +35,9 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
   // Calculate cumulative scores
   let cumIdeal = 0;
   const idealData = k1Summaries.map(s => {
+    if (s.status === 'unlogged') {
+      return cumIdeal; // Don't accumulate on unconfirmed days
+    }
     cumIdeal += s.idealScoreTarget;
     return parseFloat(cumIdeal.toFixed(1));
   });
@@ -42,7 +45,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
   let cumK1 = 0;
   const k1Data = k1Summaries.map(s => {
     if (s.status === 'unlogged') {
-      return cumK1;
+      return cumK1; // Don't accumulate on unconfirmed days
     }
     cumK1 += s.effectiveTennisScore;
     return parseFloat(cumK1.toFixed(1));
@@ -51,7 +54,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
   let cumK2 = 0;
   const k2Data = k2Summaries.map(s => {
     if (s.status === 'unlogged') {
-      return cumK2;
+      return cumK2; // Don't accumulate on unconfirmed days
     }
     cumK2 += s.effectiveTennisScore;
     return parseFloat(cumK2.toFixed(1));
