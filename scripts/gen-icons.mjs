@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
 
 // Generate vibrant Golden Championship Goal Cup SVG Icon
 const cupSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
@@ -79,35 +78,47 @@ fs.writeFileSync(path.join(iconDir, 'icon-512.svg'), cupSvg);
 fs.writeFileSync(path.join(iconDir, 'icon-192.svg'), cupSvg);
 fs.writeFileSync(path.join('public', 'favicon.svg'), cupSvg);
 
-// Generate real binary PNGs for iOS Apple Touch Icon and PWA
-const svgBuffer = Buffer.from(cupSvg);
+// If sharp is available, generate PNGs
+try {
+  const sharpModule = await import('sharp');
+  const sharp = sharpModule.default;
+  const svgBuffer = Buffer.from(cupSvg);
 
-await sharp(svgBuffer)
-  .resize(512, 512)
-  .png()
-  .toFile(path.join(iconDir, 'icon-512.png'));
+  await sharp(svgBuffer)
+    .resize(512, 512)
+    .png()
+    .toFile(path.join(iconDir, 'icon-512.png'));
 
-await sharp(svgBuffer)
-  .resize(192, 192)
-  .png()
-  .toFile(path.join(iconDir, 'icon-192.png'));
+  await sharp(svgBuffer)
+    .resize(192, 192)
+    .png()
+    .toFile(path.join(iconDir, 'icon-192.png'));
 
-await sharp(svgBuffer)
-  .resize(180, 180)
-  .png()
-  .toFile(path.join('public', 'apple-touch-icon.png'));
+  await sharp(svgBuffer)
+    .resize(180, 180)
+    .png()
+    .toFile(path.join('public', 'apple-touch-icon.png'));
+} catch (e) {
+  console.log('Sharp PNG conversion skipped or already pre-rendered');
+}
 
-// Also write to dist if dist exists
+// Copy to dist if dist exists
 const distDir = path.resolve('dist');
 if (fs.existsSync(distDir)) {
   const distIconDir = path.join(distDir, 'icons');
   if (!fs.existsSync(distIconDir)) {
     fs.mkdirSync(distIconDir, { recursive: true });
   }
-  fs.copyFileSync(path.join(iconDir, 'icon-512.png'), path.join(distIconDir, 'icon-512.png'));
-  fs.copyFileSync(path.join(iconDir, 'icon-192.png'), path.join(distIconDir, 'icon-192.png'));
-  fs.copyFileSync(path.join('public', 'apple-touch-icon.png'), path.join(distDir, 'apple-touch-icon.png'));
+  if (fs.existsSync(path.join(iconDir, 'icon-512.png'))) {
+    fs.copyFileSync(path.join(iconDir, 'icon-512.png'), path.join(distIconDir, 'icon-512.png'));
+  }
+  if (fs.existsSync(path.join(iconDir, 'icon-192.png'))) {
+    fs.copyFileSync(path.join(iconDir, 'icon-192.png'), path.join(distIconDir, 'icon-192.png'));
+  }
+  if (fs.existsSync(path.join('public', 'apple-touch-icon.png'))) {
+    fs.copyFileSync(path.join('public', 'apple-touch-icon.png'), path.join(distDir, 'apple-touch-icon.png'));
+  }
   fs.copyFileSync(path.join('public', 'favicon.svg'), path.join(distDir, 'favicon.svg'));
 }
 
-console.log('Championship Goal Cup PNG and SVG icons generated successfully in public and dist!');
+console.log('Championship Goal Cup PNG and SVG icons synchronized successfully!');
