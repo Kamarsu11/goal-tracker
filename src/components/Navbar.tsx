@@ -27,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div>
             <h1 className="text-xs sm:text-sm font-black text-slate-100 tracking-tight leading-tight">
-              Pro Tracker
+              Goal Tracker
             </h1>
             <p className="text-[9px] sm:text-[10px] text-slate-400 leading-none hidden sm:block">Tennis Pro Benchmark</p>
           </div>

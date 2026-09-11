@@ -216,10 +216,10 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
       </div>
 
       {/* Floating Add Button for quick reach on mobile */}
-      <div className="fixed bottom-20 right-5 z-30 sm:hidden">
+      <div className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom,16px))] right-5 z-30 sm:hidden">
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="w-14 h-14 rounded-full bg-tennis-500 text-black flex items-center justify-center shadow-2xl active:scale-90 transition-transform font-bold"
+          className="w-14 h-14 rounded-full bg-tennis-500 text-black flex items-center justify-center shadow-2xl active:scale-90 transition-transform font-bold border-2 border-black/40"
           title="Add Activity"
         >
           <Plus className="w-7 h-7" />

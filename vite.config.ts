@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icons/*.png'],
       manifest: {
-        name: 'Tennis Pro Goal Tracker',
-        short_name: 'ProTracker',
+        name: 'Goal Tracker',
+        short_name: 'Goal Tracker',
         description: 'Track daily athletic activities vs future tennis pro benchmarks',
         theme_color: '#0f172a',
         background_color: '#0f172a',

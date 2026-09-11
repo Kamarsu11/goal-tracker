@@ -41,10 +41,10 @@ export const App: React.FC = () => {
   if (!isDbReady || profiles.length === 0) {
     return (
       <div className="min-h-screen bg-brand-dark flex flex-col items-center justify-center p-6 text-center space-y-4">
-        <div className="w-16 h-16 rounded-3xl bg-tennis-accent text-black flex items-center justify-center text-3xl font-black animate-bounce shadow-2xl">
-          🎾
+        <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-slate-900 to-indigo-950 border border-slate-700 text-tennis-400 flex items-center justify-center text-3xl font-black animate-bounce shadow-2xl">
+          🏆
         </div>
-        <h2 className="text-xl font-bold text-slate-100">Loading Tennis Goal Tracker...</h2>
+        <h2 className="text-xl font-bold text-slate-100">Loading Goal Tracker...</h2>
         <p className="text-xs text-slate-400">Initializing offline IndexedDB storage</p>
       </div>
     );

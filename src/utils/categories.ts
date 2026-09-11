@@ -251,7 +251,7 @@ export function computeDayCoverage(blocks: ActivityBlock[], isDayConfirmed: bool
   let effectiveTennis = 0;
 
   for (const block of blocks) {
-    if (block.isCancelled) continue;
+    if (block.isCancelled || !block.completed) continue;
     const dur = block.durationHours || calculateDurationHours(block.startTime, block.endTime);
     if (categoryTotals[block.category] !== undefined) {
       categoryTotals[block.category] += dur;

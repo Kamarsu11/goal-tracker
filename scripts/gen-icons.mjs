@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp';
 
 // Generate vibrant Golden Championship Goal Cup SVG Icon
 const cupSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
@@ -26,7 +27,7 @@ const cupSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"
 
     <!-- Glow Effect -->
     <radialGradient id="cupGlow" cx="50%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#fde047" stop-opacity="0.35"/>
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.4"/>
       <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
   </defs>
@@ -60,9 +61,9 @@ const cupSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"
     <rect x="176" y="390" width="160" height="24" rx="8" fill="url(#goldGrad)" stroke="#854d0e" stroke-width="3"/>
     <rect x="156" y="414" width="200" height="34" rx="10" fill="#0f172a" stroke="#ca8a04" stroke-width="4"/>
 
-    <!-- Gold Plate on Base with "PRO" text -->
-    <rect x="206" y="422" width="100" height="18" rx="5" fill="#ccff00" />
-    <text x="256" y="436" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#0b0f19" text-anchor="middle" letter-spacing="2">PRO</text>
+    <!-- Gold Plate on Base with "GOAL" text -->
+    <rect x="196" y="422" width="120" height="18" rx="5" fill="#ccff00" />
+    <text x="256" y="436" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#0b0f19" text-anchor="middle" letter-spacing="2">GOAL</text>
 
     <!-- Star Emblem on Cup Face -->
     <polygon points="256,190 268,225 305,225 275,247 286,282 256,261 226,282 237,247 207,225 244,225" fill="#ffffff" stroke="#fef08a" stroke-width="2"/>
@@ -73,8 +74,40 @@ const iconDir = path.resolve('public/icons');
 if (!fs.existsSync(iconDir)) {
   fs.mkdirSync(iconDir, { recursive: true });
 }
+
 fs.writeFileSync(path.join(iconDir, 'icon-512.svg'), cupSvg);
 fs.writeFileSync(path.join(iconDir, 'icon-192.svg'), cupSvg);
-fs.writeFileSync(path.join('public', 'apple-touch-icon.png'), cupSvg);
 fs.writeFileSync(path.join('public', 'favicon.svg'), cupSvg);
-console.log('Championship Goal Cup icons generated successfully!');
+
+// Generate real binary PNGs for iOS Apple Touch Icon and PWA
+const svgBuffer = Buffer.from(cupSvg);
+
+await sharp(svgBuffer)
+  .resize(512, 512)
+  .png()
+  .toFile(path.join(iconDir, 'icon-512.png'));
+
+await sharp(svgBuffer)
+  .resize(192, 192)
+  .png()
+  .toFile(path.join(iconDir, 'icon-192.png'));
+
+await sharp(svgBuffer)
+  .resize(180, 180)
+  .png()
+  .toFile(path.join('public', 'apple-touch-icon.png'));
+
+// Also write to dist if dist exists
+const distDir = path.resolve('dist');
+if (fs.existsSync(distDir)) {
+  const distIconDir = path.join(distDir, 'icons');
+  if (!fs.existsSync(distIconDir)) {
+    fs.mkdirSync(distIconDir, { recursive: true });
+  }
+  fs.copyFileSync(path.join(iconDir, 'icon-512.png'), path.join(distIconDir, 'icon-512.png'));
+  fs.copyFileSync(path.join(iconDir, 'icon-192.png'), path.join(distIconDir, 'icon-192.png'));
+  fs.copyFileSync(path.join('public', 'apple-touch-icon.png'), path.join(distDir, 'apple-touch-icon.png'));
+  fs.copyFileSync(path.join('public', 'favicon.svg'), path.join(distDir, 'favicon.svg'));
+}
+
+console.log('Championship Goal Cup PNG and SVG icons generated successfully in public and dist!');

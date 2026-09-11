@@ -191,14 +191,14 @@ export const DataService = {
         ...b,
         id: `blk_${dateStr}_${childId}_${idx}_${Date.now()}`,
         durationHours: b.durationHours || calculateDurationHours(b.startTime, b.endTime),
-        completed: true,
+        completed: false, // Start unconfirmed/unchecked by default
       })
     );
 
     let isSick = false;
     let isSchoolHoliday = false;
     let isMatchDay = false;
-    let status: DayLog['status'] = 'confirmed';
+    let status: DayLog['status'] = 'unlogged';
 
     if (preset === 'school_holiday') {
       isSchoolHoliday = true;
@@ -211,7 +211,7 @@ export const DataService = {
         startTime: '09:00',
         endTime: '15:00',
         durationHours: 6.0,
-        completed: true,
+        completed: false,
       });
     } else if (preset === 'sick_day') {
       isSick = true;
@@ -247,7 +247,7 @@ export const DataService = {
       ];
     } else if (preset === 'match_day') {
       isMatchDay = true;
-      status = 'confirmed';
+      status = 'unlogged';
       blocks = [
         {
           id: `blk_match_sleep_${Date.now()}`,
@@ -256,7 +256,7 @@ export const DataService = {
           startTime: '00:00',
           endTime: '07:30',
           durationHours: 7.5,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_morn_${Date.now()}`,
@@ -265,7 +265,7 @@ export const DataService = {
           startTime: '07:30',
           endTime: '08:30',
           durationHours: 1.0,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_trans1_${Date.now()}`,
@@ -274,7 +274,7 @@ export const DataService = {
           startTime: '08:30',
           endTime: '09:15',
           durationHours: 0.75,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_play_${Date.now()}`,
@@ -283,7 +283,7 @@ export const DataService = {
           startTime: '09:15',
           endTime: '12:30',
           durationHours: 3.25,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_trans2_${Date.now()}`,
@@ -292,7 +292,7 @@ export const DataService = {
           startTime: '12:30',
           endTime: '13:30',
           durationHours: 1.0,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_homework_${Date.now()}`,
@@ -301,7 +301,7 @@ export const DataService = {
           startTime: '13:30',
           endTime: '14:30',
           durationHours: 1.0,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_fun_${Date.now()}`,
@@ -310,7 +310,7 @@ export const DataService = {
           startTime: '14:30',
           endTime: '19:30',
           durationHours: 5.0,
-          completed: true,
+          completed: false,
         },
         {
           id: `blk_match_dinner_${Date.now()}`,
@@ -318,6 +318,29 @@ export const DataService = {
           title: 'Dinner & Family Time',
           startTime: '19:30',
           endTime: '20:30',
+          durationHours: 1.0,
+          completed: false,
+        },
+        {
+          id: `blk_match_prehab_${Date.now()}`,
+          category: 'mobility_prehab',
+          title: 'Post-Match Foam Roll & Ice/Stretches',
+          startTime: '20:30',
+          endTime: '21:30',
+          durationHours: 1.0,
+          completed: false,
+        },
+        {
+          id: `blk_match_sleep_night_${Date.now()}`,
+          category: 'sleep',
+          title: 'Night Sleep',
+          startTime: '21:30',
+          endTime: '24:00',
+          durationHours: 2.5,
+          completed: false,
+        },
+      ];
+    }
           durationHours: 1.0,
           completed: true,
         },

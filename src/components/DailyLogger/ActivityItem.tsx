@@ -27,15 +27,17 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
     <div
       className={`relative rounded-2xl border transition-all p-3.5 shadow-md ${
         block.isCancelled
-          ? 'bg-slate-900/40 border-slate-800 opacity-60'
+          ? 'bg-slate-900/40 border-slate-800 opacity-50'
           : block.completed
-          ? 'bg-brand-card/95 border-brand-border hover:border-tennis-500/40'
-          : 'bg-brand-card/60 border-brand-border/40'
+          ? 'bg-brand-card/95 border-brand-border ring-1 ring-tennis-500/30 hover:border-tennis-500/50'
+          : 'bg-slate-900/40 border-slate-800/80 opacity-65 hover:opacity-90'
       }`}
     >
       {/* Category colored indicator bar */}
       <div
-        className="absolute left-0 top-3 bottom-3 w-1.5 rounded-r-full"
+        className={`absolute left-0 top-3 bottom-3 w-1.5 rounded-r-full transition-opacity ${
+          block.completed ? 'opacity-100' : 'opacity-30'
+        }`}
         style={{ backgroundColor: meta.color }}
       />
 
@@ -45,21 +47,25 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
           <div className="flex items-start gap-2.5 flex-1 min-w-0">
             <button
               onClick={() => onToggleComplete(block.id)}
-              className="mt-0.5 text-slate-400 hover:text-tennis-400 transition-colors focus:outline-none"
-              title={block.completed ? 'Mark pending' : 'Mark completed'}
+              className="mt-0.5 text-slate-400 hover:text-tennis-400 transition-all focus:outline-none shrink-0"
+              title={block.completed ? 'Mark pending (unchecked)' : 'Mark activity completed (checked)'}
             >
               {block.completed ? (
                 <CheckCircle2 className="w-5 h-5 text-tennis-400 fill-tennis-400/20" />
               ) : (
-                <Circle className="w-5 h-5 text-slate-500" />
+                <div className="w-5 h-5 rounded-full border-2 border-slate-600 hover:border-tennis-400 transition-colors flex items-center justify-center bg-slate-950/60" />
               )}
             </button>
 
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span
-                  className={`font-semibold text-sm leading-tight text-slate-100 ${
-                    block.isCancelled ? 'line-through text-slate-500' : ''
+                  className={`font-semibold text-sm leading-tight transition-colors ${
+                    block.isCancelled
+                      ? 'line-through text-slate-500'
+                      : block.completed
+                      ? 'text-slate-100'
+                      : 'text-slate-400 font-normal'
                   }`}
                 >
                   {block.title}
@@ -67,6 +73,11 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
                 {block.isCancelled && (
                   <span className="text-[10px] bg-red-950/80 border border-red-800 text-red-400 px-1.5 py-0.2 rounded">
                     Cancelled
+                  </span>
+                )}
+                {!block.completed && !block.isCancelled && (
+                  <span className="text-[10px] bg-slate-800 border border-slate-700 text-slate-400 px-1.5 py-0.2 rounded">
+                    Pending
                   </span>
                 )}
               </div>
@@ -87,7 +98,9 @@ export const ActivityItem: React.FC<ActivityItemProps> = ({
 
           {/* Category Tag */}
           <span
-            className={`text-[11px] font-medium px-2 py-0.5 rounded-full border shrink-0 ${meta.bgClass} ${meta.textClass} ${meta.borderClass}`}
+            className={`text-[11px] font-medium px-2 py-0.5 rounded-full border shrink-0 transition-opacity ${
+              block.completed ? 'opacity-100' : 'opacity-50'
+            } ${meta.bgClass} ${meta.textClass} ${meta.borderClass}`}
           >
             {meta.shortLabel}
           </span>
