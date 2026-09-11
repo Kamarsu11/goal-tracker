@@ -341,29 +341,6 @@ export const DataService = {
         },
       ];
     }
-          durationHours: 1.0,
-          completed: true,
-        },
-        {
-          id: `blk_match_prehab_${Date.now()}`,
-          category: 'mobility_prehab',
-          title: 'Post-Match Foam Roll & Ice/Stretches',
-          startTime: '20:30',
-          endTime: '21:30',
-          durationHours: 1.0,
-          completed: true,
-        },
-        {
-          id: `blk_match_sleep_night_${Date.now()}`,
-          category: 'sleep',
-          title: 'Night Sleep',
-          startTime: '21:30',
-          endTime: '24:00',
-          durationHours: 2.5,
-          completed: true,
-        },
-      ];
-    }
 
     const updatedLog: DayLog = {
       id: `${childId}_${dateStr}`,
