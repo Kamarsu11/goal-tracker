@@ -1,46 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <defs>
+    <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#0b0f19" />
-      <stop offset="100%" stop-color="#172554" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1e1b4b" />
     </linearGradient>
+
+    <!-- Gold Trophy Gradients -->
     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fde047" />
-      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="25%" stop-color="#fde047" />
+      <stop offset="60%" stop-color="#eab308" />
       <stop offset="100%" stop-color="#ca8a04" />
     </linearGradient>
-    <linearGradient id="lineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38bdf8" />
-      <stop offset="100%" stop-color="#ccff00" />
+
+    <linearGradient id="goldDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ca8a04" />
+      <stop offset="100%" stop-color="#854d0e" />
     </linearGradient>
+
+    <!-- Glow Effect -->
+    <radialGradient id="cupGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   
-  <!-- App Background -->
-  <rect width="512" height="512" rx="120" fill="url(#bgGrad)" />
-  <rect width="500" height="500" x="6" y="6" rx="114" fill="none" stroke="#1e293b" stroke-width="4" />
+  <!-- Outer Rounded App Icon Tile -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+  <rect width="502" height="502" x="5" y="5" rx="110" fill="none" stroke="#334155" stroke-width="4" opacity="0.6" />
 
-  <!-- Target Aim Rings (Pro Goals) -->
-  <circle cx="256" cy="220" r="140" fill="none" stroke="#334155" stroke-width="3" stroke-dasharray="8 8" opacity="0.6"/>
-  <circle cx="256" cy="220" r="95" fill="none" stroke="#38bdf8" stroke-width="3" opacity="0.4"/>
-  <circle cx="256" cy="220" r="50" fill="none" stroke="#e2e8f0" stroke-width="2" opacity="0.3"/>
+  <!-- Ambient Golden Glow -->
+  <circle cx="256" cy="220" r="190" fill="url(#cupGlow)" />
 
-  <!-- Analytics Trajectory Line Curve (Rising to Pro Level) -->
-  <path d="M 80 390 Q 200 370 290 230 T 430 110" fill="none" stroke="url(#lineGrad)" stroke-width="12" stroke-linecap="round"/>
-  
-  <!-- Glowing Milestone Nodes on Curve -->
-  <circle cx="120" cy="382" r="8" fill="#38bdf8" />
-  <circle cx="230" cy="320" r="10" fill="#38bdf8" />
-  <circle cx="330" cy="180" r="12" fill="#ccff00" />
-  <circle cx="430" cy="110" r="16" fill="#ccff00" stroke="#ffffff" stroke-width="4" />
+  <!-- Championship Cup / Trophy -->
+  <g id="trophyGroup">
+    <!-- Left Handle -->
+    <path d="M 170 145 C 90 145 70 260 165 285 L 180 255 C 115 235 125 175 175 175 Z" fill="url(#goldGrad)" stroke="#a16207" stroke-width="3"/>
 
-  <!-- Championship Pro Trophy Symbol in Center -->
-  <g transform="translate(196, 150) scale(0.24)">
-    <path d="M 256 0 L 100 60 L 100 240 C 100 380 256 460 256 460 C 256 460 412 380 412 240 L 412 60 Z" fill="url(#goldGrad)" stroke="#fef08a" stroke-width="12"/>
-    <path d="M 170 120 L 342 120 L 320 280 C 300 330 256 350 256 350 C 256 350 212 330 192 280 Z" fill="#0f172a" opacity="0.25"/>
-    <polygon points="256,150 270,195 316,195 279,222 293,266 256,240 219,266 233,222 196,195 242,195" fill="#ffffff" />
+    <!-- Right Handle -->
+    <path d="M 342 145 C 422 145 442 260 347 285 L 332 255 C 397 235 387 175 337 175 Z" fill="url(#goldGrad)" stroke="#a16207" stroke-width="3"/>
+
+    <!-- Cup Bowl (Main Body) -->
+    <path d="M 155 120 L 357 120 C 357 120 365 240 310 300 C 275 338 237 338 202 300 C 147 240 155 120 155 120 Z" fill="url(#goldGrad)" stroke="#a16207" stroke-width="4"/>
+
+    <!-- Cup Rim & Top Opening -->
+    <ellipse cx="256" cy="120" rx="101" ry="22" fill="#fef08a" stroke="#ca8a04" stroke-width="4"/>
+    <ellipse cx="256" cy="120" rx="85" ry="15" fill="#713f12" />
+
+    <!-- Trophy Stem / Pedestal Connector -->
+    <path d="M 236 325 L 276 325 L 282 390 L 230 390 Z" fill="url(#goldDark)" stroke="#713f12" stroke-width="3"/>
+
+    <!-- Trophy Base (Multi-tier Pedestal) -->
+    <rect x="176" y="390" width="160" height="24" rx="8" fill="url(#goldGrad)" stroke="#854d0e" stroke-width="3"/>
+    <rect x="156" y="414" width="200" height="34" rx="10" fill="#0f172a" stroke="#ca8a04" stroke-width="4"/>
+
+    <!-- Gold Plate on Base with "PRO" text -->
+    <rect x="206" y="422" width="100" height="18" rx="5" fill="#ccff00" />
+    <text x="256" y="436" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="900" fill="#0b0f19" text-anchor="middle" letter-spacing="2">PRO</text>
+
+    <!-- Star Emblem on Cup Face -->
+    <polygon points="256,190 268,225 305,225 275,247 286,282 256,261 226,282 237,247 207,225 244,225" fill="#ffffff" stroke="#fef08a" stroke-width="2"/>
   </g>
-
-  <!-- Pro Badge Text -->
-  <rect x="186" y="420" width="140" height="36" rx="18" fill="#ccff00" />
-  <text x="256" y="444" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="900" fill="#0b0f19" text-anchor="middle" letter-spacing="3">PRO</text>
 </svg>

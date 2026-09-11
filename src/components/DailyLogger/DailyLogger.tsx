@@ -131,11 +131,12 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
     }
   };
 
-  // Confirm Day
-  const handleConfirmDay = async () => {
+  // Toggle Day Status between Confirmed and Unconfirmed Draft
+  const handleToggleStatus = async () => {
+    const nextStatus = dayLog.status === 'confirmed' ? 'unlogged' : 'confirmed';
     await DataService.saveDayLog({
       ...dayLog,
-      status: 'confirmed',
+      status: nextStatus,
     });
     onRefreshDayLog();
   };
@@ -155,7 +156,7 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
         onApplyPreset={handleApplyPreset}
         onCopyToSibling={handleCopyToSibling}
         onClearDay={handleClearDay}
-        onConfirmDay={handleConfirmDay}
+        onToggleStatus={handleToggleStatus}
       />
 
       {/* 24-Hour Visual Bar */}

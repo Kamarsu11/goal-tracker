@@ -24,7 +24,7 @@ interface DayHeaderProps {
   onApplyPreset: (preset: 'default_term' | 'school_holiday' | 'sick_day' | 'match_day') => void;
   onCopyToSibling: () => void;
   onClearDay: () => void;
-  onConfirmDay: () => void;
+  onToggleStatus: () => void;
 }
 
 export const DayHeader: React.FC<DayHeaderProps> = ({
@@ -36,7 +36,7 @@ export const DayHeader: React.FC<DayHeaderProps> = ({
   onApplyPreset,
   onCopyToSibling,
   onClearDay,
-  onConfirmDay,
+  onToggleStatus,
 }) => {
   const dayOfWeek = getDayOfWeekFromDate(currentDate);
 
@@ -119,7 +119,7 @@ export const DayHeader: React.FC<DayHeaderProps> = ({
       </div>
 
       {/* Status Alert / Indicator Banner */}
-      <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-brand-border/60 text-xs">
+      <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-brand-border/60 text-xs flex-wrap">
         <div className="flex items-center gap-2 flex-wrap">
           <span className="font-medium text-slate-400">Status:</span>
           {dayLog.status === 'confirmed' && (
@@ -149,15 +149,28 @@ export const DayHeader: React.FC<DayHeaderProps> = ({
           )}
         </div>
 
-        {/* 1-Tap Confirm Button */}
-        {dayLog.status !== 'confirmed' && (
-          <button
-            onClick={onConfirmDay}
-            className="flex items-center gap-1 px-3 py-1 bg-tennis-500 hover:bg-tennis-400 text-black font-bold rounded-lg shadow-md active:scale-95 transition-all text-xs"
-          >
-            <CheckCircle className="w-3.5 h-3.5" /> Confirm Day
-          </button>
-        )}
+        {/* 1-Tap Toggle between Confirmed & Unconfirmed Draft */}
+        <button
+          onClick={onToggleStatus}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold shadow-md active:scale-95 transition-all text-xs border ${
+            dayLog.status === 'confirmed'
+              ? 'bg-slate-900 hover:bg-slate-800 border-amber-500/50 text-amber-300'
+              : 'bg-tennis-500 hover:bg-tennis-400 border-tennis-400 text-black'
+          }`}
+          title={dayLog.status === 'confirmed' ? 'Click to change back to Unconfirmed Draft' : 'Click to confirm this day'}
+        >
+          {dayLog.status === 'confirmed' ? (
+            <>
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+              <span>Set as Draft</span>
+            </>
+          ) : (
+            <>
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span>Confirm Day</span>
+            </>
+          )}
+        </button>
       </div>
 
       {/* Quick Presets & Sibling Actions Bar */}
