@@ -123,8 +123,9 @@ export interface DailySummary {
   studyHours: number;
   sleepHours: number;
   guiltFreeFunHours: number;
-  unnoticedHours: number;
-  unloggedHours: number;
+  deadTimeHours: number; // Explicitly logged Dead Time / Idle
+  unnoticedHours: number; // Unaccounted idle time gap on confirmed days
+  unloggedHours: number; // Unlogged missing gap on unconfirmed days
   idealTennisTarget: number;
   idealMultisportTarget: number;
   idealSleepTarget: number;

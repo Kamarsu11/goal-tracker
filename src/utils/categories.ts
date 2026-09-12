@@ -179,12 +179,12 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
   },
   unnoticed_time: {
     id: 'unnoticed_time',
-    label: 'Unnoticed / Idle Dead Time (Wastage)',
-    shortLabel: 'Unnoticed Time',
-    color: '#ef4444', // red
-    bgClass: 'bg-red-500/20',
-    textClass: 'text-red-400',
-    borderClass: 'border-red-500/50',
+    label: 'Unrecorded / Unnoticed Gap (Not Logged)',
+    shortLabel: 'Unrecorded Gap',
+    color: '#64748b', // muted slate gray
+    bgClass: 'bg-slate-700/30',
+    textClass: 'text-slate-400',
+    borderClass: 'border-slate-600/50',
     isProductive: false,
     effectiveWeight: 0.00,
   },
@@ -192,10 +192,10 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     id: 'unlogged_missing',
     label: 'Unrecorded / Incomplete Log Gap',
     shortLabel: 'Unlogged Gap',
-    color: '#64748b', // gray hatched
-    bgClass: 'bg-slate-700/30',
-    textClass: 'text-slate-400',
-    borderClass: 'border-dashed border-slate-600',
+    color: '#475569', // darker muted slate
+    bgClass: 'bg-slate-800/40',
+    textClass: 'text-slate-500',
+    borderClass: 'border-dashed border-slate-700',
     isProductive: false,
     effectiveWeight: 0.00,
   },

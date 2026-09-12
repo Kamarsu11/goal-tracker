@@ -16,13 +16,14 @@ export const StatsSummaryCards: React.FC<StatsSummaryCardsProps> = ({ summaries,
   const totalMultisportHours = confirmedSummaries.reduce((acc, s) => acc + s.multisportHours, 0);
   const totalMobilityHours = confirmedSummaries.reduce((acc, s) => acc + s.mobilityHours, 0);
   const totalSleepHours = confirmedSummaries.reduce((acc, s) => acc + s.sleepHours, 0);
-  const totalUnnoticedHours = confirmedSummaries.reduce((acc, s) => acc + s.unnoticedHours, 0);
+  const totalLoggedDeadHours = confirmedSummaries.reduce((acc, s) => acc + (s.deadTimeHours || 0), 0);
+  const totalUnaccountedHours = confirmedSummaries.reduce((acc, s) => acc + (s.unnoticedHours || 0), 0);
   const totalUnloggedHours = summaries.reduce((acc, s) => acc + s.unloggedHours, 0);
   const totalEffectiveScore = confirmedSummaries.reduce((acc, s) => acc + s.effectiveTennisScore, 0);
   const totalIdealScore = confirmedSummaries.reduce((acc, s) => acc + s.idealScoreTarget, 0);
 
   const avgSleepPerNight = (totalSleepHours / totalDays).toFixed(2);
-  const avgUnnoticedPerDay = (totalUnnoticedHours / totalDays).toFixed(2);
+  const avgDeadTimePerDay = (totalLoggedDeadHours / totalDays).toFixed(2);
   const tennisMultiRatio = totalMultisportHours > 0 ? (totalTennisHours / totalMultisportHours).toFixed(2) : 'N/A';
   
   const tennisDiff = totalTennisHours - totalIdealTennisHours;
@@ -92,30 +93,22 @@ export const StatsSummaryCards: React.FC<StatsSummaryCardsProps> = ({ summaries,
         </div>
       </div>
 
-      {/* 4. Unnoticed Time / Silent Killer */}
+      {/* 4. Dead Time / Idle (Only explicitly logged dead time) */}
       <div className="bg-brand-card/90 border border-brand-border rounded-2xl p-3.5 shadow-lg relative overflow-hidden">
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-            Unnoticed Dead Time
+            Dead Time & Idle
           </span>
           <div className="p-1.5 bg-red-500/20 text-red-400 rounded-lg">
             <AlertCircle className="w-4 h-4" />
           </div>
         </div>
         <div className="mt-2 flex items-baseline gap-1.5">
-          <span className="text-2xl font-black text-red-400">{totalUnnoticedHours.toFixed(2)}h</span>
-          <span className="text-xs text-slate-400">({avgUnnoticedPerDay}h/day)</span>
+          <span className="text-2xl font-black text-red-400">{totalLoggedDeadHours.toFixed(2)}h</span>
+          <span className="text-xs text-slate-400">({avgDeadTimePerDay}h/day)</span>
         </div>
-        <div className="mt-1 text-[11px] flex items-center gap-1">
-          {totalUnloggedHours > 0 ? (
-            <span className="text-amber-400 text-[10px]">
-              ⚠️ {totalUnloggedHours.toFixed(2)}h unrecorded
-            </span>
-          ) : (
-            <span className="text-slate-400">
-              Target: &lt;1.5h/day
-            </span>
-          )}
+        <div className="mt-1 text-[11px] flex items-center gap-1 text-slate-400">
+          <span>Target: &lt;1.5h/day</span>
         </div>
       </div>
     </div>

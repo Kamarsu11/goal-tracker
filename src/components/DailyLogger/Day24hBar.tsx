@@ -18,12 +18,15 @@ export const Day24hBar: React.FC<Day24hBarProps> = ({ blocks, status }) => {
     'tennis_companion',
     'tennis_iq',
     'multisport',
+    'tennis_sc_footwork',
     'mobility_prehab',
+    'intentional_rest',
     'school',
     'study_homework',
     'transit',
     'sleep',
     'guilt_free_fun',
+    'dead_time',
     'unnoticed_time',
     'unlogged_missing',
   ];
@@ -37,18 +40,6 @@ export const Day24hBar: React.FC<Day24hBarProps> = ({ blocks, status }) => {
             ({coverage.totalLoggedHours}h logged)
           </span>
         </span>
-        <div className="flex items-center gap-2">
-          {coverage.categoryTotals.unnoticed_time > 0 && (
-            <span className="text-red-400 font-bold bg-red-950/40 border border-red-500/30 px-2 py-0.5 rounded-full text-[10px]">
-              🔴 {formatDuration(coverage.categoryTotals.unnoticed_time)} Unnoticed
-            </span>
-          )}
-          {coverage.categoryTotals.unlogged_missing > 0 && (
-            <span className="text-amber-400 bg-amber-950/40 border border-amber-500/30 px-2 py-0.5 rounded-full text-[10px]">
-              ⚠️ {formatDuration(coverage.categoryTotals.unlogged_missing)} Unlogged
-            </span>
-          )}
-        </div>
       </div>
 
       {/* The 24-hour visual progress bar */}
@@ -67,8 +58,8 @@ export const Day24hBar: React.FC<Day24hBarProps> = ({ blocks, status }) => {
                 backgroundColor: meta.color,
               }}
               className={`h-full relative group transition-all duration-300 ${
-                cat === 'unlogged_missing' ? 'opacity-40 bg-stripes' : ''
-              } ${cat === 'unnoticed_time' ? 'animate-pulse' : ''}`}
+                cat === 'unlogged_missing' || cat === 'unnoticed_time' ? 'opacity-40 bg-stripes' : ''
+              } ${cat === 'dead_time' ? 'animate-pulse' : ''}`}
               title={`${meta.shortLabel}: ${formatDuration(hours)} (${percentage.toFixed(0)}%)`}
             >
               {percentage > 7 && (

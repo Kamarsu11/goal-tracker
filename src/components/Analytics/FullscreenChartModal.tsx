@@ -336,7 +336,9 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
           { label: 'Transit & Wait', data: k1Summaries.map(s => s.transitHours), backgroundColor: CATEGORY_DEFINITIONS.transit.color, stack: '24h' },
           { label: 'Sleep & Recovery', data: k1Summaries.map(s => s.sleepHours), backgroundColor: CATEGORY_DEFINITIONS.sleep.color, stack: '24h' },
           { label: 'Fun & Play', data: k1Summaries.map(s => s.guiltFreeFunHours), backgroundColor: CATEGORY_DEFINITIONS.guilt_free_fun.color, stack: '24h' },
-          { label: 'Dead Time / Idle', data: k1Summaries.map(s => s.unnoticedHours), backgroundColor: CATEGORY_DEFINITIONS.dead_time.color, stack: '24h' },
+          { label: 'Dead Time / Idle', data: k1Summaries.map(s => s.deadTimeHours || 0), backgroundColor: CATEGORY_DEFINITIONS.dead_time.color, stack: '24h' },
+          { label: '⏳ Unrecorded Gap', data: k1Summaries.map(s => s.unnoticedHours || 0), backgroundColor: 'rgba(100, 116, 139, 0.45)', borderColor: '#64748b', borderWidth: 1, stack: '24h' },
+          { label: '⚠️ Unlogged Gap', data: k1Summaries.map(s => s.unloggedHours || 0), backgroundColor: 'rgba(71, 85, 105, 0.35)', borderColor: '#475569', borderWidth: 1, stack: '24h' },
         ],
       };
       const distOptions: any = {

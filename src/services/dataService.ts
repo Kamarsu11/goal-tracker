@@ -429,6 +429,7 @@ export const DataService = {
         studyHours: 0,
         sleepHours: 0,
         guiltFreeFunHours: 0,
+        deadTimeHours: 0,
         unnoticedHours: 0,
         unloggedHours: 24.0,
         idealTennisTarget: ideal.tennisHours,
@@ -444,7 +445,8 @@ export const DataService = {
       performanceScore = Math.min(150, Math.round((coverage.effectiveTennisScore / ideal.effectiveScoreTarget) * 100));
     }
 
-    const totalDeadTime = (coverage.categoryTotals.unnoticed_time || 0) + (coverage.categoryTotals.dead_time || 0);
+    const loggedDeadTime = coverage.categoryTotals.dead_time || 0;
+    const unaccountedIdle = coverage.categoryTotals.unnoticed_time || 0;
 
     return {
       date: log.date,
@@ -466,7 +468,8 @@ export const DataService = {
       studyHours: parseFloat(coverage.categoryTotals.study_homework.toFixed(2)),
       sleepHours: parseFloat(coverage.categoryTotals.sleep.toFixed(2)),
       guiltFreeFunHours: parseFloat(coverage.categoryTotals.guilt_free_fun.toFixed(2)),
-      unnoticedHours: parseFloat(totalDeadTime.toFixed(2)),
+      deadTimeHours: parseFloat(loggedDeadTime.toFixed(2)),
+      unnoticedHours: parseFloat(unaccountedIdle.toFixed(2)),
       unloggedHours: parseFloat(coverage.categoryTotals.unlogged_missing.toFixed(2)),
       idealTennisTarget: ideal.tennisHours,
       idealMultisportTarget: ideal.multisportHours,
