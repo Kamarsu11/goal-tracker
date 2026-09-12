@@ -190,7 +190,7 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
   const blocks = currentDayLog.blocks || [];
 
   return (
-    <div className="space-y-4 pb-20">
+    <div className="space-y-4 pb-36 sm:pb-24">
       {/* Day Navigation & Status Header */}
       <DayHeader
         currentDate={currentDate}

@@ -17,9 +17,21 @@ export const TimeDistributionChart: React.FC<TimeDistributionChartProps> = ({ su
 
   const datasets = [
     {
-      label: 'Tennis',
-      data: summaries.map(s => s.tennisHours),
+      label: 'High-Int Tennis',
+      data: summaries.map(s => s.highIntensityTennisHours),
       backgroundColor: CATEGORY_DEFINITIONS.tennis_focus.color,
+      stack: '24h',
+    },
+    {
+      label: 'Practice Matches',
+      data: summaries.map(s => s.practiceMatchHours),
+      backgroundColor: CATEGORY_DEFINITIONS.tennis_match.color,
+      stack: '24h',
+    },
+    {
+      label: 'Squad Tennis',
+      data: summaries.map(s => s.squadTennisHours),
+      backgroundColor: CATEGORY_DEFINITIONS.tennis_squad.color,
       stack: '24h',
     },
     {
@@ -29,9 +41,27 @@ export const TimeDistributionChart: React.FC<TimeDistributionChartProps> = ({ su
       stack: '24h',
     },
     {
-      label: 'Mobility / Prehab',
+      label: 'S&C Footwork',
+      data: summaries.map(s => s.scFootworkHours),
+      backgroundColor: CATEGORY_DEFINITIONS.tennis_sc_footwork.color,
+      stack: '24h',
+    },
+    {
+      label: 'Pre-hab & Mobility',
       data: summaries.map(s => s.mobilityHours),
       backgroundColor: CATEGORY_DEFINITIONS.mobility_prehab.color,
+      stack: '24h',
+    },
+    {
+      label: 'Intentional Rest',
+      data: summaries.map(s => s.intentionalRestHours),
+      backgroundColor: CATEGORY_DEFINITIONS.intentional_rest.color,
+      stack: '24h',
+    },
+    {
+      label: 'Tennis IQ',
+      data: summaries.map(s => s.tennisIqHours),
+      backgroundColor: CATEGORY_DEFINITIONS.tennis_iq.color,
       stack: '24h',
     },
     {
@@ -47,13 +77,13 @@ export const TimeDistributionChart: React.FC<TimeDistributionChartProps> = ({ su
       stack: '24h',
     },
     {
-      label: 'Transit & Sitting',
+      label: 'Transit & Wait',
       data: summaries.map(s => s.transitHours),
       backgroundColor: CATEGORY_DEFINITIONS.transit.color,
       stack: '24h',
     },
     {
-      label: 'Guilt-Free Fun',
+      label: 'Guilt-Free Play',
       data: summaries.map(s => s.guiltFreeFunHours),
       backgroundColor: CATEGORY_DEFINITIONS.guilt_free_fun.color,
       stack: '24h',

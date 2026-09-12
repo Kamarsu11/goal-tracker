@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import './chartConfig';
 import { Line } from 'react-chartjs-2';
 import { DailySummary, ChildProfile } from '../../types';
-import { Maximize2, RotateCcw, TrendingUp, Info, Calendar } from 'lucide-react';
+import { Maximize2, RotateCcw, TrendingUp, Info, Calendar, Percent } from 'lucide-react';
 
 interface CumulativeGrowthCurveProps {
   k1Summaries: DailySummary[];
@@ -22,6 +22,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
   onOpenFullscreen,
 }) => {
   const chartRef = useRef<any>(null);
+  const [displayMode, setDisplayMode] = useState<'points' | 'normalized'>('points');
   const [selectedDayIndex, setSelectedDayIndex] = useState<number>(() =>
     k1Summaries.length > 0 ? k1Summaries.length - 1 : 0
   );
@@ -32,80 +33,164 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
     return d.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric' });
   });
 
-  // Calculate cumulative scores
-  let cumIdeal = 0;
-  const idealData = k1Summaries.map(s => {
-    if (s.status === 'unlogged') {
-      return cumIdeal; // Don't accumulate on unconfirmed days
-    }
-    cumIdeal += s.idealScoreTarget;
-    return parseFloat(cumIdeal.toFixed(1));
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  // Ideal Pro Benchmark accumulates steadily for every day in the period
+  let cumIdeal1 = 0;
+  const idealData1 = k1Summaries.map(s => {
+    cumIdeal1 += s.idealScoreTarget;
+    return parseFloat(cumIdeal1.toFixed(2));
   });
 
+  let cumIdeal2 = 0;
+  const idealData2 = k2Summaries.map(s => {
+    cumIdeal2 += s.idealScoreTarget;
+    return parseFloat(cumIdeal2.toFixed(2));
+  });
+
+  // Actual kid cumulative scores - only plot for confirmed / sick days (unconfirmed draft and future days are null)
   let cumK1 = 0;
+  let hasStartedK1 = false;
   const k1Data = k1Summaries.map(s => {
-    if (s.status === 'unlogged') {
-      return cumK1; // Don't accumulate on unconfirmed days
+    if (s.date > todayStr || s.status === 'unlogged') {
+      return null;
     }
-    cumK1 += s.effectiveTennisScore;
-    return parseFloat(cumK1.toFixed(1));
+    if (s.status === 'confirmed' || s.status === 'sick') {
+      cumK1 += s.effectiveTennisScore;
+      hasStartedK1 = true;
+      return parseFloat(cumK1.toFixed(2));
+    }
+    return null;
   });
 
   let cumK2 = 0;
+  let hasStartedK2 = false;
   const k2Data = k2Summaries.map(s => {
-    if (s.status === 'unlogged') {
-      return cumK2; // Don't accumulate on unconfirmed days
+    if (s.date > todayStr || s.status === 'unlogged') {
+      return null;
     }
-    cumK2 += s.effectiveTennisScore;
-    return parseFloat(cumK2.toFixed(1));
+    if (s.status === 'confirmed' || s.status === 'sick') {
+      cumK2 += s.effectiveTennisScore;
+      hasStartedK2 = true;
+      return parseFloat(cumK2.toFixed(2));
+    }
+    return null;
   });
 
-  const datasets: any[] = [
-    {
-      label: '⭐ Ideal Pro Target Benchmark',
-      data: idealData,
-      borderColor: '#38bdf8', // Sky blue
-      backgroundColor: 'rgba(56, 189, 248, 0.08)',
-      borderWidth: 3,
-      borderDash: [6, 4],
-      pointRadius: k1Summaries.length > 60 ? 0 : 4,
-      pointHoverRadius: 7,
-      fill: true,
-      tension: 0.3,
-    },
-    {
-      label: `🎾 ${profile1.name} (Actual)`,
-      data: k1Data,
-      borderColor: '#ccff00', // Neon tennis lime
-      backgroundColor: 'rgba(204, 255, 0, 0.15)',
-      borderWidth: 3.5,
-      pointRadius: k1Summaries.length > 60 ? 0 : 5,
-      pointBackgroundColor: '#ccff00',
-      pointHoverRadius: 8,
-      fill: false,
-      tension: 0.2,
-    },
-  ];
+  // Normalized % datasets (% of Age Milestone Target)
+  const normIdeal = k1Summaries.map(() => 100);
+  const normK1 = k1Data.map((val, idx) => {
+    if (val === null) return null;
+    const target = idealData1[idx] || 1;
+    return target > 0 ? parseFloat(((val / target) * 100).toFixed(1)) : 100;
+  });
+  const normK2 = k2Data.map((val, idx) => {
+    if (val === null) return null;
+    const target = idealData2[idx] || 1;
+    return target > 0 ? parseFloat(((val / target) * 100).toFixed(1)) : 100;
+  });
 
-  if (showBothKids && profile2 && k2Summaries.length > 0) {
-    datasets.push({
-      label: `🎾 ${profile2.name} (Actual)`,
-      data: k2Data,
-      borderColor: '#06b6d4', // Cyan
-      backgroundColor: 'rgba(6, 182, 212, 0.1)',
-      borderWidth: 3,
-      pointRadius: k1Summaries.length > 60 ? 0 : 5,
-      pointBackgroundColor: '#06b6d4',
-      pointHoverRadius: 8,
-      fill: false,
-      tension: 0.2,
-    });
+  let datasets: any[] = [];
+
+  if (displayMode === 'normalized') {
+    datasets = [
+      {
+        label: '⭐ 100% Age Milestone Benchmark',
+        data: normIdeal,
+        borderColor: '#38bdf8',
+        borderWidth: 2.5,
+        borderDash: [6, 4],
+        pointRadius: 0,
+        fill: false,
+      },
+      {
+        label: `🎾 ${profile1.name} (% of Age ${profile1.age} Target)`,
+        data: normK1,
+        borderColor: '#ccff00',
+        backgroundColor: 'rgba(204, 255, 0, 0.15)',
+        borderWidth: 3.5,
+        pointRadius: k1Summaries.length > 60 ? 0 : 5,
+        pointBackgroundColor: '#ccff00',
+        pointHoverRadius: 8,
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      },
+    ];
+
+    if (showBothKids && profile2 && k2Summaries.length > 0) {
+      datasets.push({
+        label: `🎾 ${profile2.name} (% of Age ${profile2.age} Target)`,
+        data: normK2,
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+        borderWidth: 3,
+        pointRadius: k1Summaries.length > 60 ? 0 : 5,
+        pointBackgroundColor: '#06b6d4',
+        pointHoverRadius: 8,
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      });
+    }
+  } else {
+    // Raw points mode
+    datasets = [
+      {
+        label: `⭐ Ideal Pro Benchmark (${profile1.age}yo Target)`,
+        data: idealData1,
+        borderColor: '#38bdf8',
+        backgroundColor: 'rgba(56, 189, 248, 0.08)',
+        borderWidth: 3,
+        borderDash: [6, 4],
+        pointRadius: k1Summaries.length > 60 ? 0 : 4,
+        pointHoverRadius: 7,
+        fill: true,
+        tension: 0.3,
+      },
+      {
+        label: `🎾 ${profile1.name} (Actual Score)`,
+        data: k1Data,
+        borderColor: '#ccff00',
+        backgroundColor: 'rgba(204, 255, 0, 0.15)',
+        borderWidth: 3.5,
+        pointRadius: k1Summaries.length > 60 ? 0 : 5,
+        pointBackgroundColor: '#ccff00',
+        pointHoverRadius: 8,
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      },
+    ];
+
+    if (showBothKids && profile2 && k2Summaries.length > 0) {
+      datasets.push({
+        label: `⭐ Ideal Pro Benchmark (${profile2.age}yo Target)`,
+        data: idealData2,
+        borderColor: '#818cf8',
+        borderWidth: 2,
+        borderDash: [4, 4],
+        pointRadius: 0,
+        fill: false,
+      });
+
+      datasets.push({
+        label: `🎾 ${profile2.name} (Actual Score)`,
+        data: k2Data,
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+        borderWidth: 3,
+        pointRadius: k1Summaries.length > 60 ? 0 : 5,
+        pointBackgroundColor: '#06b6d4',
+        pointHoverRadius: 8,
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      });
+    }
   }
 
-  const chartData = {
-    labels,
-    datasets,
-  };
+  const chartData = { labels, datasets };
 
   const chartOptions: any = {
     responsive: true,
@@ -127,7 +212,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
           color: '#e2e8f0',
           font: { size: 11, weight: 'bold' },
           boxWidth: 14,
-          padding: 12,
+          padding: 10,
         },
       },
       tooltip: {
@@ -141,65 +226,49 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
           afterTitle: (context: any) => {
             const index = context[0]?.dataIndex;
             if (index !== undefined && index !== selectedDayIndex) {
-              // Update mobile inspection on hover/tap
               setTimeout(() => setSelectedDayIndex(index), 0);
             }
             return '';
           },
+          label: (context: any) => {
+            const val = context.raw || 0;
+            return displayMode === 'normalized'
+              ? ` ${context.dataset.label}: ${val}%`
+              : ` ${context.dataset.label}: ${val} pts`;
+          },
         },
       },
       zoom: {
-        pan: {
-          enabled: true,
-          mode: 'x',
-        },
+        pan: { enabled: true, mode: 'x' },
         zoom: {
-          wheel: {
-            enabled: true,
-          },
-          pinch: {
-            enabled: true,
-          },
+          wheel: { enabled: true },
+          pinch: { enabled: true },
           mode: 'x',
         },
       },
     },
     scales: {
       x: {
-        grid: {
-          color: 'rgba(51, 65, 85, 0.3)',
-        },
-        ticks: {
-          color: '#94a3b8',
-          font: { size: 10 },
-          maxTicksLimit: 12, // Prevents year-long clutter
-        },
+        grid: { color: 'rgba(51, 65, 85, 0.3)' },
+        ticks: { color: '#94a3b8', font: { size: 10 }, maxTicksLimit: 12 },
       },
       y: {
         title: {
           display: true,
-          text: 'Cumulative Athletic Score',
+          text: displayMode === 'normalized' ? '% of Age Target' : 'Cumulative Athletic Score',
           color: '#94a3b8',
           font: { size: 11 },
         },
-        grid: {
-          color: 'rgba(51, 65, 85, 0.4)',
-        },
-        ticks: {
-          color: '#94a3b8',
-          font: { size: 10 },
-        },
+        grid: { color: 'rgba(51, 65, 85, 0.4)' },
+        ticks: { color: '#94a3b8', font: { size: 10 } },
       },
     },
   };
 
   const handleResetZoom = () => {
-    if (chartRef.current) {
-      chartRef.current.resetZoom();
-    }
+    if (chartRef.current) chartRef.current.resetZoom();
   };
 
-  // Quick range window jump on long ranges (e.g. 1 year)
   const handleZoomPreset = (daysCount: number) => {
     if (!chartRef.current) return;
     const chart = chartRef.current;
@@ -225,7 +294,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
 
   return (
     <div className="bg-brand-card border border-brand-border rounded-2xl p-4 shadow-xl space-y-3">
-      {/* Header with zoom reset and fullscreen */}
+      {/* Header with display mode toggle, zoom reset and fullscreen */}
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2">
           <div className="p-1.5 bg-tennis-500/20 text-tennis-400 rounded-lg">
@@ -236,39 +305,44 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
               Cumulative Growth Trajectory
             </h3>
             <p className="text-[11px] text-slate-400">
-              Tap any point on chart to inspect exact breakdown
+              Tap any point on chart to inspect exact daily calculation
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {/* Points vs Normalized % Mode Toggle */}
+          <div className="flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-800 text-xs font-semibold">
+            <button
+              onClick={() => setDisplayMode('points')}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                displayMode === 'points'
+                  ? 'bg-tennis-500 text-black font-bold shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Raw Points
+            </button>
+            <button
+              onClick={() => setDisplayMode('normalized')}
+              className={`px-2.5 py-1 rounded-lg transition-all ${
+                displayMode === 'normalized'
+                  ? 'bg-tennis-500 text-black font-bold shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+              title="Normalized % of each boy's individual age milestone"
+            >
+              % Normalized
+            </button>
+          </div>
+
           {k1Summaries.length > 30 && (
             <div className="flex items-center gap-1 bg-slate-900 px-1.5 py-0.5 rounded-lg border border-slate-800 text-[10px]">
               <span className="text-slate-400">View:</span>
-              <button
-                onClick={() => handleZoomPreset(14)}
-                className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold"
-              >
-                14D
-              </button>
-              <button
-                onClick={() => handleZoomPreset(30)}
-                className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold"
-              >
-                30D
-              </button>
-              <button
-                onClick={() => handleZoomPreset(90)}
-                className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold"
-              >
-                90D
-              </button>
-              <button
-                onClick={() => handleZoomPreset(0)}
-                className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold"
-              >
-                All
-              </button>
+              <button onClick={() => handleZoomPreset(14)} className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold">14D</button>
+              <button onClick={() => handleZoomPreset(30)} className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold">30D</button>
+              <button onClick={() => handleZoomPreset(90)} className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold">90D</button>
+              <button onClick={() => handleZoomPreset(0)} className="px-1.5 py-0.5 hover:text-tennis-400 text-slate-300 font-semibold">All</button>
             </div>
           )}
 
@@ -297,7 +371,7 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
         <Line ref={chartRef} data={chartData} options={chartOptions} />
       </div>
 
-      {/* Interactive Day Inspector Card (Works 100% on iOS Touch & Desktop) */}
+      {/* Interactive Day Inspector Card */}
       {selectedSummary && (
         <div className="p-3.5 bg-slate-900/90 rounded-xl border border-brand-border text-xs space-y-2.5 shadow-lg">
           <div className="flex items-center justify-between border-b border-slate-800 pb-2 flex-wrap gap-2">
@@ -309,11 +383,10 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
               </span>
             </div>
             <div className="text-[11px] font-mono text-slate-400 flex items-center gap-2 flex-wrap">
-              <span>{profile1.name}: <strong className="text-tennis-400 font-bold">{k1Data[selectedDayIndex]} pts</strong></span>
+              <span>{profile1.name}: <strong className="text-tennis-400 font-bold">{k1Data[selectedDayIndex]} pts</strong> ({normK1[selectedDayIndex]}%)</span>
               {showBothKids && profile2 && selectedK2Summary && (
-                <span>• {profile2.name}: <strong className="text-cyan-400 font-bold">{k2Data[selectedDayIndex]} pts</strong></span>
+                <span>• {profile2.name}: <strong className="text-cyan-400 font-bold">{k2Data[selectedDayIndex]} pts</strong> ({normK2[selectedDayIndex]}%)</span>
               )}
-              <span>• Ideal: <strong className="text-sky-400 font-bold">{idealData[selectedDayIndex]} pts</strong></span>
             </div>
           </div>
 
@@ -321,38 +394,40 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
             {/* Kid 1 Daily Contribution */}
             <div className="space-y-1 bg-slate-950/60 p-2.5 rounded-lg border border-lime-500/30">
               <div className="flex items-center justify-between font-bold text-tennis-400">
-                <span>🎾 {profile1.name} (+{selectedSummary.effectiveTennisScore.toFixed(2)} pts)</span>
+                <span>🎾 {profile1.name} (Day: +{selectedSummary.effectiveTennisScore.toFixed(2)} pts)</span>
               </div>
               <div className="text-slate-300 space-y-0.5 text-[10px]">
-                <div>• Tennis Logged: <strong>{selectedSummary.tennisHours.toFixed(2)}h</strong></div>
-                <div>• Multisport: <strong>{selectedSummary.multisportHours.toFixed(2)}h</strong></div>
-                <div>• Mobility / Prehab: <strong>{selectedSummary.mobilityHours.toFixed(2)}h</strong></div>
-                <div>• Sleep: <strong>{selectedSummary.sleepHours.toFixed(2)}h</strong> • School: <strong>{selectedSummary.schoolHours.toFixed(2)}h</strong></div>
-                {selectedSummary.unnoticedHours > 0 && (
-                  <div className="text-red-400">• Unnoticed Dead Time: <strong>{selectedSummary.unnoticedHours.toFixed(2)}h</strong></div>
-                )}
+                <div>• High-Int Tennis: <strong>{selectedSummary.highIntensityTennisHours.toFixed(2)}h</strong> (1.0x)</div>
+                <div>• Practice Matches: <strong>{selectedSummary.practiceMatchHours.toFixed(2)}h</strong> (0.8x)</div>
+                <div>• Squad Tennis: <strong>{selectedSummary.squadTennisHours.toFixed(2)}h</strong> (0.6x)</div>
+                <div>• Multisport: <strong>{selectedSummary.multisportHours.toFixed(2)}h</strong> (0.7x)</div>
+                <div>• S&C Footwork: <strong>{selectedSummary.scFootworkHours.toFixed(2)}h</strong> (0.6x)</div>
+                <div>• Pre-hab & Mobility: <strong>{selectedSummary.mobilityHours.toFixed(2)}h</strong> (0.5x)</div>
+                <div>• Intentional Rest: <strong>{selectedSummary.intentionalRestHours.toFixed(2)}h</strong> (0.5x)</div>
+                <div>• Tennis IQ: <strong>{selectedSummary.tennisIqHours.toFixed(2)}h</strong> (0.5x)</div>
                 <div className="text-tennis-300 font-mono pt-1 border-t border-slate-800 text-[9.5px]">
-                  Calculation: ({selectedSummary.tennisHours.toFixed(2)} × 1.0) + ({selectedSummary.multisportHours.toFixed(2)} × 0.4) + ({selectedSummary.mobilityHours.toFixed(2)} × 0.5) = <strong>{selectedSummary.effectiveTennisScore.toFixed(2)} pts</strong>
+                  Formula: $(H \times 1.0) + (M \times 0.8) + (Sq \times 0.6) + (Mul \times 0.7) + (Pre \times 0.5) + (Rest \times 0.5)$ = <strong>{selectedSummary.effectiveTennisScore.toFixed(2)} pts</strong>
                 </div>
               </div>
             </div>
 
-            {/* Kid 2 Daily Contribution (when comparing both boys) */}
+            {/* Kid 2 Daily Contribution */}
             {showBothKids && profile2 && selectedK2Summary && (
               <div className="space-y-1 bg-slate-950/60 p-2.5 rounded-lg border border-cyan-500/30">
                 <div className="flex items-center justify-between font-bold text-cyan-400">
-                  <span>🎾 {profile2.name} (+{selectedK2Summary.effectiveTennisScore.toFixed(2)} pts)</span>
+                  <span>🎾 {profile2.name} (Day: +{selectedK2Summary.effectiveTennisScore.toFixed(2)} pts)</span>
                 </div>
                 <div className="text-slate-300 space-y-0.5 text-[10px]">
-                  <div>• Tennis Logged: <strong>{selectedK2Summary.tennisHours.toFixed(2)}h</strong></div>
-                  <div>• Multisport: <strong>{selectedK2Summary.multisportHours.toFixed(2)}h</strong></div>
-                  <div>• Mobility / Prehab: <strong>{selectedK2Summary.mobilityHours.toFixed(2)}h</strong></div>
-                  <div>• Sleep: <strong>{selectedK2Summary.sleepHours.toFixed(2)}h</strong> • School: <strong>{selectedK2Summary.schoolHours.toFixed(2)}h</strong></div>
-                  {selectedK2Summary.unnoticedHours > 0 && (
-                    <div className="text-red-400">• Unnoticed Dead Time: <strong>{selectedK2Summary.unnoticedHours.toFixed(2)}h</strong></div>
-                  )}
+                  <div>• High-Int Tennis: <strong>{selectedK2Summary.highIntensityTennisHours.toFixed(2)}h</strong> (1.0x)</div>
+                  <div>• Practice Matches: <strong>{selectedK2Summary.practiceMatchHours.toFixed(2)}h</strong> (0.8x)</div>
+                  <div>• Squad Tennis: <strong>{selectedK2Summary.squadTennisHours.toFixed(2)}h</strong> (0.6x)</div>
+                  <div>• Multisport: <strong>{selectedK2Summary.multisportHours.toFixed(2)}h</strong> (0.7x)</div>
+                  <div>• S&C Footwork: <strong>{selectedK2Summary.scFootworkHours.toFixed(2)}h</strong> (0.6x)</div>
+                  <div>• Pre-hab & Mobility: <strong>{selectedK2Summary.mobilityHours.toFixed(2)}h</strong> (0.5x)</div>
+                  <div>• Intentional Rest: <strong>{selectedK2Summary.intentionalRestHours.toFixed(2)}h</strong> (0.5x)</div>
+                  <div>• Tennis IQ: <strong>{selectedK2Summary.tennisIqHours.toFixed(2)}h</strong> (0.5x)</div>
                   <div className="text-cyan-300 font-mono pt-1 border-t border-slate-800 text-[9.5px]">
-                    Calculation: ({selectedK2Summary.tennisHours.toFixed(2)} × 1.0) + ({selectedK2Summary.multisportHours.toFixed(2)} × 0.4) + ({selectedK2Summary.mobilityHours.toFixed(2)} × 0.5) = <strong>{selectedK2Summary.effectiveTennisScore.toFixed(2)} pts</strong>
+                    Formula: $(H \times 1.0) + (M \times 0.8) + (Sq \times 0.6) + (Mul \times 0.7) + (Pre \times 0.5) + (Rest \times 0.5)$ = <strong>{selectedK2Summary.effectiveTennisScore.toFixed(2)} pts</strong>
                   </div>
                 </div>
               </div>
@@ -361,14 +436,16 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
             {/* Ideal Pro Benchmark Contribution */}
             <div className="space-y-1 bg-slate-950/60 p-2.5 rounded-lg border border-sky-500/30">
               <div className="flex items-center justify-between font-bold text-sky-400">
-                <span>⭐ Ideal Pro Benchmark (Target: +{selectedSummary.idealScoreTarget.toFixed(2)} pts)</span>
+                <span>⭐ Ideal Pro Benchmark (+{selectedSummary.idealScoreTarget.toFixed(2)} pts/day)</span>
               </div>
               <div className="text-slate-300 space-y-0.5 text-[10px]">
-                <div>• Target Tennis: <strong>{selectedSummary.idealTennisTarget.toFixed(2)}h</strong></div>
+                <div>• Age {profile1.age} Weekly Target: <strong>{(selectedSummary.idealScoreTarget * 7).toFixed(2)} pts/wk</strong></div>
+                <div>• Age {profile1.age} Daily Target Rate: <strong>{selectedSummary.idealScoreTarget.toFixed(2)} pts/day</strong></div>
+                <div>• Target Tennis Volume: <strong>{selectedSummary.idealTennisTarget.toFixed(2)}h</strong></div>
                 <div>• Target Multisport: <strong>{selectedSummary.idealMultisportTarget.toFixed(2)}h</strong></div>
                 <div>• Target Sleep: <strong>{selectedSummary.idealSleepTarget.toFixed(2)}h</strong></div>
                 <div className="text-sky-300 font-mono pt-1 border-t border-slate-800 text-[9.5px]">
-                  Calculation: ({selectedSummary.idealTennisTarget.toFixed(2)} × 0.8) + ({selectedSummary.idealMultisportTarget.toFixed(2)} × 0.4) + (0.50 × 0.5) = <strong>{selectedSummary.idealScoreTarget.toFixed(2)} pts</strong>
+                  Grounded in European Pro Development Pathway A (Standard Schooling + High-Performance Club)
                 </div>
               </div>
             </div>

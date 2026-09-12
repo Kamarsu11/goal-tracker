@@ -57,5 +57,9 @@ export async function initializeDatabase() {
   if (termCount === 0) {
     const autumnTerm = createAutumn2026Term();
     await db.terms.add(autumnTerm);
+  } else {
+    // Update default term structure with clean weekend schedules
+    const autumnTerm = createAutumn2026Term();
+    await db.terms.put(autumnTerm);
   }
 }

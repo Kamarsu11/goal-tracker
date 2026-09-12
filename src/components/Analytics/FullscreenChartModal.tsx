@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './chartConfig';
 import { Line } from 'react-chartjs-2';
 import { DailySummary, ChildProfile } from '../../types';
@@ -24,6 +24,7 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
   showBothKids,
 }) => {
   const chartRef = useRef<any>(null);
+  const [displayMode, setDisplayMode] = useState<'points' | 'normalized'>('points');
 
   if (!isOpen) return null;
 
@@ -32,63 +33,147 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   });
 
-  let cumIdeal = 0;
-  const idealData = k1Summaries.map(s => {
-    cumIdeal += s.idealScoreTarget;
-    return parseFloat(cumIdeal.toFixed(1));
+  const todayStr = new Date().toISOString().split('T')[0];
+
+  let cumIdeal1 = 0;
+  const idealData1 = k1Summaries.map(s => {
+    cumIdeal1 += s.idealScoreTarget;
+    return parseFloat(cumIdeal1.toFixed(2));
+  });
+
+  let cumIdeal2 = 0;
+  const idealData2 = k2Summaries.map(s => {
+    cumIdeal2 += s.idealScoreTarget;
+    return parseFloat(cumIdeal2.toFixed(2));
   });
 
   let cumK1 = 0;
   const k1Data = k1Summaries.map(s => {
-    if (s.status === 'unlogged') return cumK1;
-    cumK1 += s.effectiveTennisScore;
-    return parseFloat(cumK1.toFixed(1));
+    if (s.date > todayStr || s.status === 'unlogged') {
+      return null;
+    }
+    if (s.status === 'confirmed' || s.status === 'sick') {
+      cumK1 += s.effectiveTennisScore;
+      return parseFloat(cumK1.toFixed(2));
+    }
+    return null;
   });
 
   let cumK2 = 0;
   const k2Data = k2Summaries.map(s => {
-    if (s.status === 'unlogged') return cumK2;
-    cumK2 += s.effectiveTennisScore;
-    return parseFloat(cumK2.toFixed(1));
+    if (s.date > todayStr || s.status === 'unlogged') {
+      return null;
+    }
+    if (s.status === 'confirmed' || s.status === 'sick') {
+      cumK2 += s.effectiveTennisScore;
+      return parseFloat(cumK2.toFixed(2));
+    }
+    return null;
   });
 
-  const datasets: any[] = [
-    {
-      label: '⭐ Ideal Pro Target Benchmark',
-      data: idealData,
-      borderColor: '#38bdf8',
-      backgroundColor: 'rgba(56, 189, 248, 0.1)',
-      borderWidth: 3.5,
-      borderDash: [6, 4],
-      pointRadius: 3,
-      fill: true,
-      tension: 0.3,
-    },
-    {
-      label: `🎾 ${profile1.name} (Actual Score)`,
-      data: k1Data,
-      borderColor: '#ccff00',
-      backgroundColor: 'rgba(204, 255, 0, 0.2)',
-      borderWidth: 4,
-      pointRadius: 5,
-      pointBackgroundColor: '#ccff00',
-      fill: false,
-      tension: 0.2,
-    },
-  ];
+  const normIdeal = k1Summaries.map(() => 100);
+  const normK1 = k1Data.map((val, idx) => {
+    if (val === null) return null;
+    const target = idealData1[idx] || 1;
+    return target > 0 ? parseFloat(((val / target) * 100).toFixed(1)) : 100;
+  });
+  const normK2 = k2Data.map((val, idx) => {
+    if (val === null) return null;
+    const target = idealData2[idx] || 1;
+    return target > 0 ? parseFloat(((val / target) * 100).toFixed(1)) : 100;
+  });
 
-  if (showBothKids && profile2) {
-    datasets.push({
-      label: `🎾 ${profile2.name} (Actual Score)`,
-      data: k2Data,
-      borderColor: '#06b6d4',
-      backgroundColor: 'rgba(6, 182, 212, 0.2)',
-      borderWidth: 3.5,
-      pointRadius: 5,
-      pointBackgroundColor: '#06b6d4',
-      fill: false,
-      tension: 0.2,
-    });
+  let datasets: any[] = [];
+
+  if (displayMode === 'normalized') {
+    datasets = [
+      {
+        label: '⭐ 100% Age Milestone Benchmark',
+        data: normIdeal,
+        borderColor: '#38bdf8',
+        borderWidth: 2.5,
+        borderDash: [6, 4],
+        pointRadius: 0,
+        fill: false,
+      },
+      {
+        label: `🎾 ${profile1.name} (% of Age ${profile1.age} Target)`,
+        data: normK1,
+        borderColor: '#ccff00',
+        backgroundColor: 'rgba(204, 255, 0, 0.15)',
+        borderWidth: 4,
+        pointRadius: 5,
+        pointBackgroundColor: '#ccff00',
+        fill: false,
+        tension: 0.2,
+      },
+    ];
+
+    if (showBothKids && profile2) {
+      datasets.push({
+        label: `🎾 ${profile2.name} (% of Age ${profile2.age} Target)`,
+        data: normK2,
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.15)',
+        borderWidth: 4,
+        pointRadius: 5,
+        pointBackgroundColor: '#06b6d4',
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      });
+    }
+  } else {
+    datasets = [
+      {
+        label: `⭐ Ideal Pro Target (${profile1.age}yo Benchmark)`,
+        data: idealData1,
+        borderColor: '#38bdf8',
+        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+        borderWidth: 3.5,
+        borderDash: [6, 4],
+        pointRadius: 3,
+        fill: true,
+        tension: 0.3,
+      },
+      {
+        label: `🎾 ${profile1.name} (Actual Score)`,
+        data: k1Data,
+        borderColor: '#ccff00',
+        backgroundColor: 'rgba(204, 255, 0, 0.2)',
+        borderWidth: 4,
+        pointRadius: 5,
+        pointBackgroundColor: '#ccff00',
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      },
+    ];
+
+    if (showBothKids && profile2) {
+      datasets.push({
+        label: `⭐ Ideal Pro Target (${profile2.age}yo Benchmark)`,
+        data: idealData2,
+        borderColor: '#818cf8',
+        borderWidth: 2.5,
+        borderDash: [4, 4],
+        pointRadius: 0,
+        fill: false,
+      });
+
+      datasets.push({
+        label: `🎾 ${profile2.name} (Actual Score)`,
+        data: k2Data,
+        borderColor: '#06b6d4',
+        backgroundColor: 'rgba(6, 182, 212, 0.2)',
+        borderWidth: 3.5,
+        pointRadius: 5,
+        pointBackgroundColor: '#06b6d4',
+        fill: false,
+        tension: 0.2,
+        spanGaps: true,
+      });
+    }
   }
 
   const chartData = { labels, datasets };
@@ -161,6 +246,30 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Points vs Normalized % Mode Toggle */}
+          <div className="flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-800 text-xs font-semibold">
+            <button
+              onClick={() => setDisplayMode('points')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                displayMode === 'points'
+                  ? 'bg-tennis-500 text-black font-bold shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              Raw Points
+            </button>
+            <button
+              onClick={() => setDisplayMode('normalized')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                displayMode === 'normalized'
+                  ? 'bg-tennis-500 text-black font-bold shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              % Normalized
+            </button>
+          </div>
+
           <button
             onClick={handleReset}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-200 rounded-xl text-xs font-semibold"

@@ -11,20 +11,22 @@ export interface ChildProfile {
 }
 
 export type ActivityCategory =
-  | 'tennis_focus'      // High-Intensity Tennis (Match / Dad 1:1 / Serves)
-  | 'tennis_squad'      // Standard Practice Tennis (Group / Light Practice)
-  | 'tennis_match'      // Match Play / Tournament
-  | 'tennis_companion'  // Tactical & Agility Training (Footwork / Charting / Video)
-  | 'tennis_iq'         // Tennis IQ & Video Analysis
-  | 'multisport'        // Multisport Athleticism (Gymnastics / TKD / Parkour)
-  | 'mobility_prehab'   // Mobility, Foam Roll & Injury Pre-hab
-  | 'school'            // School (Mandatory)
-  | 'study_homework'    // Homework & Study
-  | 'transit'           // Transit & Travel / Waiting
-  | 'sleep'             // Sleep & Physical Recovery
-  | 'guilt_free_fun'    // Guilt-Free Fun / Gaming / Chill
-  | 'unnoticed_time'    // Unnoticed / Idle Dead Time (Silent Killer)
-  | 'unlogged_missing'; // Unrecorded / Incomplete Log Gap
+  | 'tennis_focus'        // High-Intensity Tennis (Dad 1:1, Intensive Drills, Tournament Match) - 1.00
+  | 'tennis_match'        // Practice Match Play (Competitive Sets, Tiebreak Shootout) - 0.80
+  | 'multisport'          // Multisport Athleticism (MAG Gymnastics, Taekwondo, Parkour) - 0.70
+  | 'tennis_squad'        // Standard Practice / Squad Tennis (Club Group Training) - 0.60
+  | 'tennis_sc_footwork'  // Tennis S&C & Footwork (Agility, Speed Ladders, Core) - 0.60
+  | 'mobility_prehab'     // Pre-hab & Injury Prevention (Bands, Foam Rolling, Mobility) - 0.50
+  | 'intentional_rest'    // Intentional Rest (Screen-free Active Physical/Mental Recovery) - 0.50
+  | 'tennis_iq'           // Tennis IQ & Video Analysis (Match Charting, Tactical Study) - 0.50
+  | 'tennis_companion'    // Tactical & Agility Training (Legacy alias, 0.70)
+  | 'school'              // School (Mandatory) - 0.00
+  | 'study_homework'      // Homework & Study - 0.00
+  | 'transit'             // Transit & Travel / Waiting - 0.00
+  | 'sleep'               // Sleep & Physical Recovery - 0.00
+  | 'guilt_free_fun'      // Guilt-Free Fun / Free Play / Gaming - 0.00
+  | 'unnoticed_time'      // Unnoticed / Idle Dead Time (Silent Killer) - 0.00
+  | 'unlogged_missing';   // Unrecorded / Incomplete Log Gap - 0.00
 
 export interface CategoryMeta {
   id: ActivityCategory;
@@ -35,7 +37,8 @@ export interface CategoryMeta {
   textClass: string;
   borderClass: string;
   isProductive: boolean;
-  effectiveWeight: number; // For Quality Tennis Score index
+  effectiveWeight: number; // Quality points per hour
+  description?: string;
 }
 
 export interface ActivityBlock {
@@ -84,15 +87,18 @@ export interface TermSchedule {
 export interface AgeIdealBenchmark {
   age: number;
   weeklyTargets: {
-    tennisTotalHours: number;
-    tennisFocusRatio: number; // % of tennis that should be 1:1 / match play
+    weeklyScoreTarget: number; // e.g. 17.60 for age 10, 19.45 for age 11
+    dailyScoreTarget: number;  // weeklyScoreTarget / 7
+    highIntensityTennisHours: number;
+    practiceMatchHours: number;
+    squadPracticeHours: number;
     multisportHours: number;
-    mobilityHours: number;
+    scFootworkHours: number;
+    prehabHours: number;
+    intentionalRestHours: number;
     tennisIqHours: number;
     sleepHoursPerNight: number;
-    studyHours: number;
-    maxGuiltFreeLeisureHours: number;
-    maxUnnoticedHoursPerWeek: number;
+    studyHoursPerWeek: number;
   };
 }
 
@@ -102,9 +108,15 @@ export interface DailySummary {
   status: DayStatus;
   totalLoggedHours: number;
   tennisHours: number;
+  highIntensityTennisHours: number;
+  practiceMatchHours: number;
+  squadTennisHours: number;
   effectiveTennisScore: number;
   multisportHours: number;
+  scFootworkHours: number;
   mobilityHours: number;
+  intentionalRestHours: number;
+  tennisIqHours: number;
   transitHours: number;
   schoolHours: number;
   studyHours: number;
@@ -116,5 +128,5 @@ export interface DailySummary {
   idealMultisportTarget: number;
   idealSleepTarget: number;
   idealScoreTarget: number;
-  performanceScore: number; // 0 - 100+
+  performanceScore: number; // Percentage vs ideal (e.g. 100%)
 }

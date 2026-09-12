@@ -3,80 +3,110 @@ import { ActivityCategory, CategoryMeta, ActivityBlock } from '../types';
 export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
   tennis_focus: {
     id: 'tennis_focus',
-    label: 'High-Intensity Tennis (Match / Dad 1:1 / Drills)',
+    label: 'High-Intensity Tennis (Dad 1:1, Intensive Drills, Match)',
     shortLabel: 'High-Intensity Tennis',
     color: '#84cc16', // neon/lime green
     bgClass: 'bg-lime-500/20',
     textClass: 'text-lime-400',
     borderClass: 'border-lime-500/50',
     isProductive: true,
-    effectiveWeight: 1.0, // High efficiency (1.0x)
-  },
-  tennis_squad: {
-    id: 'tennis_squad',
-    label: 'Standard Practice Tennis (Group / Light Practice)',
-    shortLabel: 'Standard Practice',
-    color: '#10b981', // emerald green
-    bgClass: 'bg-emerald-500/20',
-    textClass: 'text-emerald-400',
-    borderClass: 'border-emerald-500/50',
-    isProductive: true,
-    effectiveWeight: 0.4, // Standard group practice (0.4x)
+    effectiveWeight: 1.00, // 1.00 pt / hour
+    description: '1:1 intensive coach/Dad sessions, basket feeding at high ball speed, serve target volume under match pressure',
   },
   tennis_match: {
     id: 'tennis_match',
-    label: 'Match Play / Tournament',
-    shortLabel: 'Match Play',
+    label: 'Practice Match Play (Sets, Tiebreaks)',
+    shortLabel: 'Practice Match Play',
     color: '#eab308', // gold/yellow
     bgClass: 'bg-amber-500/20',
     textClass: 'text-amber-400',
     borderClass: 'border-amber-500/50',
     isProductive: true,
-    effectiveWeight: 1.0,
-  },
-  tennis_companion: {
-    id: 'tennis_companion',
-    label: 'Tactical & Agility Training (Footwork / Charting)',
-    shortLabel: 'Tactical & Agility',
-    color: '#06b6d4', // cyan
-    bgClass: 'bg-cyan-500/20',
-    textClass: 'text-cyan-400',
-    borderClass: 'border-cyan-500/50',
-    isProductive: true,
-    effectiveWeight: 0.7,
-  },
-  tennis_iq: {
-    id: 'tennis_iq',
-    label: 'Tennis IQ & Video Analysis',
-    shortLabel: 'Tennis IQ',
-    color: '#38bdf8', // light blue
-    bgClass: 'bg-sky-500/20',
-    textClass: 'text-sky-400',
-    borderClass: 'border-sky-500/50',
-    isProductive: true,
-    effectiveWeight: 0.7,
+    effectiveWeight: 0.80, // 0.80 pt / hour
+    description: 'Practice sets, tiebreak shootouts, match simulations against peers or club partners',
   },
   multisport: {
     id: 'multisport',
-    label: 'Multisport Athleticism (Gym / TKD / Parkour)',
-    shortLabel: 'Multisport',
+    label: 'Multisport Athleticism (MAG Gymnastics, TKD, Parkour)',
+    shortLabel: 'Multisport Athleticism',
     color: '#6366f1', // indigo
     bgClass: 'bg-indigo-500/20',
     textClass: 'text-indigo-400',
     borderClass: 'border-indigo-500/50',
     isProductive: true,
-    effectiveWeight: 0.4,
+    effectiveWeight: 0.70, // 0.70 pt / hour
+    description: 'Non-tennis sports building core strength, hip mobility, rotational power, and spatial awareness',
+  },
+  tennis_squad: {
+    id: 'tennis_squad',
+    label: 'Standard Practice / Squad Tennis (Group Training)',
+    shortLabel: 'Squad Practice',
+    color: '#10b981', // emerald green
+    bgClass: 'bg-emerald-500/20',
+    textClass: 'text-emerald-400',
+    borderClass: 'border-emerald-500/50',
+    isProductive: true,
+    effectiveWeight: 0.60, // 0.60 pt / hour
+    description: 'Club group sessions (1:3 or 1:4 with coach), continuous rallying, tactical group drills',
+  },
+  tennis_sc_footwork: {
+    id: 'tennis_sc_footwork',
+    label: 'Tennis S&C & Footwork (Agility, Speed Ladders, Core)',
+    shortLabel: 'S&C & Footwork',
+    color: '#f59e0b', // amber orange
+    bgClass: 'bg-amber-500/20',
+    textClass: 'text-amber-400',
+    borderClass: 'border-amber-500/50',
+    isProductive: true,
+    effectiveWeight: 0.60, // 0.60 pt / hour
+    description: 'Tennis-specific agility, split-step speed, change-of-direction ladders, core stability, medball throws',
   },
   mobility_prehab: {
     id: 'mobility_prehab',
-    label: 'Mobility, Foam Roll & Injury Pre-hab',
-    shortLabel: 'Mobility / Prehab',
+    label: 'Pre-hab & Injury Prevention (Bands, Foam Roll, Mobility)',
+    shortLabel: 'Pre-hab & Injury Prev',
     color: '#ec4899', // pink
     bgClass: 'bg-pink-500/20',
     textClass: 'text-pink-400',
     borderClass: 'border-pink-500/50',
     isProductive: true,
-    effectiveWeight: 0.5,
+    effectiveWeight: 0.50, // 0.50 pt / hour
+    description: 'Shoulder rotator cuff band work, foam rolling, dynamic hip/ankle stretching, post-workout recovery',
+  },
+  intentional_rest: {
+    id: 'intentional_rest',
+    label: 'Intentional Rest (Active Recovery, Zero-Screen)',
+    shortLabel: 'Intentional Rest',
+    color: '#06b6d4', // cyan
+    bgClass: 'bg-cyan-500/20',
+    textClass: 'text-cyan-400',
+    borderClass: 'border-cyan-500/50',
+    isProductive: true,
+    effectiveWeight: 0.50, // 0.50 pt / hour
+    description: 'Deliberate screen-free physical/mental recovery: legs-up, breathwork, quiet reading, 20m power nap, Epsom bath',
+  },
+  tennis_iq: {
+    id: 'tennis_iq',
+    label: 'Tennis IQ & Video Analysis (Match Charting, Tactics)',
+    shortLabel: 'Tennis IQ & Video',
+    color: '#38bdf8', // sky blue
+    bgClass: 'bg-sky-500/20',
+    textClass: 'text-sky-400',
+    borderClass: 'border-sky-500/50',
+    isProductive: true,
+    effectiveWeight: 0.50, // 0.50 pt / hour
+    description: 'Match scouting/charting, tactical video breakdown of ATP/WTA pros, stroke analysis',
+  },
+  tennis_companion: {
+    id: 'tennis_companion',
+    label: 'Tactical & Agility Training (Legacy)',
+    shortLabel: 'Tactical & Agility',
+    color: '#06b6d4',
+    bgClass: 'bg-cyan-500/20',
+    textClass: 'text-cyan-400',
+    borderClass: 'border-cyan-500/50',
+    isProductive: true,
+    effectiveWeight: 0.70,
   },
   school: {
     id: 'school',
@@ -87,7 +117,7 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     textClass: 'text-slate-300',
     borderClass: 'border-slate-500/50',
     isProductive: false,
-    effectiveWeight: 0.0,
+    effectiveWeight: 0.00,
   },
   study_homework: {
     id: 'study_homework',
@@ -97,8 +127,9 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     bgClass: 'bg-purple-500/20',
     textClass: 'text-purple-400',
     borderClass: 'border-purple-500/50',
-    isProductive: true,
-    effectiveWeight: 0.5,
+    isProductive: false,
+    effectiveWeight: 0.00,
+    description: 'School homework, study time, language practice (essential academic foundation)',
   },
   transit: {
     id: 'transit',
@@ -109,7 +140,7 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     textClass: 'text-orange-400',
     borderClass: 'border-orange-500/50',
     isProductive: false,
-    effectiveWeight: 0.0,
+    effectiveWeight: 0.00,
   },
   sleep: {
     id: 'sleep',
@@ -119,19 +150,20 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     bgClass: 'bg-blue-500/20',
     textClass: 'text-blue-400',
     borderClass: 'border-blue-500/50',
-    isProductive: true,
-    effectiveWeight: 0.5,
+    isProductive: false,
+    effectiveWeight: 0.00,
   },
   guilt_free_fun: {
     id: 'guilt_free_fun',
-    label: 'Guilt-Free Fun / Gaming / Chill',
-    shortLabel: 'Guilt-Free Fun',
+    label: 'Guilt-Free Free Play / Gaming / Chill',
+    shortLabel: 'Guilt-Free Free Play',
     color: '#14b8a6', // teal
     bgClass: 'bg-teal-500/20',
     textClass: 'text-teal-400',
     borderClass: 'border-teal-500/50',
     isProductive: false,
-    effectiveWeight: 0.0,
+    effectiveWeight: 0.00,
+    description: 'Unstructured entertainment, gaming, social relaxation with family/friends (healthy mental decompression)',
   },
   unnoticed_time: {
     id: 'unnoticed_time',
@@ -142,18 +174,18 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     textClass: 'text-red-400',
     borderClass: 'border-red-500/50',
     isProductive: false,
-    effectiveWeight: -0.2, // Negative drag
+    effectiveWeight: 0.00,
   },
   unlogged_missing: {
     id: 'unlogged_missing',
     label: 'Unrecorded / Incomplete Log Gap',
-    shortLabel: 'Unlogged',
+    shortLabel: 'Unlogged Gap',
     color: '#64748b', // gray hatched
     bgClass: 'bg-slate-700/30',
     textClass: 'text-slate-400',
     borderClass: 'border-dashed border-slate-600',
     isProductive: false,
-    effectiveWeight: 0.0,
+    effectiveWeight: 0.00,
   },
 };
 
@@ -232,12 +264,14 @@ export interface DayCoverage {
 export function computeDayCoverage(blocks: ActivityBlock[], isDayConfirmed: boolean): DayCoverage {
   const categoryTotals: Record<ActivityCategory, number> = {
     tennis_focus: 0,
-    tennis_squad: 0,
     tennis_match: 0,
-    tennis_companion: 0,
-    tennis_iq: 0,
     multisport: 0,
+    tennis_squad: 0,
+    tennis_sc_footwork: 0,
     mobility_prehab: 0,
+    intentional_rest: 0,
+    tennis_iq: 0,
+    tennis_companion: 0,
     school: 0,
     study_homework: 0,
     transit: 0,
@@ -260,7 +294,7 @@ export function computeDayCoverage(blocks: ActivityBlock[], isDayConfirmed: bool
 
     // Calculate effective weight
     const meta = CATEGORY_DEFINITIONS[block.category];
-    if (meta && (block.category.startsWith('tennis') || block.category === 'multisport' || block.category === 'mobility_prehab')) {
+    if (meta && meta.effectiveWeight > 0) {
       effectiveTennis += dur * meta.effectiveWeight;
     }
   }

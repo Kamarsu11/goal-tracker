@@ -4,57 +4,120 @@ export const AGE_BENCHMARKS: Record<number, AgeIdealBenchmark> = {
   10: {
     age: 10,
     weeklyTargets: {
-      tennisTotalHours: 12.0,
-      tennisFocusRatio: 0.6, // 60% should be focused/match
-      multisportHours: 10.0,
-      mobilityHours: 2.5,
+      weeklyScoreTarget: 17.60,
+      dailyScoreTarget: 2.51,
+      highIntensityTennisHours: 3.5,
+      practiceMatchHours: 2.0,
+      squadPracticeHours: 5.0,
+      multisportHours: 8.0,
+      scFootworkHours: 1.5,
+      prehabHours: 2.0,
+      intentionalRestHours: 2.5,
       tennisIqHours: 1.5,
       sleepHoursPerNight: 9.75, // ~68 hrs/week
-      studyHours: 3.0,
-      maxGuiltFreeLeisureHours: 14.0, // ~2 hrs/day
-      maxUnnoticedHoursPerWeek: 8.0,
+      studyHoursPerWeek: 4.0,   // ~2h Sat + 2h Sun
     },
   },
   11: {
     age: 11,
     weeklyTargets: {
-      tennisTotalHours: 13.5,
-      tennisFocusRatio: 0.65,
-      multisportHours: 10.0,
-      mobilityHours: 3.0,
-      tennisIqHours: 2.0,
+      weeklyScoreTarget: 19.45,
+      dailyScoreTarget: 2.78,
+      highIntensityTennisHours: 4.5,
+      practiceMatchHours: 2.5,
+      squadPracticeHours: 5.0,
+      multisportHours: 7.5,
+      scFootworkHours: 2.0,
+      prehabHours: 2.5,
+      intentionalRestHours: 3.0,
+      tennisIqHours: 1.5,
       sleepHoursPerNight: 9.5, // ~66.5 hrs/week
-      studyHours: 4.0,
-      maxGuiltFreeLeisureHours: 14.0,
-      maxUnnoticedHoursPerWeek: 8.0,
+      studyHoursPerWeek: 4.0,  // ~2h Sat + 2h Sun
     },
   },
   12: {
     age: 12,
     weeklyTargets: {
-      tennisTotalHours: 16.0,
-      tennisFocusRatio: 0.7,
-      multisportHours: 6.0, // Drop parkour/TKD, keep gymnastics/S&C
-      mobilityHours: 3.5,
-      tennisIqHours: 2.5,
+      weeklyScoreTarget: 20.95,
+      dailyScoreTarget: 2.99,
+      highIntensityTennisHours: 6.0,
+      practiceMatchHours: 3.0,
+      squadPracticeHours: 5.0,
+      multisportHours: 5.0,
+      scFootworkHours: 3.0,
+      prehabHours: 3.0,
+      intentionalRestHours: 3.5,
+      tennisIqHours: 2.0,
       sleepHoursPerNight: 9.5,
-      studyHours: 5.0,
-      maxGuiltFreeLeisureHours: 12.0,
-      maxUnnoticedHoursPerWeek: 6.0,
+      studyHoursPerWeek: 5.0,
     },
   },
   13: {
     age: 13,
     weeklyTargets: {
-      tennisTotalHours: 19.0,
-      tennisFocusRatio: 0.8,
-      multisportHours: 3.0, // Tennis-specific S&C only
-      mobilityHours: 4.0,
-      tennisIqHours: 3.0,
+      weeklyScoreTarget: 22.80,
+      dailyScoreTarget: 3.26,
+      highIntensityTennisHours: 8.0,
+      practiceMatchHours: 4.0,
+      squadPracticeHours: 4.0,
+      multisportHours: 2.5,
+      scFootworkHours: 4.5,
+      prehabHours: 3.5,
+      intentionalRestHours: 4.0,
+      tennisIqHours: 2.0,
       sleepHoursPerNight: 9.25,
-      studyHours: 6.0,
-      maxGuiltFreeLeisureHours: 10.0,
-      maxUnnoticedHoursPerWeek: 5.0,
+      studyHoursPerWeek: 6.0,
+    },
+  },
+  14: {
+    age: 14,
+    weeklyTargets: {
+      weeklyScoreTarget: 25.50,
+      dailyScoreTarget: 3.64,
+      highIntensityTennisHours: 10.0,
+      practiceMatchHours: 4.0,
+      squadPracticeHours: 4.0,
+      multisportHours: 1.0,
+      scFootworkHours: 5.5,
+      prehabHours: 4.0,
+      intentionalRestHours: 4.5,
+      tennisIqHours: 2.5,
+      sleepHoursPerNight: 9.0,
+      studyHoursPerWeek: 6.0,
+    },
+  },
+  15: {
+    age: 15,
+    weeklyTargets: {
+      weeklyScoreTarget: 28.50,
+      dailyScoreTarget: 4.07,
+      highIntensityTennisHours: 12.0,
+      practiceMatchHours: 4.0,
+      squadPracticeHours: 3.0,
+      multisportHours: 0.0,
+      scFootworkHours: 7.0,
+      prehabHours: 4.5,
+      intentionalRestHours: 5.0,
+      tennisIqHours: 3.0,
+      sleepHoursPerNight: 9.0,
+      studyHoursPerWeek: 6.0,
+    },
+  },
+  16: {
+    age: 16,
+    weeklyTargets: {
+      weeklyScoreTarget: 32.00,
+      dailyScoreTarget: 4.57,
+      highIntensityTennisHours: 15.0,
+      practiceMatchHours: 4.0,
+      squadPracticeHours: 2.0,
+      multisportHours: 0.0,
+      scFootworkHours: 8.5,
+      prehabHours: 5.0,
+      intentionalRestHours: 5.0,
+      tennisIqHours: 3.5,
+      sleepHoursPerNight: 9.0,
+      studyHoursPerWeek: 6.0,
     },
   },
 };
@@ -143,38 +206,30 @@ export function createAutumn2026Term(): TermSchedule {
     { id: 'k1-fri-trans-parkour', category: 'transit', title: 'Drive to Parkour', startTime: '17:30', endTime: '18:00', durationHours: 0.5, completed: false },
     { id: 'k1-fri-parkour', category: 'multisport', title: 'Parkour', startTime: '18:00', endTime: '19:30', durationHours: 1.5, completed: false },
     { id: 'k1-fri-trans-home', category: 'transit', title: 'Drive Home', startTime: '19:30', endTime: '20:15', durationHours: 0.75, completed: false },
-    { id: 'k1-fri-movie-night', category: 'guilt_free_fun', title: 'Dinner & Friday Movie / Gaming Night', startTime: '20:15', endTime: '21:45', durationHours: 1.5, completed: false },
-    { id: 'k1-fri-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '21:45', endTime: '24:00', durationHours: 2.25, completed: false },
+    { id: 'k1-fri-movie-night', category: 'guilt_free_fun', title: 'Dinner & Friday Movie / Gaming Night', startTime: '20:15', endTime: '22:00', durationHours: 1.75, completed: false },
+    { id: 'k1-fri-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '22:00', endTime: '24:00', durationHours: 2.0, completed: false },
   ];
 
   const kid1Saturday: ActivityBlock[] = [
-    { id: 'k1-sat-sleep-prev', category: 'sleep', title: 'Night Sleep (Cont. from Fri)', startTime: '00:00', endTime: '07:30', durationHours: 7.5, completed: false },
-    { id: 'k1-sat-breakfast', category: 'guilt_free_fun', title: 'Wake up, Big Breakfast', startTime: '07:30', endTime: '08:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sat-tennis-match', category: 'tennis_focus', title: 'Tennis Training (Match Sim / Points with Dad)', startTime: '08:30', endTime: '10:30', durationHours: 2.0, completed: false },
+    { id: 'k1-sat-sleep-prev', category: 'sleep', title: 'Night Sleep (Cont. from Fri)', startTime: '00:00', endTime: '08:30', durationHours: 8.5, completed: false },
+    { id: 'k1-sat-breakfast', category: 'guilt_free_fun', title: 'Wake up, Big Breakfast', startTime: '08:30', endTime: '09:30', durationHours: 1.0, completed: false },
+    { id: 'k1-sat-homework', category: 'study_homework', title: 'Study & Homework Block', startTime: '09:30', endTime: '11:30', durationHours: 2.0, completed: false },
     { id: 'k1-sat-trans-tkd', category: 'transit', title: 'Drive to Taekwondo', startTime: '10:30', endTime: '11:00', durationHours: 0.5, completed: false },
-    { id: 'k1-sat-tkd', category: 'multisport', title: 'Taekwondo', startTime: '11:00', endTime: '12:00', durationHours: 1.0, completed: false },
+    { id: 'k1-sat-tkd', category: 'multisport', title: 'Taekwondo (Footwork & Agility)', startTime: '11:00', endTime: '12:00', durationHours: 1.0, completed: false },
     { id: 'k1-sat-lunch', category: 'guilt_free_fun', title: 'Drive Home & Lunch', startTime: '12:00', endTime: '13:00', durationHours: 1.0, completed: false },
-    { id: 'k1-sat-homework', category: 'study_homework', title: 'Weekly School Homework', startTime: '13:00', endTime: '14:00', durationHours: 1.0, completed: false },
-    { id: 'k1-sat-play', category: 'guilt_free_fun', title: 'Guilt-Free PlayStation / Friends / Free Play', startTime: '14:00', endTime: '17:30', durationHours: 3.5, completed: false },
-    { id: 'k1-sat-outing', category: 'guilt_free_fun', title: 'Family Free Outing / Outdoor Play', startTime: '17:30', endTime: '19:30', durationHours: 2.0, completed: false },
-    { id: 'k1-sat-dinner', category: 'guilt_free_fun', title: 'Dinner & Family Time', startTime: '19:30', endTime: '20:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sat-prehab', category: 'mobility_prehab', title: 'Full Body Foam Roll & Stretch', startTime: '20:30', endTime: '21:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sat-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '21:30', endTime: '24:00', durationHours: 2.5, completed: false },
+    { id: 'k1-sat-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '22:00', endTime: '24:00', durationHours: 2.0, completed: false },
   ];
 
   const kid1Sunday: ActivityBlock[] = [
-    { id: 'k1-sun-sleep-prev', category: 'sleep', title: 'Night Sleep (Cont. from Sat)', startTime: '00:00', endTime: '07:30', durationHours: 7.5, completed: false },
-    { id: 'k1-sun-breakfast', category: 'guilt_free_fun', title: 'Wake up & Nutritious Breakfast', startTime: '07:30', endTime: '08:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sun-tennis-serves', category: 'tennis_focus', title: 'Tennis Serve Volume (150 Serves) & Drill', startTime: '08:30', endTime: '10:30', durationHours: 2.0, completed: false },
-    { id: 'k1-sun-play1', category: 'guilt_free_fun', title: 'Guilt-Free Play / Gaming', startTime: '10:30', endTime: '12:30', durationHours: 2.0, completed: false },
+    { id: 'k1-sun-sleep-prev', category: 'sleep', title: 'Night Sleep (Cont. from Sat)', startTime: '00:00', endTime: '08:30', durationHours: 8.5, completed: false },
+    { id: 'k1-sun-breakfast', category: 'guilt_free_fun', title: 'Wake up & Nutritious Breakfast', startTime: '08:30', endTime: '09:30', durationHours: 1.0, completed: false },
+    { id: 'k1-sun-study', category: 'study_homework', title: 'Study & Homework Block', startTime: '10:00', endTime: '12:00', durationHours: 2.0, completed: false },
     { id: 'k1-sun-lunch', category: 'guilt_free_fun', title: 'Lunch with Family', startTime: '12:30', endTime: '13:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sun-outing', category: 'guilt_free_fun', title: 'Outdoor Active Outing / Bike / Rest', startTime: '13:30', endTime: '16:30', durationHours: 3.0, completed: false },
-    { id: 'k1-sun-prep', category: 'study_homework', title: 'School Bag Prep & Next Week Review', startTime: '16:30', endTime: '17:30', durationHours: 1.0, completed: false },
+    { id: 'k1-sun-rest', category: 'intentional_rest', title: 'Intentional Rest (Active Recovery / Quiet Reading)', startTime: '14:00', endTime: '15:30', durationHours: 1.5, completed: false },
     { id: 'k1-sun-trans-parkour', category: 'transit', title: 'Drive to Parkour', startTime: '17:30', endTime: '18:00', durationHours: 0.5, completed: false },
     { id: 'k1-sun-parkour', category: 'multisport', title: 'Parkour', startTime: '18:00', endTime: '19:30', durationHours: 1.5, completed: false },
     { id: 'k1-sun-dinner', category: 'guilt_free_fun', title: 'Drive Home & Dinner', startTime: '19:30', endTime: '20:30', durationHours: 1.0, completed: false },
-    { id: 'k1-sun-prehab', category: 'mobility_prehab', title: 'Mobility & Pre-bed Foam Roll', startTime: '20:30', endTime: '21:15', durationHours: 0.75, completed: false },
-    { id: 'k1-sun-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '21:15', endTime: '24:00', durationHours: 2.75, completed: false },
+    { id: 'k1-sun-sleep-night', category: 'sleep', title: 'Night Sleep', startTime: '21:30', endTime: '24:00', durationHours: 2.5, completed: false },
   ];
 
   // Kid 2 (10yo) schedules:
@@ -195,7 +250,7 @@ export function createAutumn2026Term(): TermSchedule {
     startTime: '14:20',
     endTime: '15:05',
     durationHours: 0.75,
-    completed: true,
+    completed: false,
   });
 
   const kid2Friday = kid1Friday.map(b => {
@@ -239,13 +294,15 @@ export function createAutumn2026Term(): TermSchedule {
 
 /**
  * Dynamic Ideal Pro Target Engine for a specific day
- * Takes date, child age, day log flags (holiday, sick, match day, cancelled activities)
- * and calculates the exact ideal target hours for that day!
+ * Takes date, child age, and day log flags
+ * Calculates the exact ideal target hours and points for that day based on European Pathway benchmarks!
  */
 export interface CalculatedIdealDay {
   tennisHours: number;
   multisportHours: number;
   mobilityHours: number;
+  intentionalRestHours: number;
+  tennisIqHours: number;
   sleepHours: number;
   studyHours: number;
   transitHours: number;
@@ -277,11 +334,13 @@ export function calculateIdealForDay(
       tennisHours: 0,
       multisportHours: 0,
       mobilityHours: 0,
+      intentionalRestHours: 4.0,
+      tennisIqHours: 0,
       sleepHours: 12.0, // Extra recovery sleep
-      studyHours: 0.5,
+      studyHours: 0.0,
       transitHours: 0,
       schoolHours: 0,
-      guiltFreeFunHours: 11.5, // Rest and quiet recovery
+      guiltFreeFunHours: 8.0, // Quiet bed rest
       effectiveScoreTarget: 0, // Pauses score growth without penalty
       statusNote: '🤒 Sick Day Mode: Training target paused, recovery prioritized',
     };
@@ -290,21 +349,26 @@ export function calculateIdealForDay(
   // MATCH DAY HANDLING (Weekend or Tournament):
   if (flags.isMatchDay) {
     const sleep = benchmark.weeklyTargets.sleepHoursPerNight;
-    const tennis = 3.5; // Match warmup, match, cooldown
+    const tennis = 3.5; // Match warmup, tournament match sets, cooldown
     const mobility = 0.75; // Foam rolling & prehab
+    const intentionalRest = 1.0;
+    const tennisIq = 0.5;
     const transit = 1.5;
-    const study = isWeekend ? 1.0 : 0.5;
-    const fun = Math.max(0, 24 - (sleep + tennis + mobility + transit + study));
+    const study = isWeekend ? 2.0 : 0.5;
+    const fun = Math.max(0, 24 - (sleep + tennis + mobility + intentionalRest + tennisIq + transit + study));
+    const score = (tennis * 1.00) + (mobility * 0.50) + (intentionalRest * 0.50) + (tennisIq * 0.50);
     return {
       tennisHours: tennis,
       multisportHours: 0,
       mobilityHours: mobility,
+      intentionalRestHours: intentionalRest,
+      tennisIqHours: tennisIq,
       sleepHours: sleep,
       studyHours: study,
       transitHours: transit,
       schoolHours: 0,
       guiltFreeFunHours: fun,
-      effectiveScoreTarget: tennis * 1.0 + mobility * 0.5,
+      effectiveScoreTarget: parseFloat(score.toFixed(2)),
       statusNote: '🏆 Match Day: Full intensity match load applied',
     };
   }
@@ -312,75 +376,91 @@ export function calculateIdealForDay(
   // SCHOOL HOLIDAY HANDLING (Weekday with no school):
   if (flags.isSchoolHoliday && !isWeekend) {
     const sleep = 10.0;
-    const tennis = 2.5; // +1h morning session + regular
+    const tennis = 3.0; // Morning court/wall + afternoon squad
     const multisport = 2.0;
     const mobility = 0.5;
+    const intentionalRest = 1.0;
+    const tennisIq = 0.5;
     const transit = 1.0;
     const study = 1.0;
-    const fun = Math.max(0, 24 - (sleep + tennis + multisport + mobility + transit + study));
+    const fun = Math.max(0, 24 - (sleep + tennis + multisport + mobility + intentionalRest + tennisIq + transit + study));
+    const score = (1.5 * 1.00) + (1.5 * 0.60) + (multisport * 0.70) + (mobility * 0.50) + (intentionalRest * 0.50) + (tennisIq * 0.50);
     return {
       tennisHours: tennis,
       multisportHours: multisport,
       mobilityHours: mobility,
+      intentionalRestHours: intentionalRest,
+      tennisIqHours: tennisIq,
       sleepHours: sleep,
       studyHours: study,
       transitHours: transit,
       schoolHours: 0,
       guiltFreeFunHours: fun,
-      effectiveScoreTarget: tennis * 0.8 + multisport * 0.4 + mobility * 0.5,
-      statusNote: '🏖 School Holiday: Replaced school with extra court time and guilt-free fun',
+      effectiveScoreTarget: parseFloat(score.toFixed(2)),
+      statusNote: '🏖 School Holiday: Replaced school with extra court time and rest',
     };
   }
 
-  // STANDARD DAY (WITH DYNAMIC CANCELLATION REDISTRIBUTION):
+  // STANDARD DAY BENCHMARK (Reliable daily target rate based on age benchmark):
+  // Baseline daily target score is benchmark.weeklyTargets.dailyScoreTarget
   let tennis = 0;
   let multisport = 0;
   let mobility = 0.5;
+  let intentionalRest = 0.5;
+  let tennisIq = 0.25;
   let school = isWeekend ? 0 : 6.0;
   let transit = isWeekend ? 1.0 : 2.0;
-  let study = isWeekend ? 1.0 : 0.5;
+  let study = isWeekend ? 2.0 : 0.5;
   let sleep = benchmark.weeklyTargets.sleepHoursPerNight;
 
   if (dayOfWeek === 'monday' || dayOfWeek === 'wednesday') {
-    tennis = 1.25; // Morning session
+    tennis = 1.25; // Morning High-intensity
     multisport = flags.hasCancelledGymnastics ? 0 : 2.5; // Gymnastics
     if (flags.hasCancelledGymnastics) {
-      // 45m home core/agility converted
-      mobility += 0.75;
+      mobility += 0.5;
+      intentionalRest += 1.0;
       transit -= 1.0;
     }
   } else if (dayOfWeek === 'tuesday') {
     tennis = flags.hasCancelledTennis ? 0 : 1.0; // Club squad
     multisport = flags.hasCancelledTKD ? 0 : 2.17; // Taekwondo
   } else if (dayOfWeek === 'thursday') {
-    tennis = 2.0; // 1h club squad + 1h 1:1 Dad session
+    tennis = 2.0; // 1h squad + 1h 1:1 Dad session
     multisport = 0;
+    tennisIq = 0.5;
   } else if (dayOfWeek === 'friday') {
     tennis = 3.25; // 1.25 morning + 2.0 squad
     multisport = flags.hasCancelledParkour ? 0 : 1.5;
   } else if (dayOfWeek === 'saturday') {
-    tennis = 2.0; // Point play / match sim
+    tennis = 2.0; // Practice Match sets
     multisport = 1.0; // TKD
+    study = 2.0;
+    intentionalRest = 1.0;
   } else if (dayOfWeek === 'sunday') {
-    tennis = 2.0; // Serve volume + drills
+    tennis = 2.0; // Serve volume + Focus drills
     multisport = flags.hasCancelledParkour ? 0 : 1.5;
+    study = 2.0;
+    intentionalRest = 1.0;
   }
 
-  const allocated = tennis + multisport + mobility + school + transit + study + sleep;
+  const allocated = tennis + multisport + mobility + intentionalRest + tennisIq + school + transit + study + sleep;
   const fun = Math.max(0, parseFloat((24.0 - allocated).toFixed(2)));
 
-  const effectiveScore = tennis * 0.8 + multisport * 0.4 + mobility * 0.5;
+  // Daily target rate for the age milestone (e.g. 2.78 pts/day for Age 11, 2.51 pts/day for Age 10)
+  const targetScore = benchmark.weeklyTargets.dailyScoreTarget;
 
   return {
     tennisHours: tennis,
     multisportHours: multisport,
     mobilityHours: mobility,
+    intentionalRestHours: intentionalRest,
+    tennisIqHours: tennisIq,
     sleepHours: sleep,
     studyHours: study,
     transitHours: transit,
     schoolHours: school,
     guiltFreeFunHours: fun,
-    effectiveScoreTarget: parseFloat(effectiveScore.toFixed(2)),
-    statusNote: 'Standard Dynamic Ideal Pro Day',
+    effectiveScoreTarget: targetScore,
+    statusNote: `Ideal Pro Target for Age ${age} (${targetScore.toFixed(2)} pts/day)`,
   };
 }

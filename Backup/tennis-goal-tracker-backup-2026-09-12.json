@@ -1,0 +1,2022 @@
+{
+  "version": 1,
+  "appName": "TennisProGoalTracker",
+  "exportedAt": "2026-09-12T10:22:30.370Z",
+  "profiles": [
+    {
+      "id": "kid1",
+      "name": "Devagna",
+      "age": 11,
+      "birthYear": 2015,
+      "primarySport": "Tennis",
+      "secondarySports": [
+        "Gymnastics",
+        "Taekwondo",
+        "Parkour"
+      ],
+      "avatarColor": "#84cc16"
+    },
+    {
+      "id": "kid2",
+      "name": "Vedagna",
+      "age": 10,
+      "birthYear": 2016,
+      "primarySport": "Tennis",
+      "secondarySports": [
+        "Gymnastics",
+        "Taekwondo",
+        "Parkour"
+      ],
+      "avatarColor": "#06b6d4"
+    }
+  ],
+  "dayLogs": [
+    {
+      "id": "kid1_2026-09-11",
+      "childId": "kid1",
+      "date": "2026-09-11",
+      "status": "confirmed",
+      "blocks": [
+        {
+          "id": "blk_2026-09-11_kid1_0_1789146682908",
+          "category": "sleep",
+          "title": "Night Sleep (Cont. from Thu)",
+          "startTime": "00:00",
+          "endTime": "06:00",
+          "durationHours": 6,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_1_1789146682908",
+          "category": "guilt_free_fun",
+          "title": "Wake up + Breakfast",
+          "startTime": "06:00",
+          "endTime": "06:45",
+          "durationHours": 0.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_2_1789146682908",
+          "category": "tennis_focus",
+          "title": "Morning Tennis",
+          "startTime": "06:45",
+          "endTime": "08:00",
+          "durationHours": 1.25,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_3_1789146682908",
+          "category": "transit",
+          "title": "Drive to School",
+          "startTime": "08:00",
+          "endTime": "08:30",
+          "durationHours": 0.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_4_1789146682908",
+          "category": "school",
+          "title": "School (Finishes 14:20 for Elder)",
+          "startTime": "08:30",
+          "endTime": "14:20",
+          "durationHours": 5.83,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_5_1789146682908",
+          "category": "guilt_free_fun",
+          "title": "School Yard Play / Chill with Friends",
+          "startTime": "14:20",
+          "endTime": "15:05",
+          "durationHours": 0.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_6_1789146682908",
+          "category": "transit",
+          "title": "Drive to Tennis",
+          "startTime": "15:05",
+          "endTime": "15:30",
+          "durationHours": 0.42,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_7_1789146682908",
+          "category": "tennis_focus",
+          "title": "Tennis Club (2h)",
+          "startTime": "15:30",
+          "endTime": "17:30",
+          "durationHours": 2,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_8_1789146682908",
+          "category": "transit",
+          "title": "Drive to Parkour",
+          "startTime": "17:30",
+          "endTime": "18:00",
+          "durationHours": 0.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_9_1789146682908",
+          "category": "multisport",
+          "title": "Parkour",
+          "startTime": "18:00",
+          "endTime": "19:30",
+          "durationHours": 1.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_10_1789146682908",
+          "category": "transit",
+          "title": "Drive Home",
+          "startTime": "19:30",
+          "endTime": "20:15",
+          "durationHours": 0.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_11_1789146682908",
+          "category": "guilt_free_fun",
+          "title": "Dinner & Friday Movie / Gaming Night",
+          "startTime": "20:15",
+          "endTime": "22:00",
+          "durationHours": 1.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid1_12_1789146682908",
+          "category": "sleep",
+          "title": "Night Sleep",
+          "startTime": "22:00",
+          "endTime": "00:00",
+          "durationHours": 2,
+          "completed": true
+        }
+      ],
+      "isSick": false,
+      "isSchoolHoliday": false,
+      "isMatchDay": false,
+      "lastModified": 1789196206702
+    },
+    {
+      "id": "kid1_2026-09-12",
+      "childId": "kid1",
+      "date": "2026-09-12",
+      "status": "unlogged",
+      "blocks": [
+        {
+          "id": "blk_2026-09-12_kid1_0_1789187569328",
+          "category": "sleep",
+          "title": "Night Sleep (Cont. from Fri)",
+          "startTime": "00:00",
+          "endTime": "08:30",
+          "durationHours": 8.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-12_kid1_1_1789187569328",
+          "category": "guilt_free_fun",
+          "title": "Wake up, Big Breakfast",
+          "startTime": "08:30",
+          "endTime": "09:30",
+          "durationHours": 1,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-12_kid1_2_1789187569328",
+          "category": "study_homework",
+          "title": "School home work",
+          "startTime": "09:00",
+          "endTime": "10:30",
+          "durationHours": 1.5,
+          "completed": true,
+          "isCancelled": false
+        },
+        {
+          "id": "blk_2026-09-12_kid1_3_1789187569328",
+          "category": "transit",
+          "title": "Drive to Taekwondo",
+          "startTime": "10:30",
+          "endTime": "11:40",
+          "durationHours": 1.17,
+          "completed": true,
+          "notes": "Taekwondo canceled . So came back home"
+        }
+      ],
+      "isSick": false,
+      "isSchoolHoliday": false,
+      "isMatchDay": false,
+      "lastModified": 1789206065795
+    },
+    {
+      "id": "kid2_2026-09-11",
+      "childId": "kid2",
+      "date": "2026-09-11",
+      "status": "confirmed",
+      "blocks": [
+        {
+          "id": "blk_2026-09-11_kid2_0_1789150364865",
+          "category": "sleep",
+          "title": "Night Sleep (Cont. from Thu)",
+          "startTime": "00:00",
+          "endTime": "06:00",
+          "durationHours": 6,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_1_1789150364865",
+          "category": "guilt_free_fun",
+          "title": "Wake up + Breakfast",
+          "startTime": "06:00",
+          "endTime": "06:45",
+          "durationHours": 0.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_2_1789150364865",
+          "category": "tennis_focus",
+          "title": "Morning Tennis",
+          "startTime": "06:45",
+          "endTime": "08:00",
+          "durationHours": 1.25,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_3_1789150364865",
+          "category": "transit",
+          "title": "Drive to School",
+          "startTime": "08:00",
+          "endTime": "08:30",
+          "durationHours": 0.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_4_1789150364865",
+          "category": "school",
+          "title": "School (Finishes)",
+          "startTime": "08:30",
+          "endTime": "15:05",
+          "durationHours": 6.58,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_5_1789150364865",
+          "category": "transit",
+          "title": "Drive to Tennis",
+          "startTime": "15:05",
+          "endTime": "15:30",
+          "durationHours": 0.42,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_6_1789150364865",
+          "category": "tennis_focus",
+          "title": "Tennis Club",
+          "startTime": "15:30",
+          "endTime": "16:30",
+          "durationHours": 1,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_7_1789150364865",
+          "category": "guilt_free_fun",
+          "title": "Waiting time for brother",
+          "startTime": "16:30",
+          "endTime": "17:30",
+          "durationHours": 1,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_8_1789150364865",
+          "category": "transit",
+          "title": "Drive to Parkour",
+          "startTime": "17:30",
+          "endTime": "18:00",
+          "durationHours": 0.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_9_1789150364865",
+          "category": "multisport",
+          "title": "Parkour",
+          "startTime": "18:00",
+          "endTime": "19:30",
+          "durationHours": 1.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_10_1789150364865",
+          "category": "transit",
+          "title": "Drive Home",
+          "startTime": "19:30",
+          "endTime": "20:15",
+          "durationHours": 0.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_11_1789150364865",
+          "category": "guilt_free_fun",
+          "title": "Dinner & Friday Movie / Gaming Night",
+          "startTime": "20:15",
+          "endTime": "22:00",
+          "durationHours": 1.75,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-11_kid2_12_1789150364865",
+          "category": "sleep",
+          "title": "Night Sleep",
+          "startTime": "22:00",
+          "endTime": "00:00",
+          "durationHours": 2,
+          "completed": true,
+          "isCancelled": false
+        }
+      ],
+      "isSick": false,
+      "isSchoolHoliday": false,
+      "isMatchDay": false,
+      "lastModified": 1789196279860
+    },
+    {
+      "id": "kid2_2026-09-12",
+      "childId": "kid2",
+      "date": "2026-09-12",
+      "status": "confirmed",
+      "blocks": [
+        {
+          "id": "blk_2026-09-12_kid2_0_1789206109790",
+          "category": "sleep",
+          "title": "Night Sleep (Cont. from Fri)",
+          "startTime": "00:00",
+          "endTime": "08:30",
+          "durationHours": 8.5,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-12_kid2_1_1789206109790",
+          "category": "guilt_free_fun",
+          "title": "Wake up, Big Breakfast",
+          "startTime": "08:30",
+          "endTime": "09:30",
+          "durationHours": 1,
+          "completed": true
+        },
+        {
+          "id": "blk_2026-09-12_kid2_2_1789206109790",
+          "category": "study_homework",
+          "title": "School home work",
+          "startTime": "09:00",
+          "endTime": "10:30",
+          "durationHours": 1.5,
+          "completed": true,
+          "isCancelled": false
+        },
+        {
+          "id": "blk_2026-09-12_kid2_3_1789206109790",
+          "category": "transit",
+          "title": "Drive to Taekwondo",
+          "startTime": "10:30",
+          "endTime": "11:40",
+          "durationHours": 1.17,
+          "completed": true,
+          "notes": "Taekwondo canceled . So came back home"
+        }
+      ],
+      "isSick": false,
+      "isSchoolHoliday": false,
+      "isMatchDay": false,
+      "lastModified": 1789206125650
+    }
+  ],
+  "terms": [
+    {
+      "id": "autumn-2026",
+      "name": "Autumn Term 2026 (Aug - Dec)",
+      "startDate": "2026-08-15",
+      "endDate": "2026-12-31",
+      "isCurrent": true,
+      "weeklyDefaults": {
+        "kid1": {
+          "monday": [
+            {
+              "id": "k1-mon-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Sun)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-morning-routine",
+              "category": "guilt_free_fun",
+              "title": "Wake up & Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-tennis-morn",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Serves & Drills)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-prep",
+              "category": "guilt_free_fun",
+              "title": "Shower & School Prep",
+              "startTime": "08:00",
+              "endTime": "08:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:45",
+              "endTime": "09:10",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "09:10",
+              "endTime": "15:05",
+              "durationHours": 5.92,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-snack-relax",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Snack & Chill",
+              "startTime": "15:30",
+              "endTime": "16:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-trans-gym",
+              "category": "transit",
+              "title": "Drive to Gymnastics",
+              "startTime": "16:15",
+              "endTime": "17:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-gym",
+              "category": "multisport",
+              "title": "Gymnastics (Group)",
+              "startTime": "17:00",
+              "endTime": "19:30",
+              "durationHours": 2.5,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-trans-gym-home",
+              "category": "transit",
+              "title": "Drive Home + Snack",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner with Family",
+              "startTime": "20:30",
+              "endTime": "21:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-prehab",
+              "category": "mobility_prehab",
+              "title": "Foam Roll & Pre-bed Stretch",
+              "startTime": "21:00",
+              "endTime": "21:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-mon-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "tuesday": [
+            {
+              "id": "k1-tue-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Mon)",
+              "startTime": "00:00",
+              "endTime": "06:45",
+              "durationHours": 6.75,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-morn",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Breakfast & Ready",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-trans-tennis",
+              "category": "transit",
+              "title": "Drive to Tennis + Snack in Car",
+              "startTime": "15:15",
+              "endTime": "16:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-tennis",
+              "category": "tennis_squad",
+              "title": "Tennis Club (1:4 Squad)",
+              "startTime": "16:00",
+              "endTime": "17:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-cooldown",
+              "category": "mobility_prehab",
+              "title": "Dynamic Cool-down & Hydrate",
+              "startTime": "17:00",
+              "endTime": "17:15",
+              "durationHours": 0.25,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-trans-tkd",
+              "category": "transit",
+              "title": "Drive to Taekwondo",
+              "startTime": "17:15",
+              "endTime": "18:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-tkd",
+              "category": "multisport",
+              "title": "Taekwondo",
+              "startTime": "18:00",
+              "endTime": "20:10",
+              "durationHours": 2.17,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "20:10",
+              "endTime": "20:40",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-dinner-fun",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Chill / Gadget",
+              "startTime": "20:40",
+              "endTime": "21:30",
+              "durationHours": 0.83,
+              "completed": false
+            },
+            {
+              "id": "k1-tue-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "wednesday": [
+            {
+              "id": "k1-wed-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Tue)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-morn-routine",
+              "category": "guilt_free_fun",
+              "title": "Wake up + Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-tennis-morn",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Volleys & Targets)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-chill",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Snack & Relax",
+              "startTime": "15:30",
+              "endTime": "16:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-trans-gym",
+              "category": "transit",
+              "title": "Drive to Gymnastics",
+              "startTime": "16:15",
+              "endTime": "17:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-gym",
+              "category": "multisport",
+              "title": "Gymnastics (Group)",
+              "startTime": "17:00",
+              "endTime": "19:30",
+              "durationHours": 2.5,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-trans-gym-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner",
+              "startTime": "20:30",
+              "endTime": "21:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-prehab",
+              "category": "mobility_prehab",
+              "title": "Shoulder Band Rotations & Core",
+              "startTime": "21:00",
+              "endTime": "21:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-wed-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "thursday": [
+            {
+              "id": "k1-thu-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Wed)",
+              "startTime": "00:00",
+              "endTime": "07:00",
+              "durationHours": 7,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-morn",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Breakfast & Ready",
+              "startTime": "07:00",
+              "endTime": "08:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-trans-tennis",
+              "category": "transit",
+              "title": "Drive to Tennis",
+              "startTime": "15:15",
+              "endTime": "16:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-tennis-club",
+              "category": "tennis_squad",
+              "title": "Tennis Club (1:4 Squad)",
+              "startTime": "16:00",
+              "endTime": "17:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-tennis-dad",
+              "category": "tennis_focus",
+              "title": "1:1 High-Rep Drills with Dad / Wall",
+              "startTime": "17:00",
+              "endTime": "18:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-trans-home",
+              "category": "transit",
+              "title": "Drive Home & Snack",
+              "startTime": "18:00",
+              "endTime": "18:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-gaming",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free PlayStation / Yapping",
+              "startTime": "18:45",
+              "endTime": "19:45",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner",
+              "startTime": "19:45",
+              "endTime": "20:30",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-video",
+              "category": "tennis_iq",
+              "title": "Pro Match Tactical Analysis",
+              "startTime": "20:30",
+              "endTime": "21:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-thu-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:15",
+              "endTime": "24:00",
+              "durationHours": 2.75,
+              "completed": false
+            }
+          ],
+          "friday": [
+            {
+              "id": "k1-fri-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Thu)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-morn-routine",
+              "category": "guilt_free_fun",
+              "title": "Wake up + Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-tennis-morn",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Serve Targets)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-school",
+              "category": "school",
+              "title": "School (Finishes)",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-trans-tennis",
+              "category": "transit",
+              "title": "Drive to Tennis",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-tennis-squad",
+              "category": "tennis_focus",
+              "title": "Tennis Club",
+              "startTime": "15:30",
+              "endTime": "17:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-trans-parkour",
+              "category": "transit",
+              "title": "Drive to Parkour",
+              "startTime": "17:30",
+              "endTime": "18:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-parkour",
+              "category": "multisport",
+              "title": "Parkour",
+              "startTime": "18:00",
+              "endTime": "19:30",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "19:30",
+              "endTime": "20:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-movie-night",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Friday Movie / Gaming Night",
+              "startTime": "20:15",
+              "endTime": "21:45",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "k1-fri-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:45",
+              "endTime": "24:00",
+              "durationHours": 2.25,
+              "completed": false
+            }
+          ],
+          "saturday": [
+            {
+              "id": "k1-sat-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Fri)",
+              "startTime": "00:00",
+              "endTime": "07:30",
+              "durationHours": 7.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-breakfast",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Big Breakfast",
+              "startTime": "07:30",
+              "endTime": "08:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-tennis-match",
+              "category": "tennis_focus",
+              "title": "Tennis Training (Match Sim / Points with Dad)",
+              "startTime": "08:30",
+              "endTime": "10:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-trans-tkd",
+              "category": "transit",
+              "title": "Drive to Taekwondo",
+              "startTime": "10:30",
+              "endTime": "11:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-tkd",
+              "category": "multisport",
+              "title": "Taekwondo",
+              "startTime": "11:00",
+              "endTime": "12:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-lunch",
+              "category": "guilt_free_fun",
+              "title": "Drive Home & Lunch",
+              "startTime": "12:00",
+              "endTime": "13:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-homework",
+              "category": "study_homework",
+              "title": "Weekly School Homework",
+              "startTime": "13:00",
+              "endTime": "14:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-play",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free PlayStation / Friends / Free Play",
+              "startTime": "14:00",
+              "endTime": "17:30",
+              "durationHours": 3.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-outing",
+              "category": "guilt_free_fun",
+              "title": "Family Free Outing / Outdoor Play",
+              "startTime": "17:30",
+              "endTime": "19:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Family Time",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-prehab",
+              "category": "mobility_prehab",
+              "title": "Full Body Foam Roll & Stretch",
+              "startTime": "20:30",
+              "endTime": "21:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sat-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "sunday": [
+            {
+              "id": "k1-sun-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Sat)",
+              "startTime": "00:00",
+              "endTime": "07:30",
+              "durationHours": 7.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-breakfast",
+              "category": "guilt_free_fun",
+              "title": "Wake up & Nutritious Breakfast",
+              "startTime": "07:30",
+              "endTime": "08:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-tennis-serves",
+              "category": "tennis_focus",
+              "title": "Tennis Serve Volume (150 Serves) & Drill",
+              "startTime": "08:30",
+              "endTime": "10:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-play1",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Play / Gaming",
+              "startTime": "10:30",
+              "endTime": "12:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-lunch",
+              "category": "guilt_free_fun",
+              "title": "Lunch with Family",
+              "startTime": "12:30",
+              "endTime": "13:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-outing",
+              "category": "guilt_free_fun",
+              "title": "Outdoor Active Outing / Bike / Rest",
+              "startTime": "13:30",
+              "endTime": "16:30",
+              "durationHours": 3,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-prep",
+              "category": "study_homework",
+              "title": "School Bag Prep & Next Week Review",
+              "startTime": "16:30",
+              "endTime": "17:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-trans-parkour",
+              "category": "transit",
+              "title": "Drive to Parkour",
+              "startTime": "17:30",
+              "endTime": "18:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-parkour",
+              "category": "multisport",
+              "title": "Parkour",
+              "startTime": "18:00",
+              "endTime": "19:30",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-dinner",
+              "category": "guilt_free_fun",
+              "title": "Drive Home & Dinner",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-prehab",
+              "category": "mobility_prehab",
+              "title": "Mobility & Pre-bed Foam Roll",
+              "startTime": "20:30",
+              "endTime": "21:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k1-sun-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:15",
+              "endTime": "24:00",
+              "durationHours": 2.75,
+              "completed": false
+            }
+          ]
+        },
+        "kid2": {
+          "monday": [
+            {
+              "id": "k2-mon-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Sun)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-morning-routine",
+              "category": "guilt_free_fun",
+              "title": "Wake up & Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-tennis-morn",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Serves & Drills)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-prep",
+              "category": "guilt_free_fun",
+              "title": "Shower & School Prep",
+              "startTime": "08:00",
+              "endTime": "08:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:45",
+              "endTime": "09:10",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "09:10",
+              "endTime": "15:05",
+              "durationHours": 5.92,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-snack-relax",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Snack & Chill",
+              "startTime": "15:30",
+              "endTime": "16:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-trans-gym",
+              "category": "transit",
+              "title": "Drive to Gymnastics",
+              "startTime": "16:15",
+              "endTime": "17:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-gym",
+              "category": "multisport",
+              "title": "Gymnastics (Group)",
+              "startTime": "17:00",
+              "endTime": "19:30",
+              "durationHours": 2.5,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-trans-gym-home",
+              "category": "transit",
+              "title": "Drive Home + Snack",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner with Family",
+              "startTime": "20:30",
+              "endTime": "21:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-prehab",
+              "category": "mobility_prehab",
+              "title": "Foam Roll & Pre-bed Stretch",
+              "startTime": "21:00",
+              "endTime": "21:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-mon-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "tuesday": [
+            {
+              "id": "k2-tue-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Mon)",
+              "startTime": "00:00",
+              "endTime": "06:45",
+              "durationHours": 6.75,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-morn",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Breakfast & Ready",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-school",
+              "category": "school",
+              "title": "School (Finishes 14:20 for Younger)",
+              "startTime": "08:30",
+              "endTime": "14:20",
+              "durationHours": 5.83,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-library-wait",
+              "category": "study_homework",
+              "title": "School Library: Reading / Homework Done!",
+              "startTime": "14:20",
+              "endTime": "15:05",
+              "durationHours": 0.75,
+              "completed": true
+            },
+            {
+              "id": "k2-tue-trans-tennis",
+              "category": "transit",
+              "title": "Drive to Tennis + Snack in Car",
+              "startTime": "15:15",
+              "endTime": "16:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-tennis",
+              "category": "tennis_squad",
+              "title": "Tennis Club (1:4 Squad)",
+              "startTime": "16:00",
+              "endTime": "17:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-cooldown",
+              "category": "mobility_prehab",
+              "title": "Dynamic Cool-down & Hydrate",
+              "startTime": "17:00",
+              "endTime": "17:15",
+              "durationHours": 0.25,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-trans-tkd",
+              "category": "transit",
+              "title": "Drive to Taekwondo",
+              "startTime": "17:15",
+              "endTime": "18:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-tkd",
+              "category": "multisport",
+              "title": "Taekwondo",
+              "startTime": "18:00",
+              "endTime": "20:10",
+              "durationHours": 2.17,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "20:10",
+              "endTime": "20:40",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-dinner-fun",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Chill / Gadget",
+              "startTime": "20:40",
+              "endTime": "21:30",
+              "durationHours": 0.83,
+              "completed": false
+            },
+            {
+              "id": "k2-tue-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "wednesday": [
+            {
+              "id": "k2-wed-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Tue)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-morn-routine",
+              "category": "guilt_free_fun",
+              "title": "Wake up + Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-tennis-morn",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Volleys & Targets)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-trans-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-chill",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Snack & Relax",
+              "startTime": "15:30",
+              "endTime": "16:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-trans-gym",
+              "category": "transit",
+              "title": "Drive to Gymnastics",
+              "startTime": "16:15",
+              "endTime": "17:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-gym",
+              "category": "multisport",
+              "title": "Gymnastics (Group)",
+              "startTime": "17:00",
+              "endTime": "19:30",
+              "durationHours": 2.5,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-trans-gym-home",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner",
+              "startTime": "20:30",
+              "endTime": "21:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-prehab",
+              "category": "mobility_prehab",
+              "title": "Shoulder Band Rotations & Core",
+              "startTime": "21:00",
+              "endTime": "21:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-wed-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "thursday": [
+            {
+              "id": "k2-thu-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Wed)",
+              "startTime": "00:00",
+              "endTime": "07:00",
+              "durationHours": 7,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-morn",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Breakfast & Ready",
+              "startTime": "07:00",
+              "endTime": "08:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-trans-school",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-school",
+              "category": "school",
+              "title": "School",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-trans-tennis",
+              "category": "transit",
+              "title": "Drive to Tennis",
+              "startTime": "15:15",
+              "endTime": "16:00",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-tennis-club",
+              "category": "tennis_squad",
+              "title": "Tennis Club (1:4 Squad)",
+              "startTime": "16:00",
+              "endTime": "17:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-tennis-dad",
+              "category": "tennis_focus",
+              "title": "1:1 High-Rep Drills with Dad / Wall",
+              "startTime": "17:00",
+              "endTime": "18:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-trans-home",
+              "category": "transit",
+              "title": "Drive Home & Snack",
+              "startTime": "18:00",
+              "endTime": "18:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-gaming",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free PlayStation / Yapping",
+              "startTime": "18:45",
+              "endTime": "19:45",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner",
+              "startTime": "19:45",
+              "endTime": "20:30",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-video",
+              "category": "tennis_iq",
+              "title": "Pro Match Tactical Analysis",
+              "startTime": "20:30",
+              "endTime": "21:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-thu-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:15",
+              "endTime": "24:00",
+              "durationHours": 2.75,
+              "completed": false
+            }
+          ],
+          "friday": [
+            {
+              "id": "def_kid2_friday_0_1789150283724",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Thu)",
+              "startTime": "00:00",
+              "endTime": "06:00",
+              "durationHours": 6,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_1_1789150283724",
+              "category": "guilt_free_fun",
+              "title": "Wake up + Breakfast",
+              "startTime": "06:00",
+              "endTime": "06:45",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_2_1789150283724",
+              "category": "tennis_focus",
+              "title": "Morning Tennis (Serve Targets)",
+              "startTime": "06:45",
+              "endTime": "08:00",
+              "durationHours": 1.25,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_3_1789150283724",
+              "category": "transit",
+              "title": "Drive to School",
+              "startTime": "08:00",
+              "endTime": "08:30",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_4_1789150283724",
+              "category": "school",
+              "title": "School (Finishes)",
+              "startTime": "08:30",
+              "endTime": "15:05",
+              "durationHours": 6.58,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_5_1789150283724",
+              "category": "transit",
+              "title": "Drive to Tennis",
+              "startTime": "15:05",
+              "endTime": "15:30",
+              "durationHours": 0.42,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_6_1789150283724",
+              "category": "tennis_focus",
+              "title": "Tennis Club",
+              "startTime": "15:30",
+              "endTime": "16:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_7_1789150283724",
+              "category": "guilt_free_fun",
+              "title": "Waiting time for brother",
+              "startTime": "16:30",
+              "endTime": "17:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_8_1789150283724",
+              "category": "transit",
+              "title": "Drive to Parkour",
+              "startTime": "17:30",
+              "endTime": "18:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_9_1789150283724",
+              "category": "multisport",
+              "title": "Parkour",
+              "startTime": "18:00",
+              "endTime": "19:30",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_10_1789150283724",
+              "category": "transit",
+              "title": "Drive Home",
+              "startTime": "19:30",
+              "endTime": "20:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_11_1789150283724",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Friday Movie / Gaming Night",
+              "startTime": "20:15",
+              "endTime": "21:45",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "def_kid2_friday_12_1789150283724",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:45",
+              "endTime": "24:00",
+              "durationHours": 2.25,
+              "completed": false
+            }
+          ],
+          "saturday": [
+            {
+              "id": "k2-sat-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Fri)",
+              "startTime": "00:00",
+              "endTime": "07:30",
+              "durationHours": 7.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-breakfast",
+              "category": "guilt_free_fun",
+              "title": "Wake up, Big Breakfast",
+              "startTime": "07:30",
+              "endTime": "08:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-tennis-match",
+              "category": "tennis_focus",
+              "title": "Tennis Training (Match Sim / Points with Dad)",
+              "startTime": "08:30",
+              "endTime": "10:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-trans-tkd",
+              "category": "transit",
+              "title": "Drive to Taekwondo",
+              "startTime": "10:30",
+              "endTime": "11:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-tkd",
+              "category": "multisport",
+              "title": "Taekwondo",
+              "startTime": "11:00",
+              "endTime": "12:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-lunch",
+              "category": "guilt_free_fun",
+              "title": "Drive Home & Lunch",
+              "startTime": "12:00",
+              "endTime": "13:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-homework",
+              "category": "study_homework",
+              "title": "Weekly School Homework",
+              "startTime": "13:00",
+              "endTime": "14:00",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-play",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free PlayStation / Friends / Free Play",
+              "startTime": "14:00",
+              "endTime": "17:30",
+              "durationHours": 3.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-outing",
+              "category": "guilt_free_fun",
+              "title": "Family Free Outing / Outdoor Play",
+              "startTime": "17:30",
+              "endTime": "19:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-dinner",
+              "category": "guilt_free_fun",
+              "title": "Dinner & Family Time",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-prehab",
+              "category": "mobility_prehab",
+              "title": "Full Body Foam Roll & Stretch",
+              "startTime": "20:30",
+              "endTime": "21:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sat-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:30",
+              "endTime": "24:00",
+              "durationHours": 2.5,
+              "completed": false
+            }
+          ],
+          "sunday": [
+            {
+              "id": "k2-sun-sleep-prev",
+              "category": "sleep",
+              "title": "Night Sleep (Cont. from Sat)",
+              "startTime": "00:00",
+              "endTime": "07:30",
+              "durationHours": 7.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-breakfast",
+              "category": "guilt_free_fun",
+              "title": "Wake up & Nutritious Breakfast",
+              "startTime": "07:30",
+              "endTime": "08:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-tennis-serves",
+              "category": "tennis_focus",
+              "title": "Tennis Serve Volume (150 Serves) & Drill",
+              "startTime": "08:30",
+              "endTime": "10:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-play1",
+              "category": "guilt_free_fun",
+              "title": "Guilt-Free Play / Gaming",
+              "startTime": "10:30",
+              "endTime": "12:30",
+              "durationHours": 2,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-lunch",
+              "category": "guilt_free_fun",
+              "title": "Lunch with Family",
+              "startTime": "12:30",
+              "endTime": "13:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-outing",
+              "category": "guilt_free_fun",
+              "title": "Outdoor Active Outing / Bike / Rest",
+              "startTime": "13:30",
+              "endTime": "16:30",
+              "durationHours": 3,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-prep",
+              "category": "study_homework",
+              "title": "School Bag Prep & Next Week Review",
+              "startTime": "16:30",
+              "endTime": "17:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-trans-parkour",
+              "category": "transit",
+              "title": "Drive to Parkour",
+              "startTime": "17:30",
+              "endTime": "18:00",
+              "durationHours": 0.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-parkour",
+              "category": "multisport",
+              "title": "Parkour",
+              "startTime": "18:00",
+              "endTime": "19:30",
+              "durationHours": 1.5,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-dinner",
+              "category": "guilt_free_fun",
+              "title": "Drive Home & Dinner",
+              "startTime": "19:30",
+              "endTime": "20:30",
+              "durationHours": 1,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-prehab",
+              "category": "mobility_prehab",
+              "title": "Mobility & Pre-bed Foam Roll",
+              "startTime": "20:30",
+              "endTime": "21:15",
+              "durationHours": 0.75,
+              "completed": false
+            },
+            {
+              "id": "k2-sun-sleep-night",
+              "category": "sleep",
+              "title": "Night Sleep",
+              "startTime": "21:15",
+              "endTime": "24:00",
+              "durationHours": 2.75,
+              "completed": false
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "settings": []
+}

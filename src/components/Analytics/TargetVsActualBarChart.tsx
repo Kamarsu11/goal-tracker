@@ -13,23 +13,35 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
   summaries,
   profile,
 }) => {
-  const totalDays = summaries.length || 1;
+  const confirmedSummaries = summaries.filter(s => s.status === 'confirmed' || s.status === 'sick');
+  const totalDays = confirmedSummaries.length || 1;
 
   // Actual totals
-  const actualTennis = summaries.reduce((a, b) => a + b.tennisHours, 0);
-  const actualMulti = summaries.reduce((a, b) => a + b.multisportHours, 0);
-  const actualMobility = summaries.reduce((a, b) => a + b.mobilityHours, 0);
-  const actualSleep = summaries.reduce((a, b) => a + b.sleepHours, 0);
-  const actualUnnoticed = summaries.reduce((a, b) => a + b.unnoticedHours, 0);
+  const actualTennis = confirmedSummaries.reduce((a, b) => a + b.tennisHours, 0);
+  const actualMulti = confirmedSummaries.reduce((a, b) => a + b.multisportHours, 0);
+  const actualSC = confirmedSummaries.reduce((a, b) => a + b.scFootworkHours, 0);
+  const actualMobility = confirmedSummaries.reduce((a, b) => a + b.mobilityHours, 0);
+  const actualRest = confirmedSummaries.reduce((a, b) => a + b.intentionalRestHours, 0);
+  const actualSleep = confirmedSummaries.reduce((a, b) => a + b.sleepHours, 0);
+  const actualUnnoticed = confirmedSummaries.reduce((a, b) => a + b.unnoticedHours, 0);
 
   // Ideal targets sum
   const idealTennis = summaries.reduce((a, b) => a + b.idealTennisTarget, 0);
   const idealMulti = summaries.reduce((a, b) => a + b.idealMultisportTarget, 0);
-  const idealMobility = totalDays * 0.5; // ~0.5h/day
+  const idealMobility = totalDays * 0.5;
+  const idealRest = totalDays * 0.5;
   const idealSleep = summaries.reduce((a, b) => a + b.idealSleepTarget, 0);
-  const idealUnnoticed = totalDays * 1.5; // max allowable leisure threshold
+  const idealUnnoticed = totalDays * 1.5;
 
-  const categories = ['Tennis', 'Multisport', 'Mobility & Prehab', 'Sleep', 'Unnoticed Dead Time'];
+  const categories = [
+    '🎾 Tennis Volume',
+    '🥋 Multisport Power',
+    '⚡ S&C & Footwork',
+    '🧘 Pre-hab & Mobility',
+    '🛌 Intentional Rest',
+    '😴 Sleep Recovery',
+    '🔴 Unnoticed Dead Time',
+  ];
 
   const chartData = {
     labels: categories,
@@ -39,14 +51,18 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
         data: [
           parseFloat(actualTennis.toFixed(1)),
           parseFloat(actualMulti.toFixed(1)),
+          parseFloat(actualSC.toFixed(1)),
           parseFloat(actualMobility.toFixed(1)),
+          parseFloat(actualRest.toFixed(1)),
           parseFloat(actualSleep.toFixed(1)),
           parseFloat(actualUnnoticed.toFixed(1)),
         ],
         backgroundColor: [
           '#84cc16', // lime
           '#6366f1', // indigo
+          '#f59e0b', // amber
           '#ec4899', // pink
+          '#06b6d4', // cyan
           '#3b82f6', // blue
           '#ef4444', // red
         ],
@@ -57,11 +73,13 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
         data: [
           parseFloat(idealTennis.toFixed(1)),
           parseFloat(idealMulti.toFixed(1)),
+          parseFloat((totalDays * 0.3).toFixed(1)),
           parseFloat(idealMobility.toFixed(1)),
+          parseFloat(idealRest.toFixed(1)),
           parseFloat(idealSleep.toFixed(1)),
           parseFloat(idealUnnoticed.toFixed(1)),
         ],
-        backgroundColor: 'rgba(56, 189, 248, 0.4)',
+        backgroundColor: 'rgba(56, 189, 248, 0.35)',
         borderColor: '#38bdf8',
         borderWidth: 1.5,
         borderRadius: 6,

@@ -379,35 +379,9 @@ export const DataService = {
     const coverage = computeDayCoverage(log.blocks, isConfirmed);
     const dayOfWeek = getDayOfWeekFromDate(log.date);
 
-    // If day is unconfirmed / unlogged, return 0 for actuals and 0 for targets so unconfirmed days do not show on charts
-    if (!isConfirmed) {
-      return {
-        date: log.date,
-        childId: log.childId,
-        status: log.status,
-        totalLoggedHours: 0,
-        tennisHours: 0,
-        effectiveTennisScore: 0,
-        multisportHours: 0,
-        mobilityHours: 0,
-        transitHours: 0,
-        schoolHours: 0,
-        studyHours: 0,
-        sleepHours: 0,
-        guiltFreeFunHours: 0,
-        unnoticedHours: 0,
-        unloggedHours: 24.0,
-        idealTennisTarget: 0,
-        idealMultisportTarget: 0,
-        idealSleepTarget: 0,
-        idealScoreTarget: 0,
-        performanceScore: 0,
-      };
-    }
-
     // Detect cancelled activities
     const hasCancelledGym = log.blocks.some(b => b.isCancelled && b.category === 'multisport');
-    const hasCancelledTennis = log.blocks.some(b => b.isCancelled && b.category.startsWith('tennis'));
+    const hasCancelledTennis = log.blocks.some(b => b.isCancelled && (b.category === 'tennis_focus' || b.category === 'tennis_match' || b.category === 'tennis_squad'));
     const hasCancelledParkour = log.blocks.some(b => b.isCancelled && b.title.toLowerCase().includes('parkour'));
     const hasCancelledTKD = log.blocks.some(b => b.isCancelled && b.title.toLowerCase().includes('taekwondo'));
 
@@ -421,12 +395,49 @@ export const DataService = {
       hasCancelledTKD: hasCancelledTKD,
     });
 
-    const tennisTotal =
-      coverage.categoryTotals.tennis_focus +
-      coverage.categoryTotals.tennis_squad +
-      coverage.categoryTotals.tennis_match +
-      coverage.categoryTotals.tennis_companion +
-      coverage.categoryTotals.tennis_iq;
+    const highIntensityTennis = coverage.categoryTotals.tennis_focus || 0;
+    const practiceMatch = coverage.categoryTotals.tennis_match || 0;
+    const squadTennis = coverage.categoryTotals.tennis_squad || 0;
+    const tennisTotal = highIntensityTennis + practiceMatch + squadTennis;
+
+    const multisport = coverage.categoryTotals.multisport || 0;
+    const scFootwork = coverage.categoryTotals.tennis_sc_footwork || 0;
+    const mobility = coverage.categoryTotals.mobility_prehab || 0;
+    const intentionalRest = coverage.categoryTotals.intentional_rest || 0;
+    const tennisIq = (coverage.categoryTotals.tennis_iq || 0) + (coverage.categoryTotals.tennis_companion || 0);
+
+    // If day is unconfirmed / unlogged, keep the ideal benchmark intact so the ideal line draws steadily,
+    // but set actuals to 0.
+    if (!isConfirmed) {
+      return {
+        date: log.date,
+        childId: log.childId,
+        status: log.status,
+        totalLoggedHours: 0,
+        tennisHours: 0,
+        highIntensityTennisHours: 0,
+        practiceMatchHours: 0,
+        squadTennisHours: 0,
+        effectiveTennisScore: 0,
+        multisportHours: 0,
+        scFootworkHours: 0,
+        mobilityHours: 0,
+        intentionalRestHours: 0,
+        tennisIqHours: 0,
+        transitHours: 0,
+        schoolHours: 0,
+        studyHours: 0,
+        sleepHours: 0,
+        guiltFreeFunHours: 0,
+        unnoticedHours: 0,
+        unloggedHours: 24.0,
+        idealTennisTarget: ideal.tennisHours,
+        idealMultisportTarget: ideal.multisportHours,
+        idealSleepTarget: ideal.sleepHours,
+        idealScoreTarget: ideal.effectiveScoreTarget,
+        performanceScore: 0,
+      };
+    }
 
     let performanceScore = 100;
     if (!log.isSick && ideal.effectiveScoreTarget > 0) {
@@ -439,9 +450,15 @@ export const DataService = {
       status: log.status,
       totalLoggedHours: coverage.totalLoggedHours,
       tennisHours: parseFloat(tennisTotal.toFixed(2)),
+      highIntensityTennisHours: parseFloat(highIntensityTennis.toFixed(2)),
+      practiceMatchHours: parseFloat(practiceMatch.toFixed(2)),
+      squadTennisHours: parseFloat(squadTennis.toFixed(2)),
       effectiveTennisScore: coverage.effectiveTennisScore,
-      multisportHours: parseFloat(coverage.categoryTotals.multisport.toFixed(2)),
-      mobilityHours: parseFloat(coverage.categoryTotals.mobility_prehab.toFixed(2)),
+      multisportHours: parseFloat(multisport.toFixed(2)),
+      scFootworkHours: parseFloat(scFootwork.toFixed(2)),
+      mobilityHours: parseFloat(mobility.toFixed(2)),
+      intentionalRestHours: parseFloat(intentionalRest.toFixed(2)),
+      tennisIqHours: parseFloat(tennisIq.toFixed(2)),
       transitHours: parseFloat(coverage.categoryTotals.transit.toFixed(2)),
       schoolHours: parseFloat(coverage.categoryTotals.school.toFixed(2)),
       studyHours: parseFloat(coverage.categoryTotals.study_homework.toFixed(2)),

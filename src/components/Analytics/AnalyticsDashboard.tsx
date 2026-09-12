@@ -3,8 +3,9 @@ import { ChildProfile, DailySummary, DayLog } from '../../types';
 import { DataService } from '../../services/dataService';
 import { StatsSummaryCards } from './StatsSummaryCards';
 import { CumulativeGrowthCurve } from './CumulativeGrowthCurve';
-import { TimeDistributionChart } from './TimeDistributionChart';
+import { TrainingBalanceRadar } from './TrainingBalanceRadar';
 import { TargetVsActualBarChart } from './TargetVsActualBarChart';
+import { TimeDistributionChart } from './TimeDistributionChart';
 import { UnnoticedTimeMonitor } from './UnnoticedTimeMonitor';
 import { FullscreenChartModal } from './FullscreenChartModal';
 import { Calendar, Users, BarChart3, Filter } from 'lucide-react';
@@ -18,7 +19,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   currentProfile,
   otherProfile,
 }) => {
-  const [rangePreset, setRangePreset] = useState<'today' | 'yesterday' | 'custom'>('today');
+  const [rangePreset, setRangePreset] = useState<'today' | 'yesterday' | 'this_week' | 'custom'>('today');
   const [startDate, setStartDate] = useState(() => {
     return new Date().toISOString().split('T')[0];
   });
@@ -35,7 +36,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   const [allProfiles, setAllProfiles] = useState<ChildProfile[]>([]);
 
   // Handle preset range changes
-  const handlePresetChange = (preset: 'today' | 'yesterday' | 'custom') => {
+  const handlePresetChange = (preset: 'today' | 'yesterday' | 'this_week' | 'custom') => {
     setRangePreset(preset);
     const today = new Date();
 
@@ -49,6 +50,18 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
       const yesterdayStr = yesterday.toISOString().split('T')[0];
       setStartDate(yesterdayStr);
       setEndDate(yesterdayStr);
+    } else if (preset === 'this_week') {
+      // Calculate Monday to Sunday of the current week
+      const currentDay = today.getDay(); // 0 = Sun, 1 = Mon, ...
+      const distToMonday = currentDay === 0 ? 6 : currentDay - 1;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - distToMonday);
+
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+
+      setStartDate(monday.toISOString().split('T')[0]);
+      setEndDate(sunday.toISOString().split('T')[0]);
     }
   };
 
@@ -161,6 +174,16 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
               Yesterday
             </button>
             <button
+              onClick={() => handlePresetChange('this_week')}
+              className={`px-3 py-1.5 rounded-lg border transition-all ${
+                rangePreset === 'this_week'
+                  ? 'bg-tennis-500 text-black font-bold border-tennis-500 shadow-md'
+                  : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800'
+              }`}
+            >
+              This Week
+            </button>
+            <button
               onClick={() => setRangePreset('custom')}
               className={`px-3 py-1.5 rounded-lg border transition-all ${
                 rangePreset === 'custom'
@@ -200,7 +223,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           {/* Key Summary Metric Cards */}
           <StatsSummaryCards summaries={selectedKidSummaries} profile={selectedProfile} />
 
-          {/* Chart 1: Cumulative Growth Trajectory (Pinch to Zoom & Fullscreen) */}
+          {/* Chart 1: Cumulative Growth Trajectory (Pinch to Zoom & Fullscreen & Normalized % mode) */}
           <CumulativeGrowthCurve
             k1Summaries={k1Summaries}
             k2Summaries={k2Summaries}
@@ -210,13 +233,16 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
             onOpenFullscreen={() => setIsFullscreenOpen(true)}
           />
 
-          {/* Chart 2: Target vs Actual Breakdown */}
+          {/* Chart 2: Training Balance Radar & Pillar Distribution */}
+          <TrainingBalanceRadar summaries={selectedKidSummaries} profile={selectedProfile} />
+
+          {/* Chart 3: Target vs Actual Breakdown */}
           <TargetVsActualBarChart summaries={selectedKidSummaries} profile={selectedProfile} />
 
-          {/* Chart 3: 24-Hour Stacked Daily Allocation */}
+          {/* Chart 4: 24-Hour Stacked Daily Allocation */}
           <TimeDistributionChart summaries={selectedKidSummaries} />
 
-          {/* Chart 4: Unnoticed Time / Silent Killer Monitor */}
+          {/* Chart 5: Unnoticed Time / Silent Killer Monitor */}
           <UnnoticedTimeMonitor summaries={selectedKidSummaries} />
 
           {/* Fullscreen Interactive Zoom Modal */}
