@@ -4,9 +4,7 @@ import { DataService } from '../../services/dataService';
 import { StatsSummaryCards } from './StatsSummaryCards';
 import { CumulativeGrowthCurve } from './CumulativeGrowthCurve';
 import { TrainingBalanceRadar } from './TrainingBalanceRadar';
-import { TargetVsActualBarChart } from './TargetVsActualBarChart';
 import { TimeDistributionChart } from './TimeDistributionChart';
-import { UnnoticedTimeMonitor } from './UnnoticedTimeMonitor';
 import { FullscreenChartModal } from './FullscreenChartModal';
 import { Calendar, Users, BarChart3, Filter } from 'lucide-react';
 
@@ -19,15 +17,33 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
   currentProfile,
   otherProfile,
 }) => {
-  const [rangePreset, setRangePreset] = useState<'today' | 'yesterday' | 'this_week' | 'custom'>('today');
+  const [rangePreset, setRangePreset] = useState<'today' | 'yesterday' | 'this_week' | 'custom'>('this_week');
   const [startDate, setStartDate] = useState(() => {
-    return new Date().toISOString().split('T')[0];
+    const today = new Date();
+    const currentDay = today.getDay();
+    const distToMonday = currentDay === 0 ? 6 : currentDay - 1;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - distToMonday);
+    return monday.toISOString().split('T')[0];
   });
   const [endDate, setEndDate] = useState(() => {
-    return new Date().toISOString().split('T')[0];
+    const today = new Date();
+    const currentDay = today.getDay();
+    const distToMonday = currentDay === 0 ? 6 : currentDay - 1;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - distToMonday);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    return sunday.toISOString().split('T')[0];
   });
-  const [showBothKids, setShowBothKids] = useState(true);
-  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const [showBothKids, setShowBothKids] = useState(false); // Default to Single Boy View as requested
+  const [fullscreenModal, setFullscreenModal] = useState<{
+    isOpen: boolean;
+    chartType: 'trajectory' | 'radar' | 'distribution';
+  }>({
+    isOpen: false,
+    chartType: 'trajectory',
+  });
 
   const [k1Summaries, setK1Summaries] = useState<DailySummary[]>([]);
   const [k2Summaries, setK2Summaries] = useState<DailySummary[]>([]);
@@ -108,10 +124,8 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
     loadAnalyticsData();
   }, [startDate, endDate, currentProfile.id, otherProfile?.id]);
 
-  const k1Profile = allProfiles.find(p => p.id === 'kid1') || currentProfile;
-  const k2Profile = allProfiles.find(p => p.id === 'kid2') || otherProfile;
-
   const selectedKidSummaries = currentProfile.id === 'kid2' ? k2Summaries : k1Summaries;
+  const otherKidSummaries = currentProfile.id === 'kid2' ? k1Summaries : k2Summaries;
   const selectedProfile = currentProfile;
 
   return (
@@ -225,34 +239,36 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
           {/* Chart 1: Cumulative Growth Trajectory (Pinch to Zoom & Fullscreen & Normalized % mode) */}
           <CumulativeGrowthCurve
-            k1Summaries={k1Summaries}
-            k2Summaries={k2Summaries}
-            profile1={k1Profile}
-            profile2={k2Profile}
+            k1Summaries={selectedKidSummaries}
+            k2Summaries={otherKidSummaries}
+            profile1={selectedProfile}
+            profile2={otherProfile}
             showBothKids={showBothKids}
-            onOpenFullscreen={() => setIsFullscreenOpen(true)}
+            onOpenFullscreen={() => setFullscreenModal({ isOpen: true, chartType: 'trajectory' })}
           />
 
           {/* Chart 2: Training Balance Radar & Pillar Distribution */}
-          <TrainingBalanceRadar summaries={selectedKidSummaries} profile={selectedProfile} />
+          <TrainingBalanceRadar
+            summaries={selectedKidSummaries}
+            profile={selectedProfile}
+            onOpenFullscreen={() => setFullscreenModal({ isOpen: true, chartType: 'radar' })}
+          />
 
-          {/* Chart 3: Target vs Actual Breakdown */}
-          <TargetVsActualBarChart summaries={selectedKidSummaries} profile={selectedProfile} />
+          {/* Chart 3: 24-Hour Stacked Daily Allocation */}
+          <TimeDistributionChart
+            summaries={selectedKidSummaries}
+            onOpenFullscreen={() => setFullscreenModal({ isOpen: true, chartType: 'distribution' })}
+          />
 
-          {/* Chart 4: 24-Hour Stacked Daily Allocation */}
-          <TimeDistributionChart summaries={selectedKidSummaries} />
-
-          {/* Chart 5: Unnoticed Time / Silent Killer Monitor */}
-          <UnnoticedTimeMonitor summaries={selectedKidSummaries} />
-
-          {/* Fullscreen Interactive Zoom Modal */}
+          {/* Fullscreen Interactive Zoom Modal for Charts */}
           <FullscreenChartModal
-            isOpen={isFullscreenOpen}
-            onClose={() => setIsFullscreenOpen(false)}
-            k1Summaries={k1Summaries}
-            k2Summaries={k2Summaries}
-            profile1={k1Profile}
-            profile2={k2Profile}
+            isOpen={fullscreenModal.isOpen}
+            chartType={fullscreenModal.chartType}
+            onClose={() => setFullscreenModal({ isOpen: false, chartType: 'trajectory' })}
+            k1Summaries={selectedKidSummaries}
+            k2Summaries={otherKidSummaries}
+            profile1={selectedProfile}
+            profile2={otherProfile}
             showBothKids={showBothKids}
           />
         </>

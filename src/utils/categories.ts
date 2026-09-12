@@ -153,6 +153,18 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     isProductive: false,
     effectiveWeight: 0.00,
   },
+  dead_time: {
+    id: 'dead_time',
+    label: 'Dead Time (Unplanned Yapping / Idle Loafing / Waiting)',
+    shortLabel: 'Dead Time / Idle',
+    color: '#ef4444', // red
+    bgClass: 'bg-red-500/20',
+    textClass: 'text-red-400',
+    borderClass: 'border-red-500/50',
+    isProductive: false,
+    effectiveWeight: 0.00,
+    description: 'Unplanned wasted time: endless yapping, passive screen scrolling, unproductive waiting around, loafing',
+  },
   guilt_free_fun: {
     id: 'guilt_free_fun',
     label: 'Guilt-Free Free Play / Gaming / Chill',
@@ -163,7 +175,7 @@ export const CATEGORY_DEFINITIONS: Record<ActivityCategory, CategoryMeta> = {
     borderClass: 'border-teal-500/50',
     isProductive: false,
     effectiveWeight: 0.00,
-    description: 'Unstructured entertainment, gaming, social relaxation with family/friends (healthy mental decompression)',
+    description: 'Planned unstructured entertainment, gaming, social relaxation with family/friends (healthy mental decompression)',
   },
   unnoticed_time: {
     id: 'unnoticed_time',
@@ -276,6 +288,7 @@ export function computeDayCoverage(blocks: ActivityBlock[], isDayConfirmed: bool
     study_homework: 0,
     transit: 0,
     sleep: 0,
+    dead_time: 0,
     guilt_free_fun: 0,
     unnoticed_time: 0,
     unlogged_missing: 0,

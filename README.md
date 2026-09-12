@@ -1,10 +1,3 @@
-# � Goal Tracker
-
-A high-performance Progressive Web App (PWA) designed to track daily athletic routines for aspiring tennis pros and compare progress against dynamic **Future Tennis Pro Benchmarks (Ages 10–13+)**.
-
----
-
-## 🌟 Key Features
 
 # 🏆 Goal Tracker
 
@@ -76,21 +69,30 @@ The app models the weekly volume and athletic targets of elite European players 
    - **Mode 2 (% Normalized):** Normalizes both boys to a single $100\%$ age benchmark line for direct fair comparison.
    - **Interactive Day Inspector:** Tap any day to inspect the exact arithmetic formula and category breakdown for both boys and the ideal target.
    - **Future Day Isolation:** Unconfirmed draft and future days do not plot false points on actual lines.
-2. **Training Balance & Pillar Distribution Radar:**
-   - Visualizes athletic symmetry across 5 core pillars (*Tennis Volume*, *Multisport Power*, *S&C & Footwork*, *Pre-hab & Mobility*, *Rest & Tennis IQ*).
-   - Dynamically scales targets to the selected timeframe (*Today*, *Yesterday*, *This Week*, or *Custom*).
-   - Detects overuse injury risk if tennis volume is high while pre-hab/mobility is neglected.
-3. **Target vs. Actual Period Comparison:** Bar comparisons for all athletic categories and sleep.
-4. **24-Hour Stacked Daily Breakdown:** Color-coded 24-hour balance of productive training, transit, school, sleep, and leisure.
-5. **The "Silent Killer" Wastage Monitor:** Tracks daily unrecorded dead time against the healthy recovery threshold ($1.5\text{h}$ to $2.0\text{h}$).
+2. **Training Balance & 7-Pillar Distribution Radar:**
+   - Visualizes athletic symmetry across 7 core pillars:
+     1. `🎾 Tennis Volume` (High-Intensity + Match Play + Squad)
+     2. `🥋 Multisport Power`
+     3. `⚡ S&C & Footwork`
+     4. `🧘 Pre-hab & Mobility`
+     5. `🧠 Tennis IQ`
+     6. `🛌 Intentional Rest`
+     7. `😴 Sleep Recovery`
+   - **Elapsed-Days Dynamic Scaling:** When viewing *This Week* mid-week (e.g. Wednesday), targets are scaled to elapsed days $(\text{Mon}\dots\text{Today})$ rather than penalizing against unreached future days.
+   - **Pinpoint Point Hover Tooltips:** Resolves overlapping 0% values at the origin with individual category identifiers.
+   - **Injury Overuse Warning:** Automatically flags deficits when tennis volume is high but pre-hab/mobility is neglected.
+3. **24-Hour Stacked Daily Time Allocation:**
+   - Color-coded 24-hour balance of productive training, transit, school, homework, sleep, intentional rest, free play, and dead time.
+4. **Universal Fullscreen & Zoom Modal:**
+   - Expand any chart into landscape fullscreen with high-resolution rendering and zoom controls.
 
 ---
 
 ## 💾 Multi-Device Sync & CSV Export
 
-- **100% Offline-First IndexedDB:** All day logs, term templates, and child profiles are stored securely in local browser storage.
+- **100% Offline-First IndexedDB:** All day logs, term templates, and child profiles are stored securely in local browser storage via Dexie.js.
 - **JSON Backup & Restore:** Complete multi-table export to transfer data between iPhone, iPad, and PC.
-- **Enriched CSV Download:** Export comprehensive spreadsheets with individual columns for High-Intensity Tennis, Practice Matches, Squad Tennis, Multisport, S&C Footwork, Pre-hab, Intentional Rest, and Tennis IQ formatted for Excel and Google Sheets.
+- **Enriched CSV Download:** Export comprehensive spreadsheets with individual columns for High-Intensity Tennis, Practice Matches, Squad Tennis, Multisport, S&C Footwork, Pre-hab, Intentional Rest, Tennis IQ, Sleep, Logged Dead Time, and Total Wastage formatted for Excel and Google Sheets.
 
 ---
 

@@ -405,9 +405,6 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
                 <div>• Pre-hab & Mobility: <strong>{selectedSummary.mobilityHours.toFixed(2)}h</strong> (0.5x)</div>
                 <div>• Intentional Rest: <strong>{selectedSummary.intentionalRestHours.toFixed(2)}h</strong> (0.5x)</div>
                 <div>• Tennis IQ: <strong>{selectedSummary.tennisIqHours.toFixed(2)}h</strong> (0.5x)</div>
-                <div className="text-tennis-300 font-mono pt-1 border-t border-slate-800 text-[9.5px]">
-                  Formula: $(H \times 1.0) + (M \times 0.8) + (Sq \times 0.6) + (Mul \times 0.7) + (Pre \times 0.5) + (Rest \times 0.5)$ = <strong>{selectedSummary.effectiveTennisScore.toFixed(2)} pts</strong>
-                </div>
               </div>
             </div>
 
@@ -426,9 +423,6 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
                   <div>• Pre-hab & Mobility: <strong>{selectedK2Summary.mobilityHours.toFixed(2)}h</strong> (0.5x)</div>
                   <div>• Intentional Rest: <strong>{selectedK2Summary.intentionalRestHours.toFixed(2)}h</strong> (0.5x)</div>
                   <div>• Tennis IQ: <strong>{selectedK2Summary.tennisIqHours.toFixed(2)}h</strong> (0.5x)</div>
-                  <div className="text-cyan-300 font-mono pt-1 border-t border-slate-800 text-[9.5px]">
-                    Formula: $(H \times 1.0) + (M \times 0.8) + (Sq \times 0.6) + (Mul \times 0.7) + (Pre \times 0.5) + (Rest \times 0.5)$ = <strong>{selectedK2Summary.effectiveTennisScore.toFixed(2)} pts</strong>
-                  </div>
                 </div>
               </div>
             )}

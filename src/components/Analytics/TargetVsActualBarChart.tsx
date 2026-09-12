@@ -2,16 +2,18 @@ import React from 'react';
 import './chartConfig';
 import { Bar } from 'react-chartjs-2';
 import { DailySummary, ChildProfile } from '../../types';
-import { Target } from 'lucide-react';
+import { Target, Maximize2 } from 'lucide-react';
 
 interface TargetVsActualBarChartProps {
   summaries: DailySummary[];
   profile: ChildProfile;
+  onOpenFullscreen?: () => void;
 }
 
 export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
   summaries,
   profile,
+  onOpenFullscreen,
 }) => {
   const confirmedSummaries = summaries.filter(s => s.status === 'confirmed' || s.status === 'sick');
   const totalDays = confirmedSummaries.length || 1;
@@ -47,7 +49,7 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
     labels: categories,
     datasets: [
       {
-        label: 'Actual Logged Hours',
+        label: 'Actual Logged',
         data: [
           parseFloat(actualTennis.toFixed(1)),
           parseFloat(actualMulti.toFixed(1)),
@@ -57,19 +59,11 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
           parseFloat(actualSleep.toFixed(1)),
           parseFloat(actualUnnoticed.toFixed(1)),
         ],
-        backgroundColor: [
-          '#84cc16', // lime
-          '#6366f1', // indigo
-          '#f59e0b', // amber
-          '#ec4899', // pink
-          '#06b6d4', // cyan
-          '#3b82f6', // blue
-          '#ef4444', // red
-        ],
-        borderRadius: 6,
+        backgroundColor: '#84cc16',
+        borderRadius: 4,
       },
       {
-        label: 'Ideal Pro Benchmark Target',
+        label: 'Ideal Pro Benchmark',
         data: [
           parseFloat(idealTennis.toFixed(1)),
           parseFloat(idealMulti.toFixed(1)),
@@ -79,10 +73,10 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
           parseFloat(idealSleep.toFixed(1)),
           parseFloat(idealUnnoticed.toFixed(1)),
         ],
-        backgroundColor: 'rgba(56, 189, 248, 0.35)',
+        backgroundColor: 'rgba(56, 189, 248, 0.45)',
         borderColor: '#38bdf8',
-        borderWidth: 1.5,
-        borderRadius: 6,
+        borderWidth: 1,
+        borderRadius: 4,
       },
     ],
   };
@@ -94,8 +88,13 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
     plugins: {
       legend: {
         position: 'top',
+        align: 'end',
         labels: {
           color: '#cbd5e1',
+          usePointStyle: true,
+          pointStyle: 'circle',
+          boxWidth: 7,
+          boxHeight: 7,
           font: { size: 11, weight: 'bold' },
         },
       },
@@ -122,18 +121,31 @@ export const TargetVsActualBarChart: React.FC<TargetVsActualBarChartProps> = ({
 
   return (
     <div className="bg-brand-card border border-brand-border rounded-2xl p-4 shadow-xl space-y-3">
-      <div className="flex items-center gap-2">
-        <div className="p-1.5 bg-tennis-500/20 text-tennis-400 rounded-lg">
-          <Target className="w-4 h-4" />
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 bg-tennis-500/20 text-tennis-400 rounded-lg">
+            <Target className="w-4 h-4" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-slate-100">
+              Target vs Actual Comparison (Total Period)
+            </h3>
+            <p className="text-[11px] text-slate-400">
+              Comparing logged total hours against dynamic pro benchmark targets
+            </p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-sm font-bold text-slate-100">
-            Target vs Actual Comparison (Total Period)
-          </h3>
-          <p className="text-[11px] text-slate-400">
-            Comparing logged total hours against dynamic pro benchmark targets
-          </p>
-        </div>
+
+        {onOpenFullscreen && (
+          <button
+            onClick={onOpenFullscreen}
+            className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 hover:border-tennis-500/80 text-slate-300 hover:text-white rounded-xl text-xs font-semibold active:scale-95 transition-all shadow-sm ml-auto"
+            title="Fullscreen Interactive View"
+          >
+            <Maximize2 className="w-3.5 h-3.5 text-tennis-400" />
+            <span>Fullscreen</span>
+          </button>
+        )}
       </div>
 
       <div className="h-64 sm:h-72 w-full pt-1">

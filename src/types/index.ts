@@ -24,6 +24,7 @@ export type ActivityCategory =
   | 'study_homework'      // Homework & Study - 0.00
   | 'transit'             // Transit & Travel / Waiting - 0.00
   | 'sleep'               // Sleep & Physical Recovery - 0.00
+  | 'dead_time'           // Unplanned Dead Time (Yapping, Idle waiting, Loafing) - 0.00
   | 'guilt_free_fun'      // Guilt-Free Fun / Free Play / Gaming - 0.00
   | 'unnoticed_time'      // Unnoticed / Idle Dead Time (Silent Killer) - 0.00
   | 'unlogged_missing';   // Unrecorded / Incomplete Log Gap - 0.00

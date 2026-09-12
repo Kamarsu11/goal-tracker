@@ -2,13 +2,14 @@ import React from 'react';
 import './chartConfig';
 import { Chart } from 'react-chartjs-2';
 import { DailySummary } from '../../types';
-import { AlertTriangle, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, Maximize2 } from 'lucide-react';
 
 interface UnnoticedTimeMonitorProps {
   summaries: DailySummary[];
+  onOpenFullscreen?: () => void;
 }
 
-export const UnnoticedTimeMonitor: React.FC<UnnoticedTimeMonitorProps> = ({ summaries }) => {
+export const UnnoticedTimeMonitor: React.FC<UnnoticedTimeMonitorProps> = ({ summaries, onOpenFullscreen }) => {
   const labels = summaries.map(s => {
     const d = new Date(s.date + 'T12:00:00');
     return d.toLocaleDateString('en-US', { weekday: 'short', month: 'numeric', day: 'numeric' });
@@ -84,7 +85,7 @@ export const UnnoticedTimeMonitor: React.FC<UnnoticedTimeMonitorProps> = ({ summ
 
   return (
     <div className="bg-brand-card border border-brand-border rounded-2xl p-4 shadow-xl space-y-3">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div className="flex items-center gap-2">
           <div className="p-1.5 bg-red-500/20 text-red-400 rounded-lg">
             <AlertTriangle className="w-4 h-4" />
@@ -94,20 +95,33 @@ export const UnnoticedTimeMonitor: React.FC<UnnoticedTimeMonitorProps> = ({ summ
               The "Silent Killer" Wastage Monitor
             </h3>
             <p className="text-[11px] text-slate-400">
-              Daily unaccounted idle / yapping time vs healthy recovery budget
+              Daily unaccounted idle / dead time vs healthy recovery budget
             </p>
           </div>
         </div>
 
-        {highDays > 0 ? (
-          <span className="text-xs bg-red-950/80 border border-red-800 text-red-400 px-2.5 py-1 rounded-lg font-semibold">
-            {highDays} Days High Wastage (&gt;3h)
-          </span>
-        ) : (
-          <span className="text-xs bg-emerald-950/80 border border-emerald-800 text-emerald-400 px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5" /> Well Controlled
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {highDays > 0 ? (
+            <span className="text-xs bg-red-950/80 border border-red-800 text-red-400 px-2.5 py-1 rounded-lg font-semibold">
+              {highDays} Days High Wastage (&gt;3h)
+            </span>
+          ) : (
+            <span className="text-xs bg-emerald-950/80 border border-emerald-800 text-emerald-400 px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5" /> Well Controlled
+            </span>
+          )}
+
+          {onOpenFullscreen && (
+            <button
+              onClick={onOpenFullscreen}
+              className="flex items-center gap-1 px-2.5 py-1.5 bg-slate-900 border border-slate-700 hover:border-tennis-500/80 text-slate-300 hover:text-white rounded-xl text-xs font-semibold active:scale-95 transition-all shadow-sm"
+              title="Fullscreen Interactive View"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-tennis-400" />
+              <span>Fullscreen</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="h-60 sm:h-64 w-full pt-1">
