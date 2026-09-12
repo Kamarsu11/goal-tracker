@@ -483,7 +483,7 @@ export const DataService = {
 
     const backupData = {
       version: 1,
-      appName: 'TennisProGoalTracker',
+      appName: 'GoalTracker',
       exportedAt: new Date().toISOString(),
       profiles,
       dayLogs,
@@ -503,11 +503,11 @@ export const DataService = {
       }
 
       await db.transaction('rw', [db.profiles, db.dayLogs, db.terms, db.settings], async () => {
-        if (data.profiles.length > 0) {
+        if (data.profiles && data.profiles.length > 0) {
           await db.profiles.clear();
           await db.profiles.bulkAdd(data.profiles);
         }
-        if (data.dayLogs.length > 0) {
+        if (data.dayLogs && data.dayLogs.length > 0) {
           await db.dayLogs.clear();
           await db.dayLogs.bulkAdd(data.dayLogs);
         }
@@ -521,7 +521,7 @@ export const DataService = {
         }
       });
 
-      return { success: true, message: `Successfully restored ${data.dayLogs.length} day logs!` };
+      return { success: true, message: `Successfully restored ${data.dayLogs.length} day logs and profile settings!` };
     } catch (err: any) {
       return { success: false, message: `Import failed: ${err.message}` };
     }
@@ -540,18 +540,21 @@ export const DataService = {
       'Age',
       'Status',
       'Total Logged (h)',
-      'High-Intensity Tennis (h)',
-      'Standard Practice Tennis (h)',
-      'Tactical & Agility Training (h)',
+      'High-Intensity Tennis (1.00x) (h)',
+      'Practice Match Play (0.80x) (h)',
+      'Squad Practice Tennis (0.60x) (h)',
       'Total Tennis (h)',
       'Ideal Tennis Target (h)',
-      'Multisport (h)',
-      'Mobility & Prehab (h)',
-      'Transit & Waiting (h)',
+      'Multisport Athleticism (0.70x) (h)',
+      'S&C & Footwork (0.60x) (h)',
+      'Pre-hab & Injury Prev (0.50x) (h)',
+      'Intentional Rest (0.50x) (h)',
+      'Tennis IQ & Video (0.50x) (h)',
       'School (h)',
       'Study / Homework (h)',
+      'Transit & Waiting (h)',
       'Sleep (h)',
-      'Guilt-Free Fun (h)',
+      'Guilt-Free Free Play (h)',
       'Unnoticed Dead Time (h)',
       'Unlogged Missing Gap (h)',
       'Effective Athletic Score (pts)',
@@ -574,9 +577,13 @@ export const DataService = {
       const summary = this.calculateDailySummary(log, profile);
       const dayOfWeek = getDayOfWeekFromDate(log.date);
 
-      const highIntensityTennis = (coverage.categoryTotals.tennis_focus || 0) + (coverage.categoryTotals.tennis_match || 0);
-      const standardPracticeTennis = coverage.categoryTotals.tennis_squad || 0;
-      const tacticalAgilityTennis = (coverage.categoryTotals.tennis_companion || 0) + (coverage.categoryTotals.tennis_iq || 0);
+      const highIntensityTennis = coverage.categoryTotals.tennis_focus || 0;
+      const practiceMatch = coverage.categoryTotals.tennis_match || 0;
+      const squadTennis = coverage.categoryTotals.tennis_squad || 0;
+      const scFootwork = coverage.categoryTotals.tennis_sc_footwork || 0;
+      const prehab = coverage.categoryTotals.mobility_prehab || 0;
+      const intentionalRest = coverage.categoryTotals.intentional_rest || 0;
+      const tennisIq = (coverage.categoryTotals.tennis_iq || 0) + (coverage.categoryTotals.tennis_companion || 0);
 
       const row = [
         log.date,
@@ -586,15 +593,18 @@ export const DataService = {
         log.status,
         summary.totalLoggedHours.toFixed(2),
         highIntensityTennis.toFixed(2),
-        standardPracticeTennis.toFixed(2),
-        tacticalAgilityTennis.toFixed(2),
+        practiceMatch.toFixed(2),
+        squadTennis.toFixed(2),
         summary.tennisHours.toFixed(2),
         summary.idealTennisTarget.toFixed(2),
         summary.multisportHours.toFixed(2),
-        summary.mobilityHours.toFixed(2),
-        summary.transitHours.toFixed(2),
+        scFootwork.toFixed(2),
+        prehab.toFixed(2),
+        intentionalRest.toFixed(2),
+        tennisIq.toFixed(2),
         summary.schoolHours.toFixed(2),
         summary.studyHours.toFixed(2),
+        summary.transitHours.toFixed(2),
         summary.sleepHours.toFixed(2),
         summary.guiltFreeFunHours.toFixed(2),
         summary.unnoticedHours.toFixed(2),
