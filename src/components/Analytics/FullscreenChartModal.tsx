@@ -60,7 +60,6 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
 
   let cumK1 = 0;
   const k1Data = k1Summaries.map(s => {
-    if (s.date > todayStr || s.status === 'unlogged') return null;
     if (s.status === 'confirmed' || s.status === 'sick') {
       cumK1 += s.effectiveTennisScore;
       return parseFloat(cumK1.toFixed(2));
@@ -70,7 +69,6 @@ export const FullscreenChartModal: React.FC<FullscreenChartModalProps> = ({
 
   let cumK2 = 0;
   const k2Data = k2Summaries.map(s => {
-    if (s.date > todayStr || s.status === 'unlogged') return null;
     if (s.status === 'confirmed' || s.status === 'sick') {
       cumK2 += s.effectiveTennisScore;
       return parseFloat(cumK2.toFixed(2));

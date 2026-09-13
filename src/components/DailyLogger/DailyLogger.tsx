@@ -7,7 +7,7 @@ import { ActivityItem } from './ActivityItem';
 import { AddActivityModal } from './AddActivityModal';
 import { EditActivityModal } from './EditActivityModal';
 import { adjustTimeString, calculateDurationHours } from '../../utils/categories';
-import { Plus, Sparkles, ArrowDownUp } from 'lucide-react';
+import { Plus, Sparkles, ArrowDownUp, CheckCheck } from 'lucide-react';
 
 interface DailyLoggerProps {
   currentDate: string;
@@ -58,6 +58,17 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
     const updatedBlocks = currentDayLog.blocks.map(b =>
       b.id === blockId ? { ...b, completed: !b.completed } : b
     );
+    await updateAndPersist({ ...currentDayLog, blocks: updatedBlocks });
+  };
+
+  // Toggle all activities between completed and pending
+  const handleToggleSelectAll = async () => {
+    if (!currentDayLog || currentDayLog.blocks.length === 0) return;
+    const allCompleted = currentDayLog.blocks.every(b => b.completed);
+    const updatedBlocks = currentDayLog.blocks.map(b => ({
+      ...b,
+      completed: !allCompleted,
+    }));
     await updateAndPersist({ ...currentDayLog, blocks: updatedBlocks });
   };
 
@@ -217,7 +228,22 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
             </span>
           </h3>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {blocks.length > 0 && (
+              <button
+                onClick={handleToggleSelectAll}
+                className={`flex items-center gap-1 px-2.5 py-1.5 border rounded-xl text-xs font-semibold active:scale-95 transition-all ${
+                  blocks.every(b => b.completed)
+                    ? 'bg-tennis-500/20 border-tennis-500/60 text-tennis-400 hover:bg-tennis-500/30'
+                    : 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-300'
+                }`}
+                title={blocks.every(b => b.completed) ? 'Deselect all activities (mark pending)' : 'Select all activities (mark completed)'}
+              >
+                <CheckCheck className="w-3.5 h-3.5 text-tennis-400" />
+                <span>{blocks.every(b => b.completed) ? 'Deselect All' : 'Select All'}</span>
+              </button>
+            )}
+
             {blocks.length > 1 && (
               <button
                 onClick={handleAutoSortByTime}
@@ -225,7 +251,7 @@ export const DailyLogger: React.FC<DailyLoggerProps> = ({
                 title="Sort all activities chronologically by start time"
               >
                 <ArrowDownUp className="w-3.5 h-3.5 text-tennis-400" />
-                <span>Auto-Sort by Time</span>
+                <span>Auto-Sort</span>
               </button>
             )}
 

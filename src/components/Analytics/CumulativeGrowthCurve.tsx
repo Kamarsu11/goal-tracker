@@ -48,13 +48,10 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
     return parseFloat(cumIdeal2.toFixed(2));
   });
 
-  // Actual kid cumulative scores - only plot for confirmed / sick days (unconfirmed draft and future days are null)
+  // Actual kid cumulative scores - plot for all confirmed / sick days (unconfirmed draft days are omitted)
   let cumK1 = 0;
   let hasStartedK1 = false;
   const k1Data = k1Summaries.map(s => {
-    if (s.date > todayStr || s.status === 'unlogged') {
-      return null;
-    }
     if (s.status === 'confirmed' || s.status === 'sick') {
       cumK1 += s.effectiveTennisScore;
       hasStartedK1 = true;
@@ -66,9 +63,6 @@ export const CumulativeGrowthCurve: React.FC<CumulativeGrowthCurveProps> = ({
   let cumK2 = 0;
   let hasStartedK2 = false;
   const k2Data = k2Summaries.map(s => {
-    if (s.date > todayStr || s.status === 'unlogged') {
-      return null;
-    }
     if (s.status === 'confirmed' || s.status === 'sick') {
       cumK2 += s.effectiveTennisScore;
       hasStartedK2 = true;

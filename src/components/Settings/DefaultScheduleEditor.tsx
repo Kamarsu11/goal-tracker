@@ -173,7 +173,7 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
   };
 
   // Copy single day from current kid to other kid
-  const handleCopySingleDayToOtherKid = () => {
+  const handleCopySingleDayToOtherKid = async () => {
     const sourceBlocks = currentTerm.weeklyDefaults[selectedKid]?.[selectedDay] || [];
     const deepCopied = sourceBlocks.map((b, i) => ({
       ...b,
@@ -183,18 +183,20 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
     const newWeekly = {
       ...currentTerm.weeklyDefaults,
       [otherKid]: {
-        ...currentTerm.weeklyDefaults[otherKid],
+        ...(currentTerm.weeklyDefaults[otherKid] || {}),
         [selectedDay]: deepCopied,
       },
     };
 
-    setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
-    setActionNotice(`Copied ${dayLabels[selectedDay]} to ${otherKidProfile.name}!`);
+    const updatedTerm = { ...currentTerm, weeklyDefaults: newWeekly };
+    setCurrentTerm(updatedTerm);
+    await onSaveTerm(updatedTerm);
+    setActionNotice(`Copied ${dayLabels[selectedDay]} to ${otherKidProfile.name} & Saved!`);
     setTimeout(() => setActionNotice(null), 3000);
   };
 
   // Copy all 7 days from current kid to other kid
-  const handleCopyAllDaysToOtherKid = () => {
+  const handleCopyAllDaysToOtherKid = async () => {
     if (
       !window.confirm(
         `Are you sure you want to copy all 7 days of default schedules from ${currentKidProfile.name} to ${otherKidProfile.name}?`
@@ -217,8 +219,10 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
       [otherKid]: newOtherKidSchedule,
     };
 
-    setCurrentTerm({ ...currentTerm, weeklyDefaults: newWeekly });
-    setActionNotice(`Copied all 7 days to ${otherKidProfile.name}!`);
+    const updatedTerm = { ...currentTerm, weeklyDefaults: newWeekly };
+    setCurrentTerm(updatedTerm);
+    await onSaveTerm(updatedTerm);
+    setActionNotice(`Copied all 7 days to ${otherKidProfile.name} & Saved!`);
     setTimeout(() => setActionNotice(null), 3000);
   };
 
@@ -270,7 +274,7 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              👦 Kid 1 (11 yo)
+              👦 {profiles.find(p => p.id === 'kid1')?.name || 'Elder Boy (Kid 1)'}
             </button>
             <button
               onClick={() => setSelectedKid('kid2')}
@@ -280,7 +284,7 @@ export const DefaultScheduleEditor: React.FC<DefaultScheduleEditorProps> = ({
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              👦 Kid 2 (10 yo)
+              👦 {profiles.find(p => p.id === 'kid2')?.name || 'Younger Boy (Kid 2)'}
             </button>
           </div>
         </div>
